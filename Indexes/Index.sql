@@ -1,0 +1,1 @@
+create index idxemail on Pizaria.Utilizador (email)

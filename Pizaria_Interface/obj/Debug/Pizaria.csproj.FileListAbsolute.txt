@@ -1,0 +1,32 @@
+C:\Users\leand\source\repos\Pizaria\bin\Debug\Pizaria.exe.config
+C:\Users\leand\source\repos\Pizaria\bin\Debug\Pizaria.exe
+C:\Users\leand\source\repos\Pizaria\bin\Debug\Pizaria.pdb
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.csprojAssemblyReference.cache
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.Properties.Resources.resources
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.csproj.GenerateResource.cache
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.csproj.CoreCompileInputs.cache
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.exe
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.pdb
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.ClientMain.resources
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.Login.resources
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.Register.resources
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.Order.resources
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.AddCourier.resources
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.AddDiscount.resources
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.AdminMain.resources
+C:\Users\leand\source\repos\Pizaria\obj\Debug\Pizaria.CourierMain.resources
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\bin\Debug\Pizaria.exe.config
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\bin\Debug\Pizaria.exe
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\bin\Debug\Pizaria.pdb
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.csprojAssemblyReference.cache
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.AdminMain.resources
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.ClientMain.resources
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.CourierMain.resources
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.Login.resources
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.Properties.Resources.resources
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.Register.resources
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.csproj.GenerateResource.cache
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.csproj.CoreCompileInputs.cache
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.exe
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.pdb
+C:\Users\leand\Desktop\UA\2ano\2semestre\BD\Projecto BD\Pizaria_Interface\obj\Debug\Pizaria.AddItem.resources
