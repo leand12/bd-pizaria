@@ -43,7 +43,7 @@
 			this.label5 = new System.Windows.Forms.Label();
 			this.button2 = new System.Windows.Forms.Button();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.label3 = new System.Windows.Forms.Label();
+			this.label9 = new System.Windows.Forms.Label();
 			this.listBox1 = new System.Windows.Forms.ListBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.listBox2 = new System.Windows.Forms.ListBox();
@@ -56,6 +56,8 @@
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
 			this.listBox4 = new System.Windows.Forms.ListBox();
 			this.button1 = new System.Windows.Forms.Button();
+			this.label3 = new System.Windows.Forms.Label();
+			this.listBox7 = new System.Windows.Forms.ListBox();
 			this.tabPage3.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			this.tabControl4.SuspendLayout();
@@ -211,6 +213,8 @@
 			// tabPage1
 			// 
 			this.tabPage1.Controls.Add(this.label3);
+			this.tabPage1.Controls.Add(this.listBox7);
+			this.tabPage1.Controls.Add(this.label9);
 			this.tabPage1.Controls.Add(this.listBox1);
 			this.tabPage1.Controls.Add(this.label1);
 			this.tabPage1.Controls.Add(this.listBox2);
@@ -224,28 +228,28 @@
 			this.tabPage1.Text = "Main";
 			this.tabPage1.UseVisualStyleBackColor = true;
 			// 
-			// label3
+			// label9
 			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(21, 39);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(97, 20);
-			this.label3.TabIndex = 25;
-			this.label3.Text = "Restaurants";
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(199, 121);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(72, 20);
+			this.label9.TabIndex = 28;
+			this.label9.Text = "Products";
 			// 
 			// listBox1
 			// 
 			this.listBox1.FormattingEnabled = true;
 			this.listBox1.ItemHeight = 20;
-			this.listBox1.Location = new System.Drawing.Point(21, 62);
+			this.listBox1.Location = new System.Drawing.Point(203, 144);
 			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(237, 384);
+			this.listBox1.Size = new System.Drawing.Size(213, 144);
 			this.listBox1.TabIndex = 24;
 			// 
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(297, 39);
+			this.label1.Location = new System.Drawing.Point(6, 37);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(57, 20);
 			this.label1.TabIndex = 23;
@@ -255,15 +259,16 @@
 			// 
 			this.listBox2.FormattingEnabled = true;
 			this.listBox2.ItemHeight = 20;
-			this.listBox2.Location = new System.Drawing.Point(297, 62);
+			this.listBox2.Location = new System.Drawing.Point(6, 60);
 			this.listBox2.Name = "listBox2";
-			this.listBox2.Size = new System.Drawing.Size(237, 384);
+			this.listBox2.Size = new System.Drawing.Size(191, 384);
 			this.listBox2.TabIndex = 22;
+			this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(568, 39);
+			this.label2.Location = new System.Drawing.Point(418, 37);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(55, 20);
 			this.label2.TabIndex = 21;
@@ -273,10 +278,11 @@
 			// 
 			this.listBox3.FormattingEnabled = true;
 			this.listBox3.ItemHeight = 20;
-			this.listBox3.Location = new System.Drawing.Point(572, 62);
+			this.listBox3.Location = new System.Drawing.Point(422, 60);
 			this.listBox3.Name = "listBox3";
-			this.listBox3.Size = new System.Drawing.Size(237, 384);
+			this.listBox3.Size = new System.Drawing.Size(169, 384);
 			this.listBox3.TabIndex = 20;
+			this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
 			// 
 			// tabControl4
 			// 
@@ -349,6 +355,24 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(660, 144);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(89, 20);
+			this.label3.TabIndex = 30;
+			this.label3.Text = "Ingredients";
+			// 
+			// listBox7
+			// 
+			this.listBox7.FormattingEnabled = true;
+			this.listBox7.ItemHeight = 20;
+			this.listBox7.Location = new System.Drawing.Point(597, 167);
+			this.listBox7.Name = "listBox7";
+			this.listBox7.Size = new System.Drawing.Size(228, 124);
+			this.listBox7.TabIndex = 29;
+			// 
 			// ClientMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -388,8 +412,6 @@
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.ListBox listBox4;
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.ListBox listBox1;
 		private System.Windows.Forms.ComboBox comboBox1;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Button button5;
@@ -401,5 +423,9 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.ListBox listBox5;
+		private System.Windows.Forms.ListBox listBox1;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.ListBox listBox7;
 	}
 }

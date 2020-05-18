@@ -121,7 +121,7 @@ create table Pizaria.Ingrediente(
 create table Pizaria.PizaIngrediente(
 	piz_ID		int,
 	ing_ID		int,
-	quantidade	int		not null,
+	quantidade	real		not null,
 	primary key(piz_ID,ing_ID),
 	foreign key(piz_ID) references Pizaria.Piza(ID),
 	foreign key(ing_ID) references Pizaria.Ingrediente(ID)
