@@ -233,7 +233,7 @@ namespace Pizaria
 			{
 				return;
 			}
-			Item item = (Item)listBox3.Items[curr_item];
+			Item item = (Item)listBox4.Items[curr_item];
 			shop_cart.Add(item);
 			listBox7.Items.Add(item);
 		}
