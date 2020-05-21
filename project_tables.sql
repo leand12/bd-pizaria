@@ -70,7 +70,7 @@ create table Pizaria.DescontoCliente (
 	foreign key (des_codigo) references Pizaria.Desconto(codigo)
 );
 create table Pizaria.Encomenda(
-	ID					int,
+	ID					int				identity (1200,1),
 	cliente_email		nvarchar(255)	not null,
 	estafeta_email		nvarchar(255)	not null,
 	endereco_fisico		varchar(50)		not null,

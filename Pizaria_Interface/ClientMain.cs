@@ -14,21 +14,34 @@ namespace Pizaria
 	public partial class ClientMain : Form
 	{
 		private double price;
+		private List<Item> shop_cart;
 
 		public ClientMain()
 		{
+			this.shop_cart=new List<Item>();
 			InitializeComponent();
 		}
 
-		public void balancePrice(double price) { this.price += price; }
+		public void BalancePrice(double price) { this.price += price; }
 
 		private void ClientMain_Load(object sender, EventArgs e)
 		{
-			loadMenus();
-			loadPizzas();
+			LoadMenus();
+			LoadPizzas();
+			LoadShopCart();
 		}
 
-		private void loadMenus()
+		public void LoadShopCart()
+		{
+			listBox6.Items.Clear();
+
+			foreach (Item item in shop_cart)
+			{
+				listBox6.Items.Add(item);
+			}
+		}
+
+		private void LoadMenus()
 		{
 			if (!Program.verifySGBDConnection())
 				return;
@@ -47,7 +60,7 @@ namespace Pizaria
 
 		}
 
-		private void loadPizzas()
+		private void LoadPizzas()
 		{
 			if (!Program.verifySGBDConnection())
 				return;
@@ -66,7 +79,7 @@ namespace Pizaria
 
 		}
 
-
+		// List Menu
 		private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			int curr_menu = listBox2.SelectedIndex;
@@ -76,8 +89,7 @@ namespace Pizaria
 				return;
 			}
 
-			Item item = new Item();
-			item = (Item)listBox2.Items[curr_menu];
+			Item item = (Item)listBox2.Items[curr_menu];
 
 
 			SqlCommand cmd;
@@ -103,6 +115,7 @@ namespace Pizaria
 			Program.cn.Close();
 		}
 
+		// List Pizzas
 		private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			int curr_pizza = listBox3.SelectedIndex;
@@ -112,9 +125,8 @@ namespace Pizaria
 				return;
 			}
 
-			Item item = new Item();
-			item = (Item)listBox3.Items[curr_pizza];
 
+			Item item = (Item)listBox3.Items[curr_pizza];
 
 			SqlCommand cmd;
 			cmd = new SqlCommand("select * from Pizaria.showPiza ('" + item.ID + "')", Program.cn);
@@ -156,27 +168,31 @@ namespace Pizaria
 			login.ShowDialog();
 			this.Close();
 		}
-			
+
 		// Clear All
 		private void button3_Click(object sender, EventArgs e)
 		{
 
 		}
-		
+
 		// Finish Order
 		private void button4_Click(object sender, EventArgs e)
 		{
 
 		}
-			
+
 		// Add Items
-		private void button5_Click(object sender, EventArgs e)
+		private void button6_Click(object sender, EventArgs e)
 		{
 			this.Enabled = false;
-			var addItem = new AddItem(this);
+			var addItem = new AddItem(this, shop_cart);
 			addItem.ShowDialog();
 		}
 
-		
+		// Remove Item
+		private void button5_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
