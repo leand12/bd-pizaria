@@ -13,9 +13,9 @@ begin
 
 	declare @userEmail nvarchar(255)
 
-    if exists (select top 1 email from Pizaria.Utilizador where email=@email)
+    if exists (select 1 email from Pizaria.Utilizador where email=@email)
     begin
-		set @userEmail=(select email from Pizaria.Utilizador where email=@email and pass=@pass)
+		set @userEmail=(select email from Pizaria.Utilizador where email=@email and pass=HASHBYTES('SHA2_512',@pass+CAST(salt AS NVARCHAR(36))))
 		
 		if(@userEmail is null)
 			set @response='Incorrect password'

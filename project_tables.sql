@@ -21,7 +21,8 @@ create table Pizaria.Utilizador (
 	email			nvarchar(255),
 	nome			varchar(50)		not null,
 	contato			int				not null,
-	pass			varchar(30)		not null,
+	salt UNIQUEIDENTIFIER			not null,
+	pass			binary(64)		not null,
 	primary key (email)
 );
 create table Pizaria.Administrador (

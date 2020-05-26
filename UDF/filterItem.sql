@@ -6,7 +6,7 @@ create function Pizaria.filterItem (
 	@price			money,
 	@name			varchar(30),
 	@item_type		varchar(30)
-	) returns @returnTable TABLE 
+	)	returns @returnTable TABLE 
                      (nome varchar(30) not NULL, 
                       preco money not NULL,
 					  quantidade int)
@@ -27,6 +27,7 @@ as
 					select nome, preco, quantidade_disponivel 
 					from  Pizaria.Bebida join Pizaria.Item on Item.ID=Bebida.ID
 					where preco<=@price and nome like @name+'%'
+					order by preco
 				return;
 			end
 
@@ -36,6 +37,7 @@ as
 					select nome, preco, null
 					from  Pizaria.Menu join Pizaria.Item on Menu.ID=Item.ID 
 					where preco<=@price and nome like @name+'%'
+					order by preco
 				return;
 			end
 
@@ -45,12 +47,13 @@ as
 					select nome, preco, quantidade_disponivel
 					from  Pizaria.Ingrediente join Pizaria.Item on Ingrediente.ID=Item.ID 
 					where preco<=@price and nome like @name+'%'
+					order by preco
 				return;
 			end
 		return;
 	end
 go
 
-select * from Pizaria.filterItem(17,'', 'Ingredientes')
--- trigger ou qql merda pa verificar quantidades disponiveis de ing e bebidas da encomenda
--- admin no futuro pode dar restock se tivermos tempo
+-- select * from Pizaria.filterItem(17,'', 'Piza') order by 2
+
+
