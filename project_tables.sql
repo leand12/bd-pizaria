@@ -7,6 +7,7 @@ drop table Pizaria.Bebida;
 drop table Pizaria.Piza;
 drop table Pizaria.Ingrediente;
 drop table Pizaria.Produto;
+drop table Pizaria.ClienteItem;
 drop table Pizaria.Item;
 drop table Pizaria.Encomenda;
 drop table Pizaria.DescontoCliente;
@@ -16,6 +17,7 @@ drop table Pizaria.Estafeta;
 drop table Pizaria.Restaurante;
 drop table Pizaria.Administrador;
 drop table Pizaria.Utilizador;
+
 
 create table Pizaria.Utilizador (
 	email			nvarchar(255),
@@ -140,4 +142,12 @@ create table Pizaria.MenuProduto(
 	primary key(men_ID,pro_ID),
 	foreign key(men_ID) references Pizaria.Menu(ID),
 	foreign key(pro_ID) references Pizaria.Produto(ID)
+);
+create table Pizaria.ClienteItem(
+	cli_email	nvarchar(255),
+	item_ID		int,
+	quantidade	int				not null,
+	primary key(cli_email,item_ID),
+	foreign key(cli_email) references Pizaria.Cliente(email),
+	foreign key(item_ID) references Pizaria.Item(ID)
 );

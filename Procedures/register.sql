@@ -16,7 +16,7 @@ create procedure Pizaria.register
 as
 begin
 	set nocount on
-	IF (not EXISTS (SELECT TOP 1 email FROM  Pizaria.[Utilizador] WHERE email=@email))
+	IF (not EXISTS (SELECT TOP 1 email FROM  Pizaria.[Utilizador] WHERE email=@email)) -- será redundante com o trigger?
 	begin
 		declare @salt uniqueidentifier=newid()
 		begin try

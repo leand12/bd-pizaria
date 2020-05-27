@@ -16,9 +16,9 @@ as
 			begin
 				INSERT INTO @returnTable
 					select top 3 * from (
-                        select nome, preco, Item.ID, count(Item.ID) as num_vendas
-                        from Pizaria.EncomendaItem join Pizaria.Piza on EncomendaItem.item_ID=Piza.ID join Pizaria.Item on Piza.ID=Item.ID
-                        group by nome, preco, Item.ID
+						select nome, preco, PizaView.ID, count(PizaView.ID) as num_vendas
+                        from Pizaria.EncomendaItem join Pizaria.PizaView on EncomendaItem.item_ID=PizaView.ID
+                        group by nome, preco, PizaView.ID
                     ) as qq order by
 					case when @isDescOrder = 1 then num_vendas end desc,
 					case when @isDescOrder = 0 then num_vendas end asc
@@ -28,9 +28,9 @@ as
 			begin
 				INSERT INTO @returnTable
 					select top 3 * from (
-                        select nome, preco, Item.ID, count(Item.ID) as num_vendas
-                        from Pizaria.EncomendaItem join Pizaria.Menu on EncomendaItem.item_ID=Menu.ID join Pizaria.Item on Menu.ID=Item.ID
-                        group by nome, preco, Item.ID
+                        select nome, preco, MenuView.ID, count(MenuView.ID) as num_vendas
+                        from Pizaria.EncomendaItem join Pizaria.MenuView on EncomendaItem.item_ID=MenuView.ID
+                        group by nome, preco, MenuView.ID
                     ) as qq order by 
 					case when @isDescOrder = 1 then num_vendas end desc,
 					case when @isDescOrder = 0 then num_vendas end asc
@@ -40,7 +40,7 @@ as
 go
 
 
-select * from Pizaria.statsEncomenda('Piza', 1)
+--select * from Pizaria.statsEncomenda('Piza', 1)
 
 
 -- trigger ou qql merda pa verificar quantidades disponiveis de ing e bebidas da encomenda
