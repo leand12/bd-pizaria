@@ -210,13 +210,20 @@ namespace Pizaria
 
 		}
 
-		private void textBox3_TextChanged(object sender, EventArgs e)
+		private void textBox3and4_TextChanged(object sender, EventArgs e)
 		{
 			String name = textBox4.Text;
 			String priceStr = textBox3.Text.Trim();
 			decimal price;
 			try {
-				price = decimal.Parse(priceStr, System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+				if (priceStr != "")
+				{
+					price = decimal.Parse(priceStr, System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+				}
+				else
+				{
+					price = 99999;
+				}
 			}
 			catch
 			{
@@ -227,6 +234,7 @@ namespace Pizaria
 			{
 				if (!Program.verifySGBDConnection())
 					return;
+
 
 				SqlCommand cmd = new SqlCommand
 				{
@@ -236,33 +244,27 @@ namespace Pizaria
 				cmd.Parameters.Add(new SqlParameter("@price", SqlDbType.Decimal));
 				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar,30));
 				cmd.Parameters.Add(new SqlParameter("@item_type", SqlDbType.VarChar, 30));
-
 				cmd.Parameters["@price"].Value = price;
 				cmd.Parameters["@name"].Value = name;
 				cmd.Parameters["@item_type"].Value = "Piza";
-				cmd.Connection = Program.cn;
 
-				da.SelectCommand = cmd;
-
-				da.SelectCommand.CommandType = CommandType.StoredProcedure;
-					
-
-				DataSet ds = new DataSet();
-				da.Fill(ds, "result_name");
-				DataTable dt = ds.Tables["result_name"];
 				listBox3.Items.Clear();
 				listBox7.Items.Clear();
+				listBox2.Items.Clear();
+				listBox1.Items.Clear();
+
 				pictureBox2.Image = null;
 
-
-				if (dt != null && dt.Rows.Count > 0)
+				cmd.Connection = Program.cn;
+				using (SqlDataReader reader = cmd.ExecuteReader())
 				{
-					foreach (DataRow row in dt.Rows)
+					while (reader.Read())
 					{
-						Item I = new Item(int.Parse(row["ID"].ToString()), row["nome"].ToString(), double.Parse(row["preco"].ToString()));
+						Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
 						listBox3.Items.Add(I);
 					}
 				}
+				
 
 				cmd = new SqlCommand
 				{
@@ -272,122 +274,17 @@ namespace Pizaria
 				cmd.Parameters.Add(new SqlParameter("@price", SqlDbType.Decimal));
 				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 30));
 				cmd.Parameters.Add(new SqlParameter("@item_type", SqlDbType.VarChar, 30));
-
 				cmd.Parameters["@price"].Value = price;
 				cmd.Parameters["@name"].Value = name;
 				cmd.Parameters["@item_type"].Value = "Menu";
+
 				cmd.Connection = Program.cn;
 
-				da.SelectCommand = cmd;
-
-				da.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-
-				ds = new DataSet();
-				da.Fill(ds, "result_name");
-				dt = ds.Tables["result_name"];
-				listBox2.Items.Clear();
-
-
-				if (dt != null && dt.Rows.Count > 0)
+				using (SqlDataReader reader = cmd.ExecuteReader())
 				{
-					foreach (DataRow row in dt.Rows)
+					while (reader.Read())
 					{
-						Item I = new Item(int.Parse(row["ID"].ToString()), row["nome"].ToString(), double.Parse(row["preco"].ToString()));
-						listBox2.Items.Add(I);
-					}
-				}
-
-				Program.cn.Close();
-			}
-
-		}
-
-		private void textBox4_TextChanged(object sender, EventArgs e)
-		{
-			String name = textBox4.Text;
-			String priceStr = textBox3.Text.Trim();
-			decimal price;
-			try
-			{
-				price = decimal.Parse(priceStr, System.Globalization.CultureInfo.GetCultureInfo("en-US"));
-			}
-			catch
-			{
-				return;
-			}
-
-			using (SqlDataAdapter da = new SqlDataAdapter())
-			{
-				if (!Program.verifySGBDConnection())
-					return;
-
-				SqlCommand cmd = new SqlCommand
-				{
-					CommandType = CommandType.StoredProcedure,
-					CommandText = "Pizaria.filterItem"
-				};
-				cmd.Parameters.Add(new SqlParameter("@price", SqlDbType.Decimal));
-				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 30));
-				cmd.Parameters.Add(new SqlParameter("@item_type", SqlDbType.VarChar, 30));
-
-				cmd.Parameters["@price"].Value = price;
-				cmd.Parameters["@name"].Value = name;
-				cmd.Parameters["@item_type"].Value = "Piza";
-				cmd.Connection = Program.cn;
-
-				da.SelectCommand = cmd;
-
-				da.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-
-				DataSet ds = new DataSet();
-				da.Fill(ds, "result_name");
-				DataTable dt = ds.Tables["result_name"];
-				listBox3.Items.Clear();
-				listBox7.Items.Clear();
-				pictureBox2.Image = null;
-
-
-				if (dt != null && dt.Rows.Count > 0)
-				{
-					foreach (DataRow row in dt.Rows)
-					{
-						Item I = new Item(int.Parse(row["ID"].ToString()), row["nome"].ToString(), double.Parse(row["preco"].ToString()));
-						listBox3.Items.Add(I);
-					}
-				}
-
-				cmd = new SqlCommand
-				{
-					CommandType = CommandType.StoredProcedure,
-					CommandText = "Pizaria.filterItem"
-				};
-				cmd.Parameters.Add(new SqlParameter("@price", SqlDbType.Decimal));
-				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 30));
-				cmd.Parameters.Add(new SqlParameter("@item_type", SqlDbType.VarChar, 30));
-
-				cmd.Parameters["@price"].Value = price;
-				cmd.Parameters["@name"].Value = name;
-				cmd.Parameters["@item_type"].Value = "Menu";
-				cmd.Connection = Program.cn;
-
-				da.SelectCommand = cmd;
-
-				da.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-
-				ds = new DataSet();
-				da.Fill(ds, "result_name");
-				dt = ds.Tables["result_name"];
-				listBox2.Items.Clear();
-
-
-				if (dt != null && dt.Rows.Count > 0)
-				{
-					foreach (DataRow row in dt.Rows)
-					{
-						Item I = new Item(int.Parse(row["ID"].ToString()), row["nome"].ToString(), double.Parse(row["preco"].ToString()));
+						Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
 						listBox2.Items.Add(I);
 					}
 				}
