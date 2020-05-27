@@ -86,7 +86,7 @@ create table Pizaria.Encomenda(
 create table Pizaria.Item(
 	ID			int,
 	nome		varchar(30)		not null,
-	preco		money			not null,
+	preco		DECIMAL(19,4)			not null,
 	primary key(ID)
 );
 create table Pizaria.EncomendaItem(
@@ -110,6 +110,7 @@ create table Pizaria.Bebida(
 );
 create table Pizaria.Piza(
 	ID					int,
+	pic					NVARCHAR(MAX)	not null, 
 	primary key(ID),
 	foreign key(ID) references Pizaria.Produto(ID)
 );
