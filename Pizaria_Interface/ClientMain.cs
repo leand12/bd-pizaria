@@ -214,10 +214,13 @@ namespace Pizaria
 		{
 			String name = textBox4.Text;
 			String priceStr = textBox3.Text.Trim();
-			decimal price = 99999999;
-			if (priceStr != "")
-			{
+			decimal price;
+			try {
 				price = decimal.Parse(priceStr, System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+			}
+			catch
+			{
+				return;
 			}
 
 			using (SqlDataAdapter da = new SqlDataAdapter())
@@ -248,7 +251,9 @@ namespace Pizaria
 				da.Fill(ds, "result_name");
 				DataTable dt = ds.Tables["result_name"];
 				listBox3.Items.Clear();
-					
+				listBox7.Items.Clear();
+				pictureBox2.Image = null;
+
 
 				if (dt != null && dt.Rows.Count > 0)
 				{
@@ -302,10 +307,14 @@ namespace Pizaria
 		{
 			String name = textBox4.Text;
 			String priceStr = textBox3.Text.Trim();
-			decimal price = 99999999;
-			if (priceStr != "")
+			decimal price;
+			try
 			{
-				price = decimal.Parse(priceStr);
+				price = decimal.Parse(priceStr, System.Globalization.CultureInfo.GetCultureInfo("en-US"));
+			}
+			catch
+			{
+				return;
 			}
 
 			using (SqlDataAdapter da = new SqlDataAdapter())
@@ -336,6 +345,8 @@ namespace Pizaria
 				da.Fill(ds, "result_name");
 				DataTable dt = ds.Tables["result_name"];
 				listBox3.Items.Clear();
+				listBox7.Items.Clear();
+				pictureBox2.Image = null;
 
 
 				if (dt != null && dt.Rows.Count > 0)

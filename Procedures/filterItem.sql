@@ -12,7 +12,7 @@ as
 			begin
 					select nome, preco, Piza.ID as ID
 					from Pizaria.Piza join Pizaria.Item on Piza.ID=Item.ID
-					where preco<=@price and nome like @name+'%'
+					where preco<=@price and nome like '%'+@name+'%'
 
 			end
 
@@ -21,7 +21,7 @@ as
 				
 					select nome, preco, quantidade_disponivel
 					from  Pizaria.Bebida join Pizaria.Item on Item.ID=Bebida.ID
-					where preco<=@price and nome like @name+'%'
+					where preco<=@price and nome like '%'+@name+'%'
 					order by preco
 			end
 
@@ -30,7 +30,7 @@ as
 					
 						select nome, preco, Menu.ID as ID
 					from  Pizaria.Menu join Pizaria.Item on Menu.ID=Item.ID 
-					where preco<=@price and nome like @name+'%'
+					where preco<=@price and nome like '%'+@name+'%'
 					order by preco
 			end
 
@@ -39,7 +39,7 @@ as
 				
 					select nome, preco, quantidade_disponivel
 					from  Pizaria.Ingrediente join Pizaria.Item on Ingrediente.ID=Item.ID 
-					where preco<=@price and nome like @name+'%'
+					where preco<=@price and nome like '%'+@name+'%'
 					order by preco
 			end
 	end
@@ -48,7 +48,7 @@ go
 
 --select * from Pizaria.filterItem(7, DEFAULT, 'Piza') order by 1 desc -- 2 ordem ascendente
 
--- trigger ou qql merda pa verificar quantidades disponiveis de ing e bebidas da encomenda
+-- trigger ou qql cena pa verificar quantidades disponiveis de ing e bebidas da encomenda
 -- admin no futuro pode dar restock se tivermos tempo
 -- 
 
