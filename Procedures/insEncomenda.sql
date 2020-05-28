@@ -9,10 +9,13 @@ create procedure Pizaria.insEncomenda
 	@endereco_fisico		varchar(50),
 	@hora					date,		
 	@metodo_pagamento		varchar(30),
-	@des_codigo				int
+	@des_codigo				int,
+	@last_ID				int		output
 as
 	begin
 		insert into Pizaria.Encomenda (cliente_email,estafeta_email,endereco_fisico,hora,metodo_pagamento,des_codigo) values
 		(@cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento, @des_codigo)
+		SET @last_ID = SCOPE_IDENTITY()
 	end
 go
+

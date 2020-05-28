@@ -21,7 +21,7 @@ begin
 		declare @salt uniqueidentifier=newid()
 		begin try
 			insert into Pizaria.[Utilizador] (email, nome, contato, salt, pass)
-			values (@email, @nome, @contato, @salt,HASHBYTES('SHA2_512', @pass+CAST(@salt AS NVARCHAR(36))))
+			values (@email, @nome, @contato, @salt,HASHBYTES('SHA2_512', @pass + CAST(@salt AS NVARCHAR(36))))
 		
 			if @type = 0
 			begin
