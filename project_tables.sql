@@ -7,7 +7,6 @@ drop table Pizaria.Bebida;
 drop table Pizaria.Piza;
 drop table Pizaria.Ingrediente;
 drop table Pizaria.Produto;
-drop table Pizaria.ClienteItem;
 drop table Pizaria.Item;
 drop table Pizaria.Encomenda;
 drop table Pizaria.DescontoCliente;
