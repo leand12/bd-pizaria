@@ -10,6 +10,6 @@ select Item.Id, nome, preco from ((Pizaria.Menu join Pizaria.Item on Item.ID=Men
 	(select ID from Pizaria.BebidaView) UNION (select ID from Pizaria.PizaView)
 	) as qq
 	on qq.ID=pro_ID
-
+	group by Item.Id, nome, preco
 
 go

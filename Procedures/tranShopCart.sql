@@ -8,10 +8,12 @@ create procedure Pizaria.TranShopCart
 	@hora					date,		
 	@metodo_pagamento		varchar(30),
 	@des_codigo				int,
+	@lista					varchar(max),
     @response	            varchar(50) output
 as
 	begin
-		IF (NOT EXISTS ( SELECT * FROM tempdb..sysobjects WHERE [name] = '##ClienteItem') ) OR (NOT EXISTS (select * from Pizaria.##ClienteItem where cli_email=@cliente_email))
+
+		IF (@lista='' or @lista = null)
 		begin
 			set @response = 'Shop Cart is Empty'
 			return
@@ -21,23 +23,24 @@ as
         declare @estafeta_email	nvarchar(255) 
         set @estafeta_email = Pizaria.findBestestafeta()
         
-        
         begin try
 		begin tran
             declare @last_ID int
             Exec Pizaria.insEncomenda @cliente_email=@cliente_email, @estafeta_email=@estafeta_email, @endereco_fisico=@endereco_fisico, @hora=@hora, @metodo_pagamento=@metodo_pagamento, @des_codigo=@des_codigo, @last_ID=@last_ID output    
-        
-            DECLARE @cli_email as nvarchar(255), @item_ID as int, @quantidade as int;
-            
-            DECLARE C CURSOR FAST_FORWARD
-            FOR SELECT cli_email, item_ID, quantidade FROM Pizaria.##ClienteItem where cli_email=@cliente_email;
 
-            OPEN C;
+			declare @pos int = 0
+			declare @len int = 0
+			declare @item_ID int
+			declare @quantidade int
+			WHILE CHARINDEX(',', @lista, @pos+1)>0
+			BEGIN
+				set @len = CHARINDEX(',', @lista, @pos+1) - @pos
+				set @item_ID = cast(SUBSTRING(@lista, @pos, @len) as int)
+				set @pos = CHARINDEX(',', @lista, @pos+@len) +1
+				set @len = CHARINDEX(',', @lista, @pos+1) - @pos
+				set @quantidade =cast( SUBSTRING(@lista, @pos, @len) as int)
+				set @pos = CHARINDEX(',', @lista, @pos+@len) +1
 
-            FETCH C INTO @cliente_email, @item_ID, @quantidade;
-
-            WHILE @@FETCH_STATUS = 0
-            BEGIN
                 declare @itemType varchar(15)
                 set @itemType=Pizaria.findItemType(@item_ID)
                 if (@itemType='Menu')
@@ -79,7 +82,7 @@ as
                     begin
                         rollback tran
                         set @response='Number of Products not Available'
-                        return
+						return
                     end
     
                     update Pizaria.Ingrediente
@@ -112,7 +115,6 @@ as
                     )
                     begin
                         rollback tran
-						set @response='Number of Products not Available'
                         return
                     end
     
@@ -123,23 +125,15 @@ as
                 end
 
                 insert into Pizaria.EncomendaItem (enc_ID, item_ID, quantidade) values (@last_ID, @item_ID, @quantidade)
-                
-                FETCH C INTO @cliente_email, @item_ID, @quantidade;
-            END;
-
-            CLOSE C;
-            DEALLOCATE C;
+            END
 		commit tran   
         end try
         begin catch
 			set @response='Error'
-			delete from Pizaria.##ClienteItem where cli_email=@cliente_email
 			rollback
             return
         end catch
         
 		set @response='Success'
-
-		delete from Pizaria.##ClienteItem where cli_email=@cliente_email
-    end
+	end
 go

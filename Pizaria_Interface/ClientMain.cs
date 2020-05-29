@@ -31,7 +31,7 @@ namespace Pizaria
 		{
 			LoadMenus();
 			LoadPizzas();
-			LoadShopCart();
+			LoadOrders();
 		}
 
 		public void LoadShopCart()
@@ -49,7 +49,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView ", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView", Program.cn);
 			SqlDataReader reader = cmd.ExecuteReader();
 			listBox2.Items.Clear();
 
@@ -60,7 +60,23 @@ namespace Pizaria
 			}
 
 			Program.cn.Close();
+		}
+		private void LoadOrders()
+		{
+			if (!Program.verifySGBDConnection())
+				return;
 
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showAllOrders('"+Program.email+"')", Program.cn);
+			SqlDataReader reader = cmd.ExecuteReader();
+			listBox4.Items.Clear();
+
+			while (reader.Read())
+			{
+				Encomenda I = new Encomenda(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), int.Parse(reader["contato"].ToString()), reader["estafeta_email"].ToString(), reader["endereco_fisico"].ToString(), reader["hora"].ToString());
+				listBox4.Items.Add(I);
+			}
+
+			Program.cn.Close();
 		}
 
 		private void LoadPizzas()
@@ -204,15 +220,22 @@ namespace Pizaria
 			cmd.Parameters.Add(new SqlParameter("@endereco_fisico", SqlDbType.VarChar, 50));
 			cmd.Parameters.Add(new SqlParameter("@hora", SqlDbType.Date));
 			cmd.Parameters.Add(new SqlParameter("@metodo_pagamento", SqlDbType.VarChar, 30));
+			cmd.Parameters.Add(new SqlParameter("@lista", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@des_codigo", SqlDbType.Int));
 			cmd.Parameters.Add(new SqlParameter("@response", SqlDbType.VarChar, 50));
 			cmd.Parameters["@cliente_email"].Value = Program.email;
 			cmd.Parameters["@endereco_fisico"].Value = textBox1.Text;
 			cmd.Parameters["@hora"].Value = dateTimePicker1.Value;
 			cmd.Parameters["@metodo_pagamento"].Value = comboBox1.SelectedItem.ToString();
+			string list="";
+			foreach (var item in this.shop_cart )
+			{
+				list+=item.ID + "," + item.toOrder.ToString()+",";
+			}
+			MessageBox.Show(list);
+			cmd.Parameters["@lista"].Value = list;
 			if (textBox2.Text != "" && int.TryParse(textBox2.Text, out int n))
 			{
-				
 				cmd.Parameters["@des_codigo"].Value = n;
 			}
 			else if (textBox2.Text== "") {								
@@ -234,13 +257,14 @@ namespace Pizaria
 			Program.cn.Close();
 
 			string response = "" + cmd.Parameters["@response"].Value;
-			MessageBox.Show(response);
 
 			if (response == "Success")
 				tabControl4.SelectedIndex = 1;
 
 			listBox6.Items.Clear();
 			LoadShopCart();
+
+			MessageBox.Show(response);
 		}
 
 		// Add Items
@@ -254,7 +278,7 @@ namespace Pizaria
 		// Remove Item
 		private void button5_Click(object sender, EventArgs e)
 		{
-            if (listBox6.SelectedIndex > 0 && listBox6.SelectedItem != null)
+            if (listBox6.SelectedIndex > 0 || listBox6.SelectedItem != null)
 			{
 				this.shop_cart.Remove((Item) listBox6.SelectedItem);
                 LoadShopCart();

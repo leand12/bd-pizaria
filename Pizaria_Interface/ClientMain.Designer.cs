@@ -451,7 +451,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listBox5);
-            this.groupBox1.Location = new System.Drawing.Point(282, 15);
+            this.groupBox1.Location = new System.Drawing.Point(771, 33);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -473,11 +473,11 @@
             // 
             this.groupBox3.Controls.Add(this.listBox4);
             this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Location = new System.Drawing.Point(65, 15);
+            this.groupBox3.Location = new System.Drawing.Point(53, 15);
             this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox3.Size = new System.Drawing.Size(197, 287);
+            this.groupBox3.Size = new System.Drawing.Size(689, 369);
             this.groupBox3.TabIndex = 22;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Orders";
@@ -485,15 +485,15 @@
             // listBox4
             // 
             this.listBox4.FormattingEnabled = true;
-            this.listBox4.Location = new System.Drawing.Point(18, 29);
+            this.listBox4.Location = new System.Drawing.Point(23, 17);
             this.listBox4.Margin = new System.Windows.Forms.Padding(2);
             this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(159, 212);
+            this.listBox4.Size = new System.Drawing.Size(640, 290);
             this.listBox4.TabIndex = 17;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(65, 248);
+            this.button1.Location = new System.Drawing.Point(294, 327);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(65, 27);

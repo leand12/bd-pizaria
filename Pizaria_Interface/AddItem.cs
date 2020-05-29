@@ -195,10 +195,14 @@ namespace Pizaria
 				return;
 			}
 			Item item = (Item)listBox1.Items[curr_item];
-			shop_cart.Add(item);
+			item.toOrder = item.toOrder + 1;
+			if (!shop_cart.Contains(item))
+			{
+				shop_cart.Add(item);
+			}
 			listBox7.Items.Add(item);
 
-			insClienteItem(item);
+			
 		}
 
 		// Add Pizza to Shop Cart
@@ -211,10 +215,14 @@ namespace Pizaria
 			}
 			Item item = (Item)listBox2.Items[curr_item];
 
-			shop_cart.Add(item);
+			item.toOrder = item.toOrder + 1;
+			if (!shop_cart.Contains(item))
+			{
+				shop_cart.Add(item);
+			}
 			listBox7.Items.Add(item);
 
-			insClienteItem(item);
+			
 		}
 
 		// Add Drink to Shop Cart
@@ -226,10 +234,15 @@ namespace Pizaria
 				return;
 			}
 			Item item = (Item)listBox3.Items[curr_item];
-			shop_cart.Add(item);
+			item.toOrder = item.toOrder+1;
+			if (!shop_cart.Contains(item))
+			{
+				shop_cart.Add(item);
+			}
+			
 			listBox7.Items.Add(item);
 
-			insClienteItem(item);
+			
 		}
 		
 		// Add Ingredients to Shop Cart
@@ -241,10 +254,12 @@ namespace Pizaria
 				return;
 			}
 			Item item = (Item)listBox4.Items[curr_item];
-			shop_cart.Add(item);
+			item.toOrder = item.toOrder + 1;
+			if (!shop_cart.Contains(item))
+			{
+				shop_cart.Add(item);
+			}
 			listBox7.Items.Add(item);
-
-			insClienteItem(item);
 		}
 
 		private void insClienteItem(Item item) {

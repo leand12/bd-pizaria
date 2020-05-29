@@ -58,6 +58,7 @@
     <Compile Include="AdminMain.Designer.cs">
       <DependentUpon>AdminMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Encomenda.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ClientMain.cs">
       <SubType>Form</SubType>
