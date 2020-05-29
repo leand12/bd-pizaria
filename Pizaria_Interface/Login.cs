@@ -39,9 +39,7 @@ namespace Pizaria
             if (!Program.verifySGBDConnection())
                 return;
             cmd.Connection = Program.cn;
-            cmd.ExecuteNonQuery();
-
-            
+            cmd.ExecuteNonQuery(); 
 
             if ("" + cmd.Parameters["@response"].Value == "User successfully logged in")
             {
@@ -67,7 +65,6 @@ namespace Pizaria
                     var courier = new CourierMain();
                     courier.ShowDialog();
                     this.Close();
-
                 }
 
                 this.Hide();
@@ -86,7 +83,7 @@ namespace Pizaria
 
             Program.cn.Close();
 
-            
+           
         }
         
         // Create Account

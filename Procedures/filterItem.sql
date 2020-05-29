@@ -3,8 +3,8 @@ go
 
 go
 create procedure Pizaria.filterItem 
-	@price			DECIMAL(19,4),
-	@name			varchar(30),
+	@price 			DECIMAL(19,4) = 99999,
+	@name			varchar(30) = '',
 	@item_type		varchar(30)
 as
 	begin
@@ -13,7 +13,6 @@ as
 					select nome, preco, PizaView.ID as ID
 					from Pizaria.PizaView
 					where preco<=@price and nome like '%'+@name+'%'
-
 			end
 
 		else if (@item_type = 'Bebida')

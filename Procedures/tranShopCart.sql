@@ -8,16 +8,24 @@ create procedure Pizaria.TranShopCart
 	@hora					date,		
 	@metodo_pagamento		varchar(30),
 	@des_codigo				int,
-    @response	            nvarchar(255)='' output
+    @response	            varchar(50) output
 as
 	begin
+		IF (NOT EXISTS ( SELECT * FROM tempdb.sys.objects WHERE [name] = '##ClienteItem') ) OR (NOT EXISTS (select * from Pizaria.##ClienteItem where cli_email=@cliente_email))
+		begin
+			set @response = 'Shop Cart is Empty'
+			return
+		end
+
         set nocount on
-        declare @estafeta_email	nvarchar(255)
+        declare @estafeta_email	nvarchar(255) 
         set @estafeta_email = Pizaria.findBestestafeta()
         
-        begin tran
+        
+        begin try
+		begin tran
             declare @last_ID int
-            Exec insEncomenda @cliente_email=@cliente_email, @estafeta_email=@estafeta_email, @endereco_fisico=@endereco_fisico, @hora=@hora, @metodo_pagamento=@metodo_pagamento, @des_codigo=@des_codigo, @last_ID=@last_ID output    
+            Exec Pizaria.insEncomenda @cliente_email=@cliente_email, @estafeta_email=@estafeta_email, @endereco_fisico=@endereco_fisico, @hora=@hora, @metodo_pagamento=@metodo_pagamento, @des_codigo=@des_codigo, @last_ID=@last_ID output    
         
             DECLARE @cli_email as nvarchar(255), @item_ID as int, @quantidade as int;
             
@@ -45,7 +53,8 @@ as
                     )
                     begin
                         rollback tran
-                        return 'Number of Products not Available'
+                        set @response='Number of Products not Available'
+                        return
                     end
 
                     update Pizaria.Ingrediente
@@ -70,7 +79,8 @@ as
                     )
                     begin
                         rollback tran
-                        return 'Number of Products not Available'
+                        set @response='Number of Products not Available'
+                        return
                     end
     
                     update Pizaria.Ingrediente
@@ -86,9 +96,10 @@ as
                     )
                     begin
                         rollback tran
-                        return 'Number of Products not Available'
-                    end
-    
+                        set @response='Number of Products not Available'
+                        return
+					end
+
                     update Pizaria.Bebida
                     set quantidade_disponivel = quantidade_disponivel - @quantidade
                     from Pizaria.Bebida
@@ -102,7 +113,8 @@ as
                     )
                     begin
                         rollback tran
-                        return 'Number of Products not Available'
+						set @response='Number of Products not Available'
+                        return
                     end
     
                     update Pizaria.Ingrediente
@@ -118,10 +130,22 @@ as
 
             CLOSE C;
             DEALLOCATE C;
+		commit tran   
+        end try
+        begin catch
+            raiserror ('Error', 16, 1)
+			set @response='Error'
+            return
+        end catch
+        
+		set @response='Success'
 
-        commit tran        
-        return 'Success'
+		delete from Pizaria.##ClienteItem where cli_email=@cliente_email
     end
 go
 
---Exec insEncomenda @cliente_email='cliente@gmail.com', @estafeta_email='estafeta@gmai.com', @endereco_fisico='qql coisa', @hora='', @metodo_pagamento='asdas', @des_codigo='321312'    
+declare @res varchar(50)
+Exec Pizaria.TranShopCart @cliente_email='cliente@gmail.com',@endereco_fisico='R',@hora='2010-02-10',@metodo_pagamento='Card',@des_codigo=1,@response=@res output
+print '->' + @res
+
+select * from Pizaria.##ClienteItem

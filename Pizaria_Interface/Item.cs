@@ -11,6 +11,7 @@ namespace Pizaria
 		private int _ID;
 		private string _name;
 		private double _price;
+		private int _quantity;
 
 		public int ID {
 			get { return _ID; }
@@ -29,11 +30,17 @@ namespace Pizaria
 			set { _price = value; }
 		}
 
+		public int quantity
+		{
+			get { return _quantity; }
+			set { _quantity = value; }
+		}
 
 		public Item(int ID, string name, double price) {
 			this.ID = ID;
 			this.name = name;
 			this.price = price;
+			this.quantity = 1;
 		}
 
 		public Item()

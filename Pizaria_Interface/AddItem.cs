@@ -38,7 +38,7 @@ namespace Pizaria
 				return;
 
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.Item JOIN Pizaria.Menu ON Item.ID=Menu.ID ", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView", Program.cn);
 			SqlDataReader reader = cmd.ExecuteReader();
 			listBox1.Items.Clear();
 
@@ -56,7 +56,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.Item JOIN Pizaria.Piza ON Item.ID=Piza.ID ", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.PizaView", Program.cn);
 			SqlDataReader reader = cmd.ExecuteReader();
 			listBox2.Items.Clear();
 
@@ -74,7 +74,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.Item JOIN Pizaria.Bebida ON Item.ID=Bebida.ID ", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.BebidaView", Program.cn);
 			SqlDataReader reader = cmd.ExecuteReader();
 			listBox3.Items.Clear();
 
@@ -92,7 +92,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.Item JOIN Pizaria.Ingrediente ON Item.ID=Ingrediente.ID ", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.IngredienteView", Program.cn);
 			SqlDataReader reader = cmd.ExecuteReader();
 			listBox4.Items.Clear();
 
@@ -107,13 +107,15 @@ namespace Pizaria
 
 
 
-		// Finish
+		// Confirm Items
 		private void button1_Click(object sender, EventArgs e)
 		{
 			clientMain.BalancePrice(item_price);
 			clientMain.Enabled = true;
 			clientMain.LoadShopCart();
 			this.Close();
+
+
 		}
 		
 		// Cancel
@@ -143,7 +145,6 @@ namespace Pizaria
 			listBox5.Items.Clear();
 			using (SqlDataReader reader = cmd.ExecuteReader())
 			{
-
 				while (reader.Read())
 				{
 					string name = reader["nome"].ToString();
@@ -188,7 +189,7 @@ namespace Pizaria
 		// Add Menu to Shop Cart
 		private void listBox1_DoubleClick(object sender, EventArgs e)
 		{
-			int	curr_item = listBox1.SelectedIndex;
+			int curr_item = listBox1.SelectedIndex;
 			if (curr_item < 0)
 			{
 				return;
@@ -196,6 +197,8 @@ namespace Pizaria
 			Item item = (Item)listBox1.Items[curr_item];
 			shop_cart.Add(item);
 			listBox7.Items.Add(item);
+
+			insClienteItem(item);
 		}
 
 		// Add Pizza to Shop Cart
@@ -207,8 +210,11 @@ namespace Pizaria
 				return;
 			}
 			Item item = (Item)listBox2.Items[curr_item];
+
 			shop_cart.Add(item);
 			listBox7.Items.Add(item);
+
+			insClienteItem(item);
 		}
 
 		// Add Drink to Shop Cart
@@ -222,6 +228,8 @@ namespace Pizaria
 			Item item = (Item)listBox3.Items[curr_item];
 			shop_cart.Add(item);
 			listBox7.Items.Add(item);
+
+			insClienteItem(item);
 		}
 		
 		// Add Ingredients to Shop Cart
@@ -235,6 +243,31 @@ namespace Pizaria
 			Item item = (Item)listBox4.Items[curr_item];
 			shop_cart.Add(item);
 			listBox7.Items.Add(item);
+
+			insClienteItem(item);
+		}
+
+		private void insClienteItem(Item item) {
+			if (!Program.verifySGBDConnection())
+				return;
+
+			SqlCommand cmd = new SqlCommand
+			{
+				CommandType = CommandType.StoredProcedure,
+				CommandText = "Pizaria.insClienteItem"
+			};
+			cmd.Parameters.Add(new SqlParameter("@cli_email", SqlDbType.NVarChar, 255));
+			cmd.Parameters.Add(new SqlParameter("@quantity", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@item_ID", SqlDbType.Int));
+			cmd.Parameters["@cli_email"].Value = Program.email;
+			cmd.Parameters["@quantity"].Value = item.quantity;
+			cmd.Parameters["@item_ID"].Value = item.ID;
+
+			cmd.Connection = Program.cn;
+
+			cmd.ExecuteNonQuery();
+
+			Program.cn.Close();
 		}
 	}
 }
