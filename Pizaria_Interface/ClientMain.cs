@@ -209,8 +209,22 @@ namespace Pizaria
 			cmd.Parameters["@cliente_email"].Value = Program.email;
 			cmd.Parameters["@endereco_fisico"].Value = textBox1.Text;
 			cmd.Parameters["@hora"].Value = dateTimePicker1.Value;
-			cmd.Parameters["@metodo_pagamento"].Value = "Card";
-			cmd.Parameters["@des_codigo"].Value = (textBox2.Text != "") ? int.Parse(textBox2.Text) : 0;
+			cmd.Parameters["@metodo_pagamento"].Value = comboBox1.SelectedItem.ToString();
+			if (textBox2.Text != "" && int.TryParse(textBox2.Text, out int n))
+			{
+				
+				cmd.Parameters["@des_codigo"].Value = n;
+			}
+			else if (textBox2.Text== "") {								
+				cmd.Parameters["@des_codigo"].Value = DBNull.Value;
+			}
+			else
+			{
+				MessageBox.Show("Invalid Number for Discount Code");
+				Program.cn.Close();
+				return;
+			}
+
 			cmd.Parameters["@response"].Direction = ParameterDirection.Output;
 
 			cmd.Connection = Program.cn;

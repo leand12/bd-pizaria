@@ -11,7 +11,7 @@ create procedure Pizaria.TranShopCart
     @response	            varchar(50) output
 as
 	begin
-		IF (NOT EXISTS ( SELECT * FROM tempdb.sys.objects WHERE [name] = '##ClienteItem') ) OR (NOT EXISTS (select * from Pizaria.##ClienteItem where cli_email=@cliente_email))
+		IF (NOT EXISTS ( SELECT * FROM tempdb..sysobjects WHERE [name] = '##ClienteItem') ) OR (NOT EXISTS (select * from Pizaria.##ClienteItem where cli_email=@cliente_email))
 		begin
 			set @response = 'Shop Cart is Empty'
 			return
@@ -29,7 +29,6 @@ as
         
             DECLARE @cli_email as nvarchar(255), @item_ID as int, @quantidade as int;
             
-
             DECLARE C CURSOR FAST_FORWARD
             FOR SELECT cli_email, item_ID, quantidade FROM Pizaria.##ClienteItem where cli_email=@cliente_email;
 
@@ -133,8 +132,9 @@ as
 		commit tran   
         end try
         begin catch
-            raiserror ('Error', 16, 1)
 			set @response='Error'
+			delete from Pizaria.##ClienteItem where cli_email=@cliente_email
+			rollback
             return
         end catch
         
@@ -143,9 +143,3 @@ as
 		delete from Pizaria.##ClienteItem where cli_email=@cliente_email
     end
 go
-
-declare @res varchar(50)
-Exec Pizaria.TranShopCart @cliente_email='cliente@gmail.com',@endereco_fisico='R',@hora='2010-02-10',@metodo_pagamento='Card',@des_codigo=1,@response=@res output
-print '->' + @res
-
-select * from Pizaria.##ClienteItem

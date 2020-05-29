@@ -1,4 +1,3 @@
-
 drop procedure Pizaria.insClienteItem;
 go
 
@@ -12,15 +11,15 @@ as
 begin
     set nocount on
 	
-    IF (NOT EXISTS (SELECT * FROM tempdb.sys.objects WHERE [name] = '##ClienteItem'))
+    IF (NOT EXISTS (SELECT * FROM tempdb..sysobjects WHERE [name] = '##ClienteItem'))
         begin
 			create table Pizaria.##ClienteItem(
 					cli_email	nvarchar(255),
 					item_ID		int,
 					quantidade	int				not null,
 					primary key(cli_email,item_ID),
-			);           
-        end
+			);
+		end
     
     IF (not EXISTS (SELECT TOP 1 cli_email, item_ID FROM Pizaria.##ClienteItem WHERE item_ID=@item_ID AND cli_email=@cli_email ))
         begin
@@ -32,6 +31,3 @@ begin
         end
 end
 go
-
-exec Pizaria.insClienteItem @cli_email='cliente@gmail.com', @quantity=1, @item_ID=1
-
