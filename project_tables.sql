@@ -76,7 +76,7 @@ create table Pizaria.Encomenda(
 	cliente_email		nvarchar(255)	not null,
 	estafeta_email		nvarchar(255)	not null,
 	endereco_fisico		varchar(50)		not null,
-	hora				date			not null,
+	hora				datetime			not null,
 	metodo_pagamento	varchar(30)		not null,
 	des_codigo			int,
 	primary key(ID),

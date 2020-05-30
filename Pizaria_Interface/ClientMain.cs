@@ -207,7 +207,6 @@ namespace Pizaria
 		// Finish Order
 		private void button4_Click(object sender, EventArgs e)
 		{
-			MessageBox.Show((dateTimePicker2.Value.Date + dateTimePicker1.Value.TimeOfDay).ToString());
 			if (!Program.verifySGBDConnection())
 				return;
 
@@ -227,7 +226,7 @@ namespace Pizaria
 			cmd.Parameters["@cliente_email"].Value = Program.email;
 			cmd.Parameters["@endereco_fisico"].Value = textBox1.Text;
 			DateTime myDate = dateTimePicker2.Value.Date + dateTimePicker1.Value.TimeOfDay;
-			cmd.Parameters["@hora"].Value = myDate;
+			cmd.Parameters["@hora"].Value = myDate.ToString();
 			cmd.Parameters["@metodo_pagamento"].Value = comboBox1.SelectedItem.ToString();
 			string list="";
 			foreach (var item in this.shop_cart )

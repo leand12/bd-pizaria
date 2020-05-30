@@ -7,7 +7,7 @@ create procedure Pizaria.insEncomenda
 	@cliente_email			nvarchar(255),
 	@estafeta_email			nvarchar(255),
 	@endereco_fisico		varchar(50),
-	@hora					date,		
+	@hora					datetime,		
 	@metodo_pagamento		varchar(30),
 	@des_codigo				int,
 	@last_ID				int		output

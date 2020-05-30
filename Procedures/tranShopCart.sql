@@ -5,7 +5,7 @@ go
 create procedure Pizaria.TranShopCart 
     @cliente_email			nvarchar(255),
 	@endereco_fisico		varchar(50),
-	@hora					date,		
+	@hora					datetime,		
 	@metodo_pagamento		varchar(30),
 	@des_codigo				int,
 	@lista					varchar(max),
