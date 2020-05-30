@@ -207,6 +207,7 @@ namespace Pizaria
 		// Finish Order
 		private void button4_Click(object sender, EventArgs e)
 		{
+			MessageBox.Show((dateTimePicker2.Value.Date + dateTimePicker1.Value.TimeOfDay).ToString());
 			if (!Program.verifySGBDConnection())
 				return;
 
@@ -225,14 +226,14 @@ namespace Pizaria
 			cmd.Parameters.Add(new SqlParameter("@response", SqlDbType.VarChar, 50));
 			cmd.Parameters["@cliente_email"].Value = Program.email;
 			cmd.Parameters["@endereco_fisico"].Value = textBox1.Text;
-			cmd.Parameters["@hora"].Value = dateTimePicker1.Value;
+			DateTime myDate = dateTimePicker2.Value.Date + dateTimePicker1.Value.TimeOfDay;
+			cmd.Parameters["@hora"].Value = myDate;
 			cmd.Parameters["@metodo_pagamento"].Value = comboBox1.SelectedItem.ToString();
 			string list="";
 			foreach (var item in this.shop_cart )
 			{
 				list+=item.ID + "," + item.toOrder.ToString()+",";
 			}
-			MessageBox.Show(list);
 			cmd.Parameters["@lista"].Value = list;
 			if (textBox2.Text != "" && int.TryParse(textBox2.Text, out int n))
 			{
@@ -262,9 +263,15 @@ namespace Pizaria
 				tabControl4.SelectedIndex = 1;
 
 			listBox6.Items.Clear();
+			textBox1.Clear();
+			textBox2.Clear();
 			LoadShopCart();
-
-			MessageBox.Show(response);
+			listBox8.Items.Clear();
+			textBox5.Clear();
+			textBox6.Clear();
+			textBox7.Clear();
+			textBox8.Clear();
+			LoadOrders();
 		}
 
 		// Add Items
@@ -358,6 +365,33 @@ namespace Pizaria
 				}
 
 				Program.cn.Close();
+			}
+		}
+
+		private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (listBox4.SelectedIndex>0 || listBox4.SelectedItem!= null){
+				Encomenda enc = (Encomenda) listBox4.SelectedItem;
+
+				textBox5.Text = enc.nome;
+				textBox6.Text = enc.contato.ToString();
+				textBox7.Text = enc.estafeta_email;
+				textBox8.Text = enc.endereco_fisico;
+
+				if (!Program.verifySGBDConnection())
+					return;
+
+				SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrder('" + enc.ID + "')", Program.cn);
+				SqlDataReader reader = cmd.ExecuteReader();
+				listBox8.Items.Clear();
+
+				while (reader.Read())
+				{
+					listBox8.Items.Add(reader["nome"].ToString()+"    "+ int.Parse(reader["quantidade"].ToString()));
+				}
+
+				Program.cn.Close();
+
 			}
 		}
 	}

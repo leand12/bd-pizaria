@@ -68,7 +68,7 @@ namespace Pizaria
 
 		public override string ToString()
 		{
-			return "Courier's name:  " + nome + Environment.NewLine + "Courier's contact: " + contato.ToString() + Environment.NewLine + "Courier's email: " + estafeta_email + Environment.NewLine + "Order being delivered at: " + endereco_fisico + Environment.NewLine + "Deliver arrives at:  " + hora;
+			return hora;
 		}
 	}
 }
