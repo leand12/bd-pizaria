@@ -80,6 +80,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.listBox3 = new System.Windows.Forms.ListBox();
             this.tabControl4 = new System.Windows.Forms.TabControl();
+            this.button7 = new System.Windows.Forms.Button();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -104,6 +106,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.textBox9);
+            this.tabPage3.Controls.Add(this.button7);
             this.tabPage3.Controls.Add(this.label20);
             this.tabPage3.Controls.Add(this.dateTimePicker2);
             this.tabPage3.Controls.Add(this.label10);
@@ -143,7 +147,6 @@
             // dateTimePicker2
             // 
             this.dateTimePicker2.CustomFormat = "yyyy/mm/dd";
-            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimePicker2.Location = new System.Drawing.Point(276, 103);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(166, 20);
@@ -152,7 +155,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(273, 198);
+            this.label10.Location = new System.Drawing.Point(619, 151);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 13);
@@ -161,10 +164,10 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(276, 213);
+            this.textBox2.Location = new System.Drawing.Point(601, 166);
             this.textBox2.Margin = new System.Windows.Forms.Padding(2);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(126, 20);
+            this.textBox2.Size = new System.Drawing.Size(106, 20);
             this.textBox2.TabIndex = 43;
             // 
             // textBox1
@@ -240,17 +243,17 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(454, 220);
+            this.label6.Location = new System.Drawing.Point(571, 268);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 13);
+            this.label6.Size = new System.Drawing.Size(34, 13);
             this.label6.TabIndex = 35;
-            this.label6.Text = "Total: 0.00 €";
+            this.label6.Text = "Total:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(273, 136);
+            this.label4.Location = new System.Drawing.Point(273, 151);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(87, 13);
@@ -264,7 +267,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "Card",
             "Cash"});
-            this.comboBox1.Location = new System.Drawing.Point(276, 151);
+            this.comboBox1.Location = new System.Drawing.Point(276, 166);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(96, 21);
@@ -318,7 +321,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.listBox5);
-            this.groupBox1.Location = new System.Drawing.Point(803, 41);
+            this.groupBox1.Location = new System.Drawing.Point(800, 15);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -646,6 +649,25 @@
             this.tabControl4.Size = new System.Drawing.Size(1012, 435);
             this.tabControl4.TabIndex = 20;
             // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(601, 190);
+            this.button7.Margin = new System.Windows.Forms.Padding(2);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(106, 21);
+            this.button7.TabIndex = 47;
+            this.button7.Text = "Check Discount";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(609, 265);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
+            this.textBox9.Size = new System.Drawing.Size(106, 20);
+            this.textBox9.TabIndex = 48;
+            // 
             // ClientMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -724,5 +746,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Button button7;
     }
 }

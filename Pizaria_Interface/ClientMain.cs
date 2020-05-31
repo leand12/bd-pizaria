@@ -22,7 +22,7 @@ namespace Pizaria
 		{
 			this.shop_cart = new List<Item>();
 			InitializeComponent();
-			
+			comboBox1.SelectedItem= "Card";
 		}
 
 		public void BalancePrice(double price) { this.price += price; }
@@ -218,15 +218,15 @@ namespace Pizaria
 			
 			cmd.Parameters.Add(new SqlParameter("@cliente_email", SqlDbType.NVarChar, 255));
 			cmd.Parameters.Add(new SqlParameter("@endereco_fisico", SqlDbType.VarChar, 50));
-			cmd.Parameters.Add(new SqlParameter("@hora", SqlDbType.Date));
+			cmd.Parameters.Add(new SqlParameter("@hora", SqlDbType.DateTime));
 			cmd.Parameters.Add(new SqlParameter("@metodo_pagamento", SqlDbType.VarChar, 30));
 			cmd.Parameters.Add(new SqlParameter("@lista", SqlDbType.VarChar));
 			cmd.Parameters.Add(new SqlParameter("@des_codigo", SqlDbType.Int));
 			cmd.Parameters.Add(new SqlParameter("@response", SqlDbType.VarChar, 50));
 			cmd.Parameters["@cliente_email"].Value = Program.email;
 			cmd.Parameters["@endereco_fisico"].Value = textBox1.Text;
-			DateTime myDate = dateTimePicker2.Value.Date + dateTimePicker1.Value.TimeOfDay;
-			cmd.Parameters["@hora"].Value = myDate.ToString();
+			String myDate =dateTimePicker2.Text + " "+dateTimePicker1.Text;
+			cmd.Parameters["@hora"].Value = DateTime.Parse(myDate);
 			cmd.Parameters["@metodo_pagamento"].Value = comboBox1.SelectedItem.ToString();
 			string list="";
 			foreach (var item in this.shop_cart )
@@ -259,18 +259,19 @@ namespace Pizaria
 			string response = "" + cmd.Parameters["@response"].Value;
 
 			if (response == "Success")
+				LoadOrders();
 				tabControl4.SelectedIndex = 1;
 
 			listBox6.Items.Clear();
 			textBox1.Clear();
 			textBox2.Clear();
+			shop_cart.Clear();
 			LoadShopCart();
 			listBox8.Items.Clear();
 			textBox5.Clear();
 			textBox6.Clear();
 			textBox7.Clear();
 			textBox8.Clear();
-			LoadOrders();
 		}
 
 		// Add Items
@@ -374,7 +375,7 @@ namespace Pizaria
 
 				textBox5.Text = enc.nome;
 				textBox6.Text = enc.contato.ToString();
-				textBox7.Text = enc.estafeta_email;
+				textBox7.Text = enc.email;
 				textBox8.Text = enc.endereco_fisico;
 
 				if (!Program.verifySGBDConnection())

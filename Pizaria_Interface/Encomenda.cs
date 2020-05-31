@@ -9,7 +9,7 @@ namespace Pizaria
 	public class Encomenda
 	{
 		private int _ID;
-		private string _estafeta_email;
+		private string _email;
 		private string _endereco_fisico;
 		private string _hora;
 		private string _nome;
@@ -21,10 +21,10 @@ namespace Pizaria
 			set { _ID = value; }
 		}
 
-		public string estafeta_email
+		public string email
 		{
-			get { return _estafeta_email; }
-			set { _estafeta_email = value; }
+			get { return _email; }
+			set { _email = value; }
 		}
 
 		public string nome
@@ -51,12 +51,12 @@ namespace Pizaria
 			set { _endereco_fisico = value; }
 		}
 
-		public Encomenda(int ID, string nome, int contato, string estafeta_email, string endereco_fisico, string hora)
+		public Encomenda(int ID, string nome, int contato, string email, string endereco_fisico, string hora)
 		{
 			this.ID = ID;
 			this.nome = nome;
 			this.contato = contato;
-			this.estafeta_email = estafeta_email;
+			this.email = email;
 			this.endereco_fisico = endereco_fisico;
 			this.hora = hora;
 		}

@@ -19,6 +19,9 @@ as
 			return
 		end
 
+        if (Pizaria.isValidDiscount(@des_codigo, @cliente_email)=0)
+            set @des_codigo = null
+
         set nocount on
         declare @estafeta_email	nvarchar(255) 
         set @estafeta_email = Pizaria.findBestestafeta()
@@ -26,7 +29,7 @@ as
         begin try
 		begin tran
             declare @last_ID int
-            Exec Pizaria.insEncomenda @cliente_email=@cliente_email, @estafeta_email=@estafeta_email, @endereco_fisico=@endereco_fisico, @hora=@hora, @metodo_pagamento=@metodo_pagamento, @des_codigo=@des_codigo, @last_ID=@last_ID output    
+            Exec Pizaria.insEncomenda @cliente_email=@cliente_email, @estafeta_email=@estafeta_email, @endereco_fisico=@endereco_fisico, @hora=@hora, @metodo_pagamento=@metodo_pagamento, @des_codigo=@des_codigo, @last_ID=@last_ID output
 
 			declare @pos int = 0
 			declare @len int = 0

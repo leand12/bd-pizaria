@@ -9,6 +9,7 @@ drop table Pizaria.Ingrediente;
 drop table Pizaria.Produto;
 drop table Pizaria.Item;
 drop table Pizaria.Encomenda;
+drop table Pizaria.EncomendaEntregue;
 drop table Pizaria.DescontoCliente;
 drop table Pizaria.Desconto;
 drop table Pizaria.Cliente;
@@ -76,13 +77,24 @@ create table Pizaria.Encomenda(
 	cliente_email		nvarchar(255)	not null,
 	estafeta_email		nvarchar(255)	not null,
 	endereco_fisico		varchar(50)		not null,
-	hora				datetime			not null,
+	hora				datetime		not null,
 	metodo_pagamento	varchar(30)		not null,
 	des_codigo			int,
 	primary key(ID),
 	foreign key(estafeta_email) references Pizaria.Estafeta(email),
 	foreign key(des_codigo) references Pizaria.Desconto(codigo),
 	foreign key(cliente_email) references Pizaria.Cliente(email)
+);
+create table Pizaria.EncomendaEntregue (
+	ID					int				not null,
+	cli_email			nvarchar(255)	not null,
+	est_email			nvarchar(255)	not null,
+	endereco_fisico		varchar(50)		not null,
+	hora				datetime		not null,
+	metodo_pagamento	varchar(30)		not null,
+	primary key (ID),
+	foreign key (cli_email) references Pizaria.Cliente(email),
+	foreign key (est_email) references Pizaria.Estafeta(email),
 );
 create table Pizaria.Item(
 	ID			int,

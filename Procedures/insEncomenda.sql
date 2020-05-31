@@ -14,9 +14,14 @@ create procedure Pizaria.insEncomenda
 as
 	begin
 		begin try
+			--call udf to check discount is valid else null
+
 			insert into Pizaria.Encomenda (cliente_email,estafeta_email,endereco_fisico,hora,metodo_pagamento,des_codigo) values
 			(@cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento, @des_codigo)
+			--return ID of Encomenda
 			SET @last_ID = SCOPE_IDENTITY()
+			--return valid discount or not
+
 		end try
 		begin catch
 			RAISERROR('Error Inserting Order',16,1)
