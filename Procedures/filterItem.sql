@@ -10,7 +10,7 @@ as
 	begin
 		if (@item_type = 'Piza')
 			begin
-					select nome, preco, PizaView.ID as ID
+					select nome, preco, PizaView.ID as ID, pic
 					from Pizaria.PizaView
 					where preco<=@price and nome like '%'+@name+'%'
 			end

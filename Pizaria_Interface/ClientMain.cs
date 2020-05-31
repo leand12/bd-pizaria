@@ -50,14 +50,8 @@ namespace Pizaria
 				return;
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView", Program.cn);
-			SqlDataReader reader = cmd.ExecuteReader();
-			listBox2.Items.Clear();
 
-			while (reader.Read())
-			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
-				listBox2.Items.Add(I);
-			}
+			customDataGridView(cmd, dataGridView2, new[] {"Id"});
 
 			Program.cn.Close();
 		}
@@ -85,56 +79,60 @@ namespace Pizaria
 				return;
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.PizaView", Program.cn);
-			SqlDataReader reader = cmd.ExecuteReader();
-			listBox3.Items.Clear();
 
-			while (reader.Read())
-			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
-				listBox3.Items.Add(I);
-			}
+			customDataGridView(cmd, dataGridView3, new[] {"ID", "pic"});
 
 			Program.cn.Close();
-
 		}
 
 		// List Menu
-		private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+		private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
 		{
-			int curr_menu = listBox2.SelectedIndex;
-
-			if (listBox2.Items.Count == 0 | curr_menu < 0)
-			{
+			if (0 > e.RowIndex || e.RowIndex >= dataGridView2.Rows.Count)
 				return;
-			}
 
-			Item item = (Item)listBox2.Items[curr_menu];
+			string id = dataGridView2.Rows[e.RowIndex].Cells["ID"].Value.ToString();
 
+			SqlCommand cmd = new SqlCommand("select * from Pizaria.showMenu ('" + id + "')", Program.cn);
 
-			SqlCommand cmd;
-			cmd = new SqlCommand("select * from Pizaria.showMenu ('" + item.ID + "')", Program.cn);
 			if (!Program.verifySGBDConnection())
 				return;
 
-			listBox1.Items.Clear();
-			using (SqlDataReader reader = cmd.ExecuteReader())
-			{
-
-				while (reader.Read())
-				{
-					string name = reader["nome"].ToString();
-					string price = reader["preco"].ToString();
-					string quantity = reader["quantidade"].ToString();
-
-					listBox1.Items.Add(name + " " + price + "€ " + quantity);
-				}
-			}
-
+			customDataGridView(cmd, dataGridView1, new[] {"ID"});
 
 			Program.cn.Close();
 		}
 
 		// List Pizzas
+		private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (0 > e.RowIndex || e.RowIndex >= dataGridView3.Rows.Count)
+				return;
+
+			string id = dataGridView3.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+
+			SqlCommand cmd = new SqlCommand("select * from Pizaria.showPiza ('" + id + "')", Program.cn);
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			customDataGridView(cmd, dataGridView7, null);
+			//dataGridView7.Columns[""].Visible = false;
+
+			byte[] image = Convert.FromBase64String(dataGridView3.Rows[e.RowIndex].Cells["pic"].Value.ToString());
+			Image ret = null;
+			using (MemoryStream ms = new MemoryStream(image))
+			{
+				ret = Image.FromStream(ms);
+			}
+			pictureBox2.Image = ret;
+			pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+
+
+			Program.cn.Close();
+		}
+
+		/*
 		private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			int curr_pizza = listBox3.SelectedIndex;
@@ -181,6 +179,7 @@ namespace Pizaria
 
 			Program.cn.Close();
 		}
+*/
 
 		// History
 		private void button1_Click(object sender, EventArgs e)
@@ -317,29 +316,21 @@ namespace Pizaria
 					CommandText = "Pizaria.filterItem"
 				};
 				cmd.Parameters.Add(new SqlParameter("@price", SqlDbType.Decimal));
-				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar,30));
+				cmd.Parameters.Add(new SqlParameter("@name", SqlDbType.VarChar, 30));
 				cmd.Parameters.Add(new SqlParameter("@item_type", SqlDbType.VarChar, 30));
 				cmd.Parameters["@price"].Value = price;
 				cmd.Parameters["@name"].Value = name;
 				cmd.Parameters["@item_type"].Value = "Piza";
 
-				listBox3.Items.Clear();
-				listBox7.Items.Clear();
-				listBox2.Items.Clear();
-				listBox1.Items.Clear();
+				dataGridView3.DataSource = null;
+				dataGridView7.DataSource = null;
+				dataGridView2.DataSource = null;
+				dataGridView1.DataSource = null;
 
 				pictureBox2.Image = null;
 
 				cmd.Connection = Program.cn;
-				using (SqlDataReader reader = cmd.ExecuteReader())
-				{
-					while (reader.Read())
-					{
-						Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
-						listBox3.Items.Add(I);
-					}
-				}
-				
+				customDataGridView(cmd, dataGridView3, null);
 
 				cmd = new SqlCommand
 				{
@@ -354,15 +345,7 @@ namespace Pizaria
 				cmd.Parameters["@item_type"].Value = "Menu";
 
 				cmd.Connection = Program.cn;
-
-				using (SqlDataReader reader = cmd.ExecuteReader())
-				{
-					while (reader.Read())
-					{
-						Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
-						listBox2.Items.Add(I);
-					}
-				}
+				customDataGridView(cmd, dataGridView2, null);
 
 				Program.cn.Close();
 			}
@@ -394,5 +377,34 @@ namespace Pizaria
 
 			}
 		}
+
+		private void customDataGridView(SqlCommand cmd, DataGridView dgv, string[] unshown_cols)
+		{
+			DataTable dt = new DataTable();
+			SqlDataAdapter da = new SqlDataAdapter(cmd);
+			da.Fill(dt);
+			dgv.DataSource = dt;
+			dgv.ReadOnly = true;
+			dgv.AllowUserToResizeColumns = false;
+			dgv.MultiSelect = false;
+			dgv.AllowUserToResizeRows = false;
+			dgv.AllowUserToOrderColumns = true;
+			dgv.AllowUserToAddRows = false;
+			dgv.RowHeadersVisible = false;
+			if (unshown_cols != null)
+				foreach (string col in unshown_cols)
+				{
+					dgv.Columns[col].Visible = false;
+				}
+			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			dgv.Columns.GetLastColumn(
+				DataGridViewElementStates.Visible, 
+				DataGridViewElementStates.None
+				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+		}
+
+		
 	}
 }
