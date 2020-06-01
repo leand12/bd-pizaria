@@ -99,7 +99,7 @@ create table Pizaria.EncomendaEntregue (
 create table Pizaria.Item(
 	ID			int,
 	nome		varchar(30)		not null,
-	preco		DECIMAL(19,4)			not null,
+	preco		DECIMAL(19,2)			not null,
 	primary key(ID)
 );
 create table Pizaria.EncomendaItem(

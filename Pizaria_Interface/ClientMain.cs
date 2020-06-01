@@ -98,7 +98,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			customDataGridView(cmd, dataGridView1, new[] {"ID"});
+			customDataGridView(cmd, dataGridView1, null);
 
 			Program.cn.Close();
 		}
@@ -330,7 +330,8 @@ namespace Pizaria
 				pictureBox2.Image = null;
 
 				cmd.Connection = Program.cn;
-				customDataGridView(cmd, dataGridView3, null);
+
+				customDataGridView(cmd, dataGridView3, new[] { "ID", "pic" });
 
 				cmd = new SqlCommand
 				{
@@ -345,7 +346,7 @@ namespace Pizaria
 				cmd.Parameters["@item_type"].Value = "Menu";
 
 				cmd.Connection = Program.cn;
-				customDataGridView(cmd, dataGridView2, null);
+				customDataGridView(cmd, dataGridView2, new[] { "Id" });
 
 				Program.cn.Close();
 			}
