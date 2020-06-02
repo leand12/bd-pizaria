@@ -49,12 +49,12 @@ as
                 set @itemType=Pizaria.findItemType(@item_ID)
                 if (@itemType='Menu')
                 begin
-                    IF EXISTS (select top 1 men_ID from Pizaria.MenuProduto join Pizaria.Piza on pro_ID=Piza.ID
-                    join Pizaria.Bebida on Bebida.ID=pro_ID
-                    join Pizaria.PizaIngrediente on piz_ID=Piza.ID
-                    join Pizaria.Ingrediente on ing_ID=Ingrediente.ID 
-                    where Ingrediente.quantidade_disponivel - PizaIngrediente.quantidade*MenuProduto.quantidade*@quantidade < 0 
-                    and Bebida.quantidade_disponivel - MenuProduto.quantidade < 0
+                    IF EXISTS (select top 1 men_ID from Pizaria.MenuProduto left outer join Pizaria.Piza on pro_ID=Piza.ID
+					left outer join Pizaria.Bebida on Bebida.ID=pro_ID
+					left outer join Pizaria.PizaIngrediente on piz_ID=Piza.ID
+					left outer join Pizaria.Ingrediente on ing_ID=Ingrediente.ID
+					where Ingrediente.quantidade_disponivel - PizaIngrediente.quantidade*MenuProduto.quantidade < 0
+					or Bebida.quantidade_disponivel - MenuProduto.quantidade < 0
                     and men_ID=@item_ID 
                     )
                     begin

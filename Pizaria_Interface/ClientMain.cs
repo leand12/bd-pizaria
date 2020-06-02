@@ -15,17 +15,25 @@ namespace Pizaria
 {
 	public partial class ClientMain : Form
 	{
-		private double price;
 		private List<Item> shop_cart;
+		public double _shop_cart_price;
+	
+		public double shop_cart_price
+		{
+			get { return _shop_cart_price; }
+			set {
+				textBox9.Text = value.ToString();
+				_shop_cart_price = value;  }
+		}
 
 		public ClientMain()
 		{
 			this.shop_cart = new List<Item>();
 			InitializeComponent();
 			comboBox1.SelectedItem= "Card";
-		}
+			this.shop_cart_price=0.0;
+	}
 
-		public void BalancePrice(double price) { this.price += price; }
 
 		private void ClientMain_Load(object sender, EventArgs e)
 		{
@@ -211,8 +219,14 @@ namespace Pizaria
 			string response = "" + cmd.Parameters["@response"].Value;
 
 			if (response == "Success")
+			{
 				LoadOrders();
 				tabControl4.SelectedIndex = 1;
+			}
+			else
+			{
+				MessageBox.Show(response);
+			}
 
 			dataGridView6.DataSource = null;
 			textBox1.Clear();
@@ -230,22 +244,12 @@ namespace Pizaria
 		private void button6_Click(object sender, EventArgs e)
 		{
 			this.Enabled = false;
-			var addItem = new AddItem(this, shop_cart);
+			var addItem = new AddItem(this, this.shop_cart);
 			addItem.ShowDialog();
+			MessageBox.Show(this.shop_cart_price.ToString());
 		}
 
-		// Remove Item
-		private void button5_Click(object sender, EventArgs e)
-		{
-			if (dataGridView6.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
-				return;
-
-			int index = int.Parse(dataGridView6.SelectedRows[0].Index.ToString());
-			Item I = (Item)dataGridView6.Rows[index].DataBoundItem;
-
-			this.shop_cart.Remove(I);
-			LoadShopCart();
-        }
+		
 
 		private void textBox3and4_TextChanged(object sender, EventArgs e)
 		{
@@ -362,7 +366,7 @@ namespace Pizaria
 			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 		}
 
-		private void customDataGridView(List<Item> item_list, DataGridView dgv, string[] unshown_cols)
+		public void customDataGridView(List<Item> item_list, DataGridView dgv, string[] unshown_cols)
 		{
 			dgv.DataSource = item_list;
 			dgv.ReadOnly = true;
@@ -389,6 +393,16 @@ namespace Pizaria
 		private void button7_Click(object sender, EventArgs e)
 		{
 
+		}
+
+		public double checkBalance(List<Item> shop_cart)
+		{
+			double price = 0.0;
+			foreach (var item in this.shop_cart)
+			{
+				price += item.price;
+			}
+			return price;
 		}
 	}
 }

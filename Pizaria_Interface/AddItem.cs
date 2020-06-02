@@ -13,7 +13,6 @@ namespace Pizaria
 {
 	public partial class AddItem : Form
 	{
-		private double item_price = 0;
 		private ClientMain clientMain;
 		private List<Item> shop_cart;
 
@@ -30,6 +29,16 @@ namespace Pizaria
 			LoadDrinks();
 			LoadMenus();
 			LoadPizzas();
+			LoadShopCart();
+		}
+
+		public void LoadShopCart()
+		{
+			if (this.shop_cart.Count > 0)
+			{
+				dataGridView7.DataSource = null;
+				customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
+			}
 		}
 
 		private void LoadMenus()
@@ -110,12 +119,9 @@ namespace Pizaria
 		// Confirm Items
 		private void button1_Click(object sender, EventArgs e)
 		{
-			clientMain.BalancePrice(item_price);
 			clientMain.Enabled = true;
 			clientMain.LoadShopCart();
 			this.Close();
-
-
 		}
 		
 		// Cancel
@@ -195,14 +201,23 @@ namespace Pizaria
 				return;
 			}
 			Item item = (Item)listBox1.Items[curr_item];
-			item.toOrder = item.toOrder + 1;
-			if (!shop_cart.Contains(item))
+			Boolean item_in_cart = false;
+			clientMain.shop_cart_price += item.price;
+			foreach (var item_cart in this.shop_cart)
 			{
+				if (item.ID == item_cart.ID)
+				{
+					item_cart.toOrder += 1;
+					item_in_cart = true;
+				}
+			}
+			if (item_in_cart == false)
+			{
+				item.toOrder = item.toOrder + 1;
 				shop_cart.Add(item);
 			}
-			listBox7.Items.Add(item);
 
-			
+			LoadShopCart();
 		}
 
 		// Add Pizza to Shop Cart
@@ -214,15 +229,23 @@ namespace Pizaria
 				return;
 			}
 			Item item = (Item)listBox2.Items[curr_item];
-
-			item.toOrder = item.toOrder + 1;
-			if (!shop_cart.Contains(item))
+			clientMain.shop_cart_price += item.price;
+			Boolean item_in_cart = false;
+			foreach (var item_cart in this.shop_cart)
 			{
+				if (item.ID == item_cart.ID)
+				{
+					item_cart.toOrder += 1;
+					item_in_cart = true;
+				}
+			}
+			if (item_in_cart == false)
+			{
+				item.toOrder = item.toOrder + 1;
 				shop_cart.Add(item);
 			}
-			listBox7.Items.Add(item);
 
-			
+			LoadShopCart();
 		}
 
 		// Add Drink to Shop Cart
@@ -234,17 +257,25 @@ namespace Pizaria
 				return;
 			}
 			Item item = (Item)listBox3.Items[curr_item];
-			item.toOrder = item.toOrder+1;
-			if (!shop_cart.Contains(item))
+			clientMain.shop_cart_price += item.price;
+			Boolean item_in_cart = false;
+			foreach (var item_cart in this.shop_cart)
 			{
+				if (item.ID == item_cart.ID)
+				{
+					item_cart.toOrder += 1;
+					item_in_cart = true;
+				}
+			}
+			if (item_in_cart == false)
+			{
+				item.toOrder = item.toOrder + 1;
 				shop_cart.Add(item);
 			}
-			
-			listBox7.Items.Add(item);
 
-			
+			LoadShopCart();
 		}
-		
+
 		// Add Ingredients to Shop Cart
 		private void listBox4_DoubleClick(object sender, EventArgs e)
 		{
@@ -254,35 +285,65 @@ namespace Pizaria
 				return;
 			}
 			Item item = (Item)listBox4.Items[curr_item];
-			item.toOrder = item.toOrder + 1;
-			if (!shop_cart.Contains(item))
+			clientMain.shop_cart_price += item.price;
+			Boolean item_in_cart = false;
+			foreach (var item_cart in this.shop_cart)
 			{
+				if (item.ID == item_cart.ID)
+				{
+					item_cart.toOrder += 1;
+					item_in_cart = true;
+				}
+			}
+			if (item_in_cart == false)
+			{
+				item.toOrder = item.toOrder + 1;
 				shop_cart.Add(item);
 			}
-			listBox7.Items.Add(item);
+
+			LoadShopCart();
 		}
 
-		private void insClienteItem(Item item) {
-			if (!Program.verifySGBDConnection())
+		// Remove Item
+		private void button5_Click(object sender, EventArgs e)
+		{
+			if (dataGridView7.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
 
-			SqlCommand cmd = new SqlCommand
+			if (this.shop_cart.Count > 0)
 			{
-				CommandType = CommandType.StoredProcedure,
-				CommandText = "Pizaria.insClienteItem"
-			};
-			cmd.Parameters.Add(new SqlParameter("@cli_email", SqlDbType.NVarChar, 255));
-			cmd.Parameters.Add(new SqlParameter("@quantity", SqlDbType.Int));
-			cmd.Parameters.Add(new SqlParameter("@item_ID", SqlDbType.Int));
-			cmd.Parameters["@cli_email"].Value = Program.email;
-			cmd.Parameters["@quantity"].Value = item.quantity;
-			cmd.Parameters["@item_ID"].Value = item.ID;
+				int index = int.Parse(dataGridView7.SelectedRows[0].Index.ToString());
+				Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
+				clientMain.shop_cart_price = clientMain.shop_cart_price -( I.price * I.toOrder);
+				this.shop_cart.Remove(I);
+				I.toOrder = 0;
+				dataGridView7.DataSource = null;
+				customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
+			}
+		}
 
-			cmd.Connection = Program.cn;
-
-			cmd.ExecuteNonQuery();
-
-			Program.cn.Close();
+		public void customDataGridView(List<Item> item_list, DataGridView dgv, string[] unshown_cols)
+		{
+			dgv.DataSource = item_list;
+			dgv.ReadOnly = true;
+			dgv.AllowUserToResizeColumns = false;
+			dgv.MultiSelect = false;
+			dgv.AllowUserToResizeRows = false;
+			dgv.AllowUserToOrderColumns = true;
+			dgv.AllowUserToAddRows = false;
+			dgv.RowHeadersVisible = false;
+			if (unshown_cols != null)
+				foreach (string col in unshown_cols)
+				{
+					dgv.Columns[col].Visible = false;
+				}
+			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			dgv.Columns.GetLastColumn(
+				DataGridViewElementStates.Visible,
+				DataGridViewElementStates.None
+				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 		}
 	}
 }
