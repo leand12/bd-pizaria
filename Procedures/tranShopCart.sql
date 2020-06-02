@@ -12,6 +12,7 @@ create procedure Pizaria.TranShopCart
     @response	            varchar(50) output
 as
 	begin
+		set nocount on
 
 		IF (@lista='' or @lista = null)
 		begin
@@ -22,7 +23,7 @@ as
         if (Pizaria.isValidDiscount(@des_codigo, @cliente_email)=0)
             set @des_codigo = null
 
-        set nocount on
+        
         declare @estafeta_email	nvarchar(255) 
         set @estafeta_email = Pizaria.findBestestafeta()
         

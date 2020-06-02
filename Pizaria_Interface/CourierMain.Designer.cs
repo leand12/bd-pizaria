@@ -46,7 +46,7 @@
 			// 
 			this.button2.BackColor = System.Drawing.Color.Yellow;
 			this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
-			this.button2.Location = new System.Drawing.Point(1316, 55);
+			this.button2.Location = new System.Drawing.Point(1292, 55);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(111, 42);
 			this.button2.TabIndex = 22;
@@ -62,7 +62,7 @@
 			this.tabControl1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(1263, 693);
+			this.tabControl1.Size = new System.Drawing.Size(1240, 693);
 			this.tabControl1.TabIndex = 24;
 			// 
 			// tabPage1
@@ -75,7 +75,7 @@
 			this.tabPage1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.tabPage1.Size = new System.Drawing.Size(1255, 660);
+			this.tabPage1.Size = new System.Drawing.Size(1232, 660);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Orders To Deliver";
 			this.tabPage1.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@
 			this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
 			this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView2.Location = new System.Drawing.Point(912, 64);
+			this.dataGridView2.Location = new System.Drawing.Point(893, 64);
 			this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.dataGridView2.MultiSelect = false;
 			this.dataGridView2.Name = "dataGridView2";
@@ -108,7 +108,7 @@
 			this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.dataGridView1.Size = new System.Drawing.Size(867, 386);
 			this.dataGridView1.TabIndex = 26;
-			this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+			this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
 			// 
 			// button1
 			// 
@@ -135,7 +135,7 @@
 			this.tabPage2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.tabPage2.Size = new System.Drawing.Size(1315, 660);
+			this.tabPage2.Size = new System.Drawing.Size(1232, 660);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Job Details";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -144,7 +144,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1450, 749);
+			this.ClientSize = new System.Drawing.Size(1427, 749);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.button2);
 			this.Name = "CourierMain";

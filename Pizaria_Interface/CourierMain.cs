@@ -27,8 +27,7 @@ namespace Pizaria
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrdersToDel('" + Program.email + "')", Program.cn);
 
-			customDataGridView(cmd, dataGridView1);
-			dataGridView1.Columns["ID"].Visible = false;
+			customDataGridView(cmd, dataGridView1, new[] {"ID"});
 
 			Program.cn.Close();
 		}
@@ -61,25 +60,26 @@ namespace Pizaria
 		}
 
 		// show delivery details
-		private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+		private void dataGridView1_SelectionChanged(object sender, EventArgs e)
 		{
-			if (0 > e.RowIndex || e.RowIndex >= dataGridView1.Rows.Count)
+			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
 
-			string id = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+			int index = int.Parse(dataGridView1.SelectedRows[0].Index.ToString());
+
+			string id = dataGridView1.Rows[index].Cells["ID"].Value.ToString();
 
 			SqlCommand cmd = new SqlCommand("select * from Pizaria.showEncomenda ('" + id + "')", Program.cn);
 			
 			if (!Program.verifySGBDConnection())
 				return;
 
-			customDataGridView(cmd, dataGridView2);
-			dataGridView2.Columns["preco"].Visible = false;
+			customDataGridView(cmd, dataGridView2, new[] {"preco"});
 			
 			Program.cn.Close();
 		}
 
-		private void customDataGridView(SqlCommand cmd, DataGridView dgv)
+		private void customDataGridView(SqlCommand cmd, DataGridView dgv, string[] unshown_cols)
 		{
 			DataTable dt = new DataTable();
 			SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -88,12 +88,24 @@ namespace Pizaria
 			dgv.ReadOnly = true;
 			dgv.AllowUserToResizeColumns = false;
 			dgv.MultiSelect = false;
+			dgv.AllowUserToResizeRows = false;
 			dgv.AllowUserToOrderColumns = true;
+			dgv.AllowUserToAddRows = false;
 			dgv.RowHeadersVisible = false;
+			if (unshown_cols != null)
+				foreach (string col in unshown_cols)
+				{
+					dgv.Columns[col].Visible = false;
+				}
 			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			dgv.Columns[dgv.Columns.Count-1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			dgv.Columns.GetLastColumn(
+				DataGridViewElementStates.Visible,
+				DataGridViewElementStates.None
+				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 		}
+
+
 	}
 }

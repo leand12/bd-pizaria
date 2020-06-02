@@ -36,12 +36,8 @@ namespace Pizaria
 
 		public void LoadShopCart()
 		{
-			listBox6.Items.Clear();
-
-			foreach (Item item in shop_cart)
-			{
-				listBox6.Items.Add(item);
-			}
+			dataGridView6.DataSource = null;
+			customDataGridView(shop_cart, dataGridView6, new[] { "ID" });
 		}
 
 		private void LoadMenus()
@@ -86,12 +82,13 @@ namespace Pizaria
 		}
 
 		// List Menu
-		private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+		private void dataGridView2_SelectionChanged(object sender, EventArgs e)
 		{
-			if (0 > e.RowIndex || e.RowIndex >= dataGridView2.Rows.Count)
+			if (dataGridView2.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
 
-			string id = dataGridView2.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+			int index = int.Parse(dataGridView2.SelectedRows[0].Index.ToString());
+			string id = dataGridView2.Rows[index].Cells["ID"].Value.ToString();
 
 			SqlCommand cmd = new SqlCommand("select * from Pizaria.showMenu ('" + id + "')", Program.cn);
 
@@ -104,12 +101,14 @@ namespace Pizaria
 		}
 
 		// List Pizzas
-		private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
+		private void dataGridView3_SelectionChanged(object sender, EventArgs e)
 		{
-			if (0 > e.RowIndex || e.RowIndex >= dataGridView3.Rows.Count)
+
+			if (dataGridView3.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
 
-			string id = dataGridView3.Rows[e.RowIndex].Cells["ID"].Value.ToString();
+			int index = int.Parse(dataGridView3.SelectedRows[0].Index.ToString());
+			string id = dataGridView3.Rows[index].Cells["ID"].Value.ToString();
 
 			SqlCommand cmd = new SqlCommand("select * from Pizaria.showPiza ('" + id + "')", Program.cn);
 
@@ -119,7 +118,7 @@ namespace Pizaria
 			customDataGridView(cmd, dataGridView7, null);
 			//dataGridView7.Columns[""].Visible = false;
 
-			byte[] image = Convert.FromBase64String(dataGridView3.Rows[e.RowIndex].Cells["pic"].Value.ToString());
+			byte[] image = Convert.FromBase64String(dataGridView3.Rows[index].Cells["pic"].Value.ToString());
 			Image ret = null;
 			using (MemoryStream ms = new MemoryStream(image))
 			{
@@ -132,54 +131,7 @@ namespace Pizaria
 			Program.cn.Close();
 		}
 
-		/*
-		private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			int curr_pizza = listBox3.SelectedIndex;
-
-			if (listBox3.Items.Count == 0 | curr_pizza < 0)
-			{
-				return;
-			}
-
-
-			Item item = (Item)listBox3.Items[curr_pizza];
-
-			SqlCommand cmd;
-			cmd = new SqlCommand("select * from Pizaria.showPiza ('" + item.ID + "')", Program.cn);
-			if (!Program.verifySGBDConnection())
-				return;
-
-			listBox7.Items.Clear();
-			using (SqlDataReader reader = cmd.ExecuteReader())
-			{
-
-				while (reader.Read())
-				{
-					string name = reader["nome"].ToString();
-					string price = reader["preco"].ToString();
-					string quantity = reader["quantidade"].ToString();
-
-
-					string photo = reader["pic"].ToString();
-					byte[] image = Convert.FromBase64String(photo);
-					Image ret = null;
-					using (MemoryStream ms = new MemoryStream(image))
-					{
-						ret = Image.FromStream(ms);
-					}
-					pictureBox2.Image = ret;
-					pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-	
-
-					listBox7.Items.Add(name + " " + price + "€ " + quantity);
-				}
-			}
-
-
-			Program.cn.Close();
-		}
-*/
+		
 
 		// History
 		private void button1_Click(object sender, EventArgs e)
@@ -199,7 +151,8 @@ namespace Pizaria
 		// Clear All
 		private void button3_Click(object sender, EventArgs e)
 		{
-            listBox6.Items.Clear();
+			dataGridView6.DataSource = null;
+
 			this.shop_cart.Clear();
 		}
 
@@ -261,7 +214,7 @@ namespace Pizaria
 				LoadOrders();
 				tabControl4.SelectedIndex = 1;
 
-			listBox6.Items.Clear();
+			dataGridView6.DataSource = null;
 			textBox1.Clear();
 			textBox2.Clear();
 			shop_cart.Clear();
@@ -284,11 +237,14 @@ namespace Pizaria
 		// Remove Item
 		private void button5_Click(object sender, EventArgs e)
 		{
-            if (listBox6.SelectedIndex > 0 || listBox6.SelectedItem != null)
-			{
-				this.shop_cart.Remove((Item) listBox6.SelectedItem);
-                LoadShopCart();
-			}
+			if (dataGridView6.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+
+			int index = int.Parse(dataGridView6.SelectedRows[0].Index.ToString());
+			Item I = (Item)dataGridView6.Rows[index].DataBoundItem;
+
+			this.shop_cart.Remove(I);
+			LoadShopCart();
         }
 
 		private void textBox3and4_TextChanged(object sender, EventArgs e)
@@ -406,6 +362,33 @@ namespace Pizaria
 			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 		}
 
-		
+		private void customDataGridView(List<Item> item_list, DataGridView dgv, string[] unshown_cols)
+		{
+			dgv.DataSource = item_list;
+			dgv.ReadOnly = true;
+			dgv.AllowUserToResizeColumns = false;
+			dgv.MultiSelect = false;
+			dgv.AllowUserToResizeRows = false;
+			dgv.AllowUserToOrderColumns = true;
+			dgv.AllowUserToAddRows = false;
+			dgv.RowHeadersVisible = false;
+			if (unshown_cols != null)
+				foreach (string col in unshown_cols)
+				{
+					dgv.Columns[col].Visible = false;
+				}
+			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+			dgv.Columns.GetLastColumn(
+				DataGridViewElementStates.Visible,
+				DataGridViewElementStates.None
+				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+		}
+
+		private void button7_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
