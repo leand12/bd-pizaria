@@ -152,7 +152,6 @@ namespace Pizaria
 				return;
 			int index = int.Parse(dataGridView4.SelectedRows[0].Index.ToString());
 			string id = dataGridView4.Rows[index].Cells["ID"].Value.ToString();
-			MessageBox.Show(id);
 
 			SqlCommand cmd = new SqlCommand("select * from Pizaria.showEncEntregue ('" + id + "')", Program.cn);
 

@@ -15,6 +15,7 @@ as
             if (exists(select top 1 email from Pizaria.Estafeta join Pizaria.Encomenda on estafeta_email=email where email=@email))
             begin
                 update Pizaria.Estafeta set res_contato = null where email=@email
+				-- cursor para colocar o melhor estafeta em cada uma das encomendas
                 update Pizaria.Encomenda set estafeta_email = (select Pizaria.FindBestEstafeta()) where estafeta_email=@email
                 return;
             end
