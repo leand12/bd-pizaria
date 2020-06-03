@@ -20,8 +20,8 @@ as
 		insert into Pizaria.EncomendaEntregue (ID, cli_email, est_email, endereco_fisico, hora, metodo_pagamento)
 			values (@ID, @cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento)
 
-		insert into Pizaria.EncEntregueItem (enc_ID , item_ID, quantidade)
-			(select * from Pizaria.EncEntregueItem where enc_ID=@ID)
+		insert into Pizaria.EncEntregueItem (enc_ID, item_ID, quantidade)
+			(select * from Pizaria.EncomendaItem where enc_ID=@ID)
 		
 		delete from Pizaria.EncomendaItem where enc_ID=@ID
 		
