@@ -40,6 +40,7 @@ namespace Pizaria
 			LoadMenus();
 			LoadPizzas();
 			LoadOrders();
+			LoadDiscounts();
 		}
 
 		public void LoadShopCart()
@@ -73,6 +74,19 @@ namespace Pizaria
 				Encomenda I = new Encomenda(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), int.Parse(reader["contato"].ToString()), reader["estafeta_email"].ToString(), reader["endereco_fisico"].ToString(), reader["hora"].ToString());
 				listBox4.Items.Add(I);
 			}
+
+			Program.cn.Close();
+		}
+
+		private void LoadDiscounts()
+		{
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showAllDiscounts('" + Program.email + "')", Program.cn);
+
+			dataGridView4.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			customDataGridView(cmd, dataGridView4, null);
 
 			Program.cn.Close();
 		}
@@ -160,7 +174,9 @@ namespace Pizaria
 		private void button3_Click(object sender, EventArgs e)
 		{
 			dataGridView6.DataSource = null;
-
+			this.shop_cart_price = 0.0;
+			textBox1.Clear();
+			textBox2.Clear();
 			this.shop_cart.Clear();
 		}
 
@@ -198,7 +214,7 @@ namespace Pizaria
 			{
 				cmd.Parameters["@des_codigo"].Value = n;
 			}
-			else if (textBox2.Text== "") {								
+			else if (textBox2.Text== "") {
 				cmd.Parameters["@des_codigo"].Value = DBNull.Value;
 			}
 			else
@@ -233,6 +249,7 @@ namespace Pizaria
 			textBox2.Clear();
 			shop_cart.Clear();
 			LoadShopCart();
+			this.shop_cart_price = 0.0;
 			listBox8.Items.Clear();
 			textBox5.Clear();
 			textBox6.Clear();
@@ -246,7 +263,6 @@ namespace Pizaria
 			this.Enabled = false;
 			var addItem = new AddItem(this, this.shop_cart);
 			addItem.ShowDialog();
-			MessageBox.Show(this.shop_cart_price.ToString());
 		}
 
 		
@@ -392,7 +408,14 @@ namespace Pizaria
 
 		private void button7_Click(object sender, EventArgs e)
 		{
+			if (dataGridView4.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
 
+			int index = int.Parse(dataGridView4.SelectedRows[0].Index.ToString());
+
+			string id = dataGridView4.Rows[index].Cells["codigo"].Value.ToString();
+
+			textBox2.Text = id;
 		}
 
 		public double checkBalance(List<Item> shop_cart)
@@ -400,7 +423,7 @@ namespace Pizaria
 			double price = 0.0;
 			foreach (var item in this.shop_cart)
 			{
-				price += item.price;
+				price += item.price*item.toOrder;
 			}
 			return price;
 		}

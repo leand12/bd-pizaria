@@ -54,7 +54,7 @@ namespace Pizaria
                     var admin = new AdminMain();
                     admin.ShowDialog();
                     this.Close();
-                    
+                    return;
                 }
                
                 comand = new SqlCommand("select Pizaria.isEstafeta ('" + email + "')", Program.cn);
@@ -65,12 +65,14 @@ namespace Pizaria
                     var courier = new CourierMain();
                     courier.ShowDialog();
                     this.Close();
+                    return;
                 }
 
                 this.Hide();
                 var clientMain = new ClientMain();
                 clientMain.ShowDialog();
                 this.Close();
+                return;
             }
             else if ("" + cmd.Parameters["@response"].Value == "Incorrect password")
             {

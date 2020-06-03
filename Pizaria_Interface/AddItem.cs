@@ -15,12 +15,24 @@ namespace Pizaria
 	{
 		private ClientMain clientMain;
 		private List<Item> shop_cart;
+		private double _shop_cart_price;
+
+		private double shop_cart_price
+		{
+			get { return _shop_cart_price; }
+			set
+			{
+				_shop_cart_price = value;
+				textBox1.Text = value.ToString();
+			}
+		}
 
 		public AddItem(ClientMain clientMain, List<Item> shop_cart)
 		{
 			this.clientMain = clientMain;
 			this.shop_cart = shop_cart;
 			InitializeComponent();
+			this.shop_cart_price = clientMain.shop_cart_price;
 		}
 
 		private void AddItem_Load(object sender, EventArgs e)
@@ -123,14 +135,7 @@ namespace Pizaria
 			clientMain.LoadShopCart();
 			this.Close();
 		}
-		
-		// Cancel
-		private void button2_Click(object sender, EventArgs e)
-		{
-			clientMain.Enabled = true;
-			this.Close();
-		}
-		
+
 		private void AddItem_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			clientMain.Enabled = true;
@@ -203,6 +208,7 @@ namespace Pizaria
 			Item item = (Item)listBox1.Items[curr_item];
 			Boolean item_in_cart = false;
 			clientMain.shop_cart_price += item.price;
+			shop_cart_price = clientMain.shop_cart_price;
 			foreach (var item_cart in this.shop_cart)
 			{
 				if (item.ID == item_cart.ID)
@@ -230,6 +236,7 @@ namespace Pizaria
 			}
 			Item item = (Item)listBox2.Items[curr_item];
 			clientMain.shop_cart_price += item.price;
+			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
@@ -258,6 +265,7 @@ namespace Pizaria
 			}
 			Item item = (Item)listBox3.Items[curr_item];
 			clientMain.shop_cart_price += item.price;
+			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
@@ -286,6 +294,7 @@ namespace Pizaria
 			}
 			Item item = (Item)listBox4.Items[curr_item];
 			clientMain.shop_cart_price += item.price;
+			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
@@ -315,6 +324,7 @@ namespace Pizaria
 				int index = int.Parse(dataGridView7.SelectedRows[0].Index.ToString());
 				Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
 				clientMain.shop_cart_price = clientMain.shop_cart_price -( I.price * I.toOrder);
+				shop_cart_price = clientMain.shop_cart_price;
 				this.shop_cart.Remove(I);
 				I.toOrder = 0;
 				dataGridView7.DataSource = null;
@@ -344,6 +354,30 @@ namespace Pizaria
 				DataGridViewElementStates.None
 				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
+		}
+
+		private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+		{
+			if (dataGridView7.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+
+			int index = int.Parse(dataGridView7.SelectedRows[0].Index.ToString());
+			Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
+
+			I.toOrder = Convert.ToInt32(numericUpDown1.Value);
+
+			clientMain.shop_cart_price = clientMain.checkBalance(this.shop_cart);
+			shop_cart_price = clientMain.shop_cart_price;
+		}
+
+		private void dataGridView7_CellClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (dataGridView7.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+
+			int index = int.Parse(dataGridView7.SelectedRows[0].Index.ToString());
+			Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
+			numericUpDown1.Value = I.toOrder;
 		}
 	}
 }
