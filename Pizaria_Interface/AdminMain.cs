@@ -31,7 +31,7 @@ namespace Pizaria
 
 			cmd.Connection = Program.cn;
 
-			customDataGridView(cmd, dataGridView2, null);
+			Interface.customDataGridView(cmd, dataGridView2, null);
 			dataGridView2.Columns[0].HeaderCell.Value = "Code";
 			dataGridView2.Columns[1].HeaderCell.Value = "Percentage";
 			dataGridView2.Columns[2].HeaderCell.Value = "Start Date";
@@ -50,7 +50,7 @@ namespace Pizaria
 
 			cmd.Connection = Program.cn;
 
-			customDataGridView(cmd, dataGridView4, new[] { "ID" });
+			Interface.customDataGridView(cmd, dataGridView4, new[] { "ID" });
 			dataGridView4.Columns[0].HeaderCell.Value = "Name";
 			dataGridView4.Columns[1].HeaderCell.Value = "Price";
 			dataGridView4.Columns[3].HeaderCell.Value = "Number of Sales";
@@ -63,7 +63,7 @@ namespace Pizaria
 
 			cmd.Connection = Program.cn;
 
-			customDataGridView(cmd, dataGridView5, new[] { "ID" });
+			Interface.customDataGridView(cmd, dataGridView5, new[] { "ID" });
 
 			dataGridView5.Columns[0].HeaderCell.Value = "Name";
 			dataGridView5.Columns[1].HeaderCell.Value = "Price";
@@ -78,33 +78,6 @@ namespace Pizaria
 			var login = new Login();
 			login.ShowDialog();
 			this.Close();
-		}
-
-		private void customDataGridView(SqlCommand cmd, DataGridView dgv, string[] unshown_cols)
-		{
-			DataTable dt = new DataTable();
-			SqlDataAdapter da = new SqlDataAdapter(cmd);
-			da.Fill(dt);
-			dgv.DataSource = dt;
-			dgv.ReadOnly = true;
-			dgv.AllowUserToResizeColumns = false;
-			dgv.MultiSelect = false;
-			dgv.AllowUserToResizeRows = false;
-			dgv.AllowUserToOrderColumns = true;
-			dgv.AllowUserToAddRows = false;
-			dgv.RowHeadersVisible = false;
-			if (unshown_cols != null)
-				foreach (string col in unshown_cols)
-				{
-					dgv.Columns[col].Visible = false;
-				}
-			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			dgv.Columns.GetLastColumn(
-				DataGridViewElementStates.Visible,
-				DataGridViewElementStates.None
-				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 		}
 
 		private void button6_Click(object sender, EventArgs e)
@@ -161,13 +134,19 @@ namespace Pizaria
 
 			int index = int.Parse(dataGridView2.SelectedRows[0].Index.ToString());
 
-			string id = dataGridView4.Rows[index].Cells["codigo"].Value.ToString();
+			string id = dataGridView2.Rows[index].Cells["codigo"].Value.ToString();
 
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("delete from PIZARIA.Desconto where ID=" + id, Program.cn);
-			cmd.ExecuteNonQuery();
+			SqlCommand cmd = new SqlCommand("delete from PIZARIA.Desconto where codigo=" + id, Program.cn);
+			try {
+				Console.WriteLine(cmd.ExecuteNonQuery());
+			}
+			catch (System.Data.SqlClient.SqlException)
+			{
+				MessageBox.Show("Discount is in Use in an Order.");
+			}
 
 			LoadDiscounts();
 

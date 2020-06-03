@@ -9,8 +9,8 @@ using System.Windows.Forms;
 
 namespace Pizaria
 {
-	class Interface
-	{
+    class Interface
+    {
 		public static void customDataGridView(SqlCommand cmd, DataGridView dgv, string[] unshown_cols)
 		{
 			DataTable dt = new DataTable();
@@ -61,6 +61,5 @@ namespace Pizaria
 				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 		}
-
 	}
 }

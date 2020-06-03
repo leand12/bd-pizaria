@@ -16,7 +16,6 @@ as
 		declare @des_codigo			as int;
 
 		select @ID = ID, @cliente_email = cliente_email, @estafeta_email = estafeta_email, @endereco_fisico = endereco_fisico, @hora = hora, @metodo_pagamento = metodo_pagamento from deleted;
-		
 
 		insert into Pizaria.EncomendaEntregue (ID, cli_email, est_email, endereco_fisico, hora, metodo_pagamento)
 			values (@ID, @cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento)

@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\Pizaria_Interface",
     "\\Procedures",
     "\\UDF"
   ],
+  "SelectedNode": "\\Pizaria_Interface\\ClientMain.cs",
   "PreviewInSolutionExplorer": false
 }
