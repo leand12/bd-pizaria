@@ -10,7 +10,7 @@ namespace Pizaria
 	{
 		private int _ID;
 		private string _name;
-		private double _price;
+		private decimal _price;
 		private int _quantity;
 		private int _toOrder;
 
@@ -31,7 +31,7 @@ namespace Pizaria
 			set { _toOrder = value; }
 		}
 
-		public double price
+		public decimal price
 		{
 			get { return _price; }
 			set { _price = value; }
@@ -43,7 +43,7 @@ namespace Pizaria
 			set { _quantity = value; }
 		}
 
-		public Item(int ID, string name, double price) {
+		public Item(int ID, string name, decimal price) {
 			this.ID = ID;
 			this.name = name;
 			this.price = price;

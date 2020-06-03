@@ -185,7 +185,7 @@
             this.dataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView4.Size = new System.Drawing.Size(578, 251);
             this.dataGridView4.TabIndex = 29;
-            this.dataGridView4.SelectionChanged += new System.EventHandler(this.dataGridView3_SelectionChanged);
+            this.dataGridView4.SelectionChanged += new System.EventHandler(this.dataGridView4_SelectionChanged);
             // 
             // label1
             // 

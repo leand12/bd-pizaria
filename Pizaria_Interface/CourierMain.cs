@@ -61,6 +61,8 @@ namespace Pizaria
 			LoadMyOrders();
 
 			Program.cn.Close();
+
+			LoadHistory();
 		}
 
 
@@ -93,16 +95,16 @@ namespace Pizaria
 			Program.cn.Close();
 		}
 
-		private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+		private void dataGridView4_SelectionChanged(object sender, EventArgs e)
 		{
-			if (dataGridView3.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+			if (dataGridView4.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
 
-			int index = int.Parse(dataGridView3.SelectedRows[0].Index.ToString());
+			int index = int.Parse(dataGridView4.SelectedRows[0].Index.ToString());
 
-			string id = dataGridView3.Rows[index].Cells["ID"].Value.ToString();
+			string id = dataGridView4.Rows[index].Cells["ID"].Value.ToString();
 
-			SqlCommand cmd = new SqlCommand("select * from Pizaria.showEncomenda ('" + id + "')", Program.cn);
+			SqlCommand cmd = new SqlCommand("select * from Pizaria.showEncEntregue ('" + id + "')", Program.cn);
 
 			if (!Program.verifySGBDConnection())
 				return;

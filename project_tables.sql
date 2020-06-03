@@ -1,6 +1,7 @@
 --create schema Pizaria
 drop table Pizaria.PizaIngrediente;
 drop table Pizaria.EncomendaItem;
+drop table Pizaria.EncEntregueItem;
 drop table Pizaria.MenuProduto;
 drop table Pizaria.Menu;
 drop table Pizaria.Bebida;
@@ -92,9 +93,11 @@ create table Pizaria.EncomendaEntregue (
 	endereco_fisico		varchar(50)		not null,
 	hora				datetime		not null,
 	metodo_pagamento	varchar(30)		not null,
+	des_codigo			int,
 	primary key (ID),
 	foreign key (cli_email) references Pizaria.Cliente(email),
 	foreign key (est_email) references Pizaria.Estafeta(email),
+	foreign key(des_codigo) references Pizaria.Desconto(codigo),
 );
 create table Pizaria.Item(
 	ID			int,
@@ -108,6 +111,14 @@ create table Pizaria.EncomendaItem(
 	quantidade		int		not null,
 	primary key(enc_ID,item_ID),
 	foreign key(enc_ID) references Pizaria.Encomenda(ID),
+	foreign key(item_ID) references Pizaria.Item(ID)
+);
+create table Pizaria.EncEntregueItem(
+	enc_ID			int		not null,
+	item_ID			int		not null,
+	quantidade		int		not null,
+	primary key(enc_ID,item_ID),
+	foreign key(enc_ID) references Pizaria.EncomendaEntregue(ID),
 	foreign key(item_ID) references Pizaria.Item(ID)
 );
 create table Pizaria.Produto(

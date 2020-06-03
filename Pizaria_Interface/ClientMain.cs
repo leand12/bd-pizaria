@@ -16,9 +16,9 @@ namespace Pizaria
 	public partial class ClientMain : Form
 	{
 		private List<Item> shop_cart;
-		public double _shop_cart_price;
+		public decimal _shop_cart_price;
 	
-		public double shop_cart_price
+		public decimal shop_cart_price
 		{
 			get { return _shop_cart_price; }
 			set {
@@ -31,7 +31,7 @@ namespace Pizaria
 			this.shop_cart = new List<Item>();
 			InitializeComponent();
 			comboBox1.SelectedItem= "Card";
-			this.shop_cart_price=0.0;
+			this.shop_cart_price= 0.00m;
 	}
 
 
@@ -174,7 +174,7 @@ namespace Pizaria
 		private void button3_Click(object sender, EventArgs e)
 		{
 			dataGridView6.DataSource = null;
-			this.shop_cart_price = 0.0;
+			this.shop_cart_price = 0.00m;
 			textBox1.Clear();
 			textBox2.Clear();
 			this.shop_cart.Clear();
@@ -249,7 +249,7 @@ namespace Pizaria
 			textBox2.Clear();
 			shop_cart.Clear();
 			LoadShopCart();
-			this.shop_cart_price = 0.0;
+			this.shop_cart_price = 0.00m;
 			listBox8.Items.Clear();
 			textBox5.Clear();
 			textBox6.Clear();
@@ -418,9 +418,9 @@ namespace Pizaria
 			textBox2.Text = id;
 		}
 
-		public double checkBalance(List<Item> shop_cart)
+		public decimal checkBalance(List<Item> shop_cart)
 		{
-			double price = 0.0;
+			decimal price = 0.00m;
 			foreach (var item in this.shop_cart)
 			{
 				price += item.price*item.toOrder;

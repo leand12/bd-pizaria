@@ -15,9 +15,9 @@ namespace Pizaria
 	{
 		private ClientMain clientMain;
 		private List<Item> shop_cart;
-		private double _shop_cart_price;
+		private decimal _shop_cart_price;
 
-		private double shop_cart_price
+		private decimal shop_cart_price
 		{
 			get { return _shop_cart_price; }
 			set
@@ -65,7 +65,7 @@ namespace Pizaria
 
 			while (reader.Read())
 			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
+				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), decimal.Parse(reader["preco"].ToString()));
 				listBox1.Items.Add(I);
 			}
 
@@ -83,7 +83,7 @@ namespace Pizaria
 
 			while (reader.Read())
 			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
+				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), decimal.Parse(reader["preco"].ToString())); ;
 				listBox2.Items.Add(I);
 			}
 
@@ -101,7 +101,7 @@ namespace Pizaria
 
 			while (reader.Read())
 			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
+				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), decimal.Parse(reader["preco"].ToString()));
 				listBox3.Items.Add(I);
 			}
 
@@ -119,7 +119,7 @@ namespace Pizaria
 
 			while (reader.Read())
 			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), double.Parse(reader["preco"].ToString()));
+				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), decimal.Parse(reader["preco"].ToString()));
 				listBox4.Items.Add(I);
 			}
 

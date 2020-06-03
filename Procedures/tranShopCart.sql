@@ -20,10 +20,6 @@ as
 			return
 		end
 
-        if (Pizaria.isValidDiscount(@des_codigo, @cliente_email)=0)
-            set @des_codigo = null
-
-        
         declare @estafeta_email	nvarchar(255) 
         set @estafeta_email = Pizaria.findBestestafeta()
         
