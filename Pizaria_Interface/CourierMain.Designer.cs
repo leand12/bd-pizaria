@@ -47,14 +47,16 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.textBox2 = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
-			this.textBox3 = new System.Windows.Forms.TextBox();
-			this.label6 = new System.Windows.Forms.Label();
 			this.textBox4 = new System.Windows.Forms.TextBox();
 			this.label7 = new System.Windows.Forms.Label();
 			this.textBox5 = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
 			this.textBox6 = new System.Windows.Forms.TextBox();
 			this.label9 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.textBox7 = new System.Windows.Forms.TextBox();
+			this.label10 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -226,17 +228,17 @@
 			// 
 			this.dataGridView5.BackgroundColor = System.Drawing.SystemColors.Window;
 			this.dataGridView5.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dataGridView5.Location = new System.Drawing.Point(525, 60);
+			this.dataGridView5.Location = new System.Drawing.Point(513, 60);
 			this.dataGridView5.Name = "dataGridView5";
 			this.dataGridView5.RowHeadersWidth = 62;
 			this.dataGridView5.RowTemplate.Height = 28;
-			this.dataGridView5.Size = new System.Drawing.Size(388, 356);
+			this.dataGridView5.Size = new System.Drawing.Size(669, 416);
 			this.dataGridView5.TabIndex = 0;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(521, 37);
+			this.label2.Location = new System.Drawing.Point(509, 37);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(163, 20);
 			this.label2.TabIndex = 1;
@@ -261,6 +263,8 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.textBox7);
+			this.groupBox1.Controls.Add(this.label10);
 			this.groupBox1.Controls.Add(this.textBox6);
 			this.groupBox1.Controls.Add(this.label9);
 			this.groupBox1.Controls.Add(this.textBox5);
@@ -275,7 +279,7 @@
 			this.groupBox1.Controls.Add(this.label3);
 			this.groupBox1.Location = new System.Drawing.Point(31, 32);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(439, 456);
+			this.groupBox1.Size = new System.Drawing.Size(439, 465);
 			this.groupBox1.TabIndex = 4;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "My Restaurant Details";
@@ -296,23 +300,6 @@
 			this.label4.Size = new System.Drawing.Size(68, 20);
 			this.label4.TabIndex = 5;
 			this.label4.Text = "Address";
-			// 
-			// textBox3
-			// 
-			this.textBox3.Location = new System.Drawing.Point(43, 228);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.ReadOnly = true;
-			this.textBox3.Size = new System.Drawing.Size(147, 26);
-			this.textBox3.TabIndex = 6;
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(39, 205);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(67, 20);
-			this.label6.TabIndex = 7;
-			this.label6.Text = "Lotacao";
 			// 
 			// textBox4
 			// 
@@ -365,6 +352,40 @@
 			this.label9.TabIndex = 13;
 			this.label9.Text = "Owner\'s Email";
 			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(39, 205);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(66, 20);
+			this.label6.TabIndex = 7;
+			this.label6.Text = "Contato";
+			// 
+			// textBox3
+			// 
+			this.textBox3.Location = new System.Drawing.Point(43, 228);
+			this.textBox3.Name = "textBox3";
+			this.textBox3.ReadOnly = true;
+			this.textBox3.Size = new System.Drawing.Size(147, 26);
+			this.textBox3.TabIndex = 6;
+			// 
+			// textBox7
+			// 
+			this.textBox7.Location = new System.Drawing.Point(234, 228);
+			this.textBox7.Name = "textBox7";
+			this.textBox7.ReadOnly = true;
+			this.textBox7.Size = new System.Drawing.Size(147, 26);
+			this.textBox7.TabIndex = 14;
+			// 
+			// label10
+			// 
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(230, 205);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(67, 20);
+			this.label10.TabIndex = 15;
+			this.label10.Text = "Lotacao";
+			// 
 			// CourierMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -414,11 +435,13 @@
 		private System.Windows.Forms.Label label8;
 		private System.Windows.Forms.TextBox textBox4;
 		private System.Windows.Forms.Label label7;
-		private System.Windows.Forms.TextBox textBox3;
-		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.TextBox textBox2;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.TextBox textBox1;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.TextBox textBox7;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.Label label6;
 	}
 }

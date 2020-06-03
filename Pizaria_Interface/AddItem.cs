@@ -50,6 +50,9 @@ namespace Pizaria
 			{
 				dataGridView7.DataSource = null;
 				Interface.customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
+				dataGridView7.Columns["name"].HeaderCell.Value = "Name";
+				dataGridView7.Columns["toOrder"].HeaderCell.Value = "Quantity";
+				dataGridView7.Columns["price"].HeaderCell.Value = "Price";
 			}
 		}
 
@@ -61,7 +64,9 @@ namespace Pizaria
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView1, new[] {"Id"});
-			
+			dataGridView1.Columns["nome"].HeaderCell.Value = "Name";
+			dataGridView1.Columns["preco"].HeaderCell.Value = "Price";
+
 			Program.cn.Close();
 		}
 
@@ -73,6 +78,8 @@ namespace Pizaria
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.PizaView", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView2, new[] { "ID", "pic" });
+			dataGridView2.Columns["nome"].HeaderCell.Value = "Name";
+			dataGridView2.Columns["preco"].HeaderCell.Value = "Price";
 
 			Program.cn.Close();
 		}
@@ -84,7 +91,9 @@ namespace Pizaria
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.BebidaView", Program.cn);
 
-			Interface.customDataGridView(cmd, dataGridView3, new[] { "ID" });
+			Interface.customDataGridView(cmd, dataGridView3, new[] { "ID", "quantidade_disponivel" });
+			dataGridView3.Columns["nome"].HeaderCell.Value = "Name";
+			dataGridView3.Columns["preco"].HeaderCell.Value = "Price";
 
 			Program.cn.Close();
 		}
@@ -97,6 +106,8 @@ namespace Pizaria
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.IngredienteView", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView4, new[] { "ID", "quantidade_disponivel" });
+			dataGridView4.Columns["nome"].HeaderCell.Value = "Name";
+			dataGridView4.Columns["preco"].HeaderCell.Value = "Price";
 
 			Program.cn.Close();
 		}
@@ -143,6 +154,9 @@ namespace Pizaria
 			dataGridView5.DataSource = null;
 
 			Interface.customDataGridView(cmd, dataGridView5, null);
+			dataGridView5.Columns["nome"].HeaderCell.Value = "Name";
+			dataGridView5.Columns["preco"].HeaderCell.Value = "Price";
+			dataGridView5.Columns["quantidade"].HeaderCell.Value = "Quantity";
 
 			Program.cn.Close();
 		}
@@ -150,11 +164,11 @@ namespace Pizaria
 		// List Pizzas (list 2)
 		private void dataGridView2_SelectionChanged(object sender, EventArgs e)
 		{
-			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+			if (dataGridView2.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
 
-			int index = int.Parse(dataGridView1.SelectedRows[0].Index.ToString());
-			string id = dataGridView1.Rows[index].Cells["Id"].Value.ToString();
+			int index = int.Parse(dataGridView2.SelectedRows[0].Index.ToString());
+			string id = dataGridView2.Rows[index].Cells["Id"].Value.ToString();
 
 			SqlCommand cmd;
 			cmd = new SqlCommand("select * from Pizaria.showPiza ('" + id + "')", Program.cn);
@@ -165,6 +179,9 @@ namespace Pizaria
 			dataGridView6.DataSource = null;
 
 			Interface.customDataGridView(cmd, dataGridView6, null);
+			dataGridView6.Columns["nome"].HeaderCell.Value = "Name";
+			dataGridView6.Columns["preco"].HeaderCell.Value = "Price";
+			dataGridView6.Columns["quantidade"].HeaderCell.Value = "Quantity";
 
 			Program.cn.Close();
 		}
@@ -318,6 +335,9 @@ namespace Pizaria
 
 				dataGridView7.DataSource = null;
 				Interface.customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
+				dataGridView7.Columns["name"].HeaderCell.Value = "Name";
+				dataGridView7.Columns["toOrder"].HeaderCell.Value = "Quantity";
+				dataGridView7.Columns["price"].HeaderCell.Value = "Price";
 			}
 		}
 

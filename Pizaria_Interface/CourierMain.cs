@@ -19,6 +19,44 @@ namespace Pizaria
 			InitializeComponent();
 			LoadMyOrders();
 			LoadHistory();
+			LoadCouriers();
+			LoadRestaurant();
+		}
+
+		private void LoadRestaurant() 
+		{
+			if (!Program.verifySGBDConnection())
+				return;
+
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.getEstRestaurante ('" + Program.email + "')", Program.cn);
+			SqlDataReader reader = cmd.ExecuteReader();
+			reader.Read();
+
+			textBox1.Text = reader["nome"].ToString();
+			textBox3.Text = reader["contato"].ToString();
+			textBox2.Text = reader["morada"].ToString();
+			textBox7.Text = reader["lotacao"].ToString();
+			textBox4.Text = reader["hora_abertura"].ToString();
+			textBox5.Text = reader["hora_fecho"].ToString();
+			textBox6.Text = reader["dono"].ToString();
+
+			Program.cn.Close();
+		}
+
+		private void LoadCouriers()
+		{
+			if (!Program.verifySGBDConnection())
+				return;
+
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showEstafeta ('" + Program.email + "')", Program.cn);
+
+			Interface.customDataGridView(cmd, dataGridView5, null);
+			dataGridView5.Columns["email"].HeaderCell.Value = "Email";
+			dataGridView5.Columns["nome"].HeaderCell.Value = "Name";
+			dataGridView5.Columns["delivered"].HeaderCell.Value = "# Delivered";
+			dataGridView5.Columns["to_deliver"].HeaderCell.Value = "# To Deliver";
+
+			Program.cn.Close();
 		}
 
 		private void LoadMyOrders()
@@ -28,7 +66,12 @@ namespace Pizaria
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrdersToDel('" + Program.email + "')", Program.cn);
 
-			customDataGridView(cmd, dataGridView1, new[] {"ID"});
+			Interface.customDataGridView(cmd, dataGridView1, new[] {"ID"});
+			dataGridView1.Columns["cliente_email"].HeaderCell.Value = "Client Email";
+			dataGridView1.Columns["endereco_fisico"].HeaderCell.Value = "Address";
+			dataGridView1.Columns["hora"].HeaderCell.Value = "Deliver Time";
+			dataGridView1.Columns["contato"].HeaderCell.Value = "Client Contact";
+			dataGridView1.Columns["nome"].HeaderCell.Value = "Client Name";
 
 			Program.cn.Close();
 		}
@@ -40,7 +83,11 @@ namespace Pizaria
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrderHistory(1 ,'" + Program.email + "')", Program.cn);
 
-			customDataGridView(cmd, dataGridView4, new[] { "ID" });
+			Interface.customDataGridView(cmd, dataGridView4, new[] { "ID" });
+			dataGridView4.Columns["cli_email"].HeaderCell.Value = "Client Email";
+			dataGridView4.Columns["endereco_fisico"].HeaderCell.Value = "Address";
+			dataGridView4.Columns["hora"].HeaderCell.Value = "Deliver Time";
+			dataGridView4.Columns["metodo_pagamento"].HeaderCell.Value = "Payment Method";
 
 			Program.cn.Close();
 		}
@@ -61,11 +108,11 @@ namespace Pizaria
 			SqlCommand cmd = new SqlCommand("delete from PIZARIA.Encomenda where ID=" + id, Program.cn);
 			cmd.ExecuteNonQuery();
 
-			LoadMyOrders();
-
 			Program.cn.Close();
 
+			LoadMyOrders();
 			LoadHistory();
+			LoadCouriers();
 		}
 
 
@@ -85,7 +132,6 @@ namespace Pizaria
 				return;
 
 			int index = int.Parse(dataGridView1.SelectedRows[0].Index.ToString());
-
 			string id = dataGridView1.Rows[index].Cells["ID"].Value.ToString();
 
 			SqlCommand cmd = new SqlCommand("select * from Pizaria.showEncomenda ('" + id + "')", Program.cn);
@@ -93,8 +139,10 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			customDataGridView(cmd, dataGridView2, new[] {"preco"});
-			
+			Interface.customDataGridView(cmd, dataGridView2, new[] {"preco"});
+			dataGridView2.Columns["quantidade"].HeaderCell.Value = "Quantity";
+			dataGridView2.Columns["nome"].HeaderCell.Value = "Item Name";
+
 			Program.cn.Close();
 		}
 
@@ -102,48 +150,20 @@ namespace Pizaria
 		{
 			if (dataGridView4.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
-
 			int index = int.Parse(dataGridView4.SelectedRows[0].Index.ToString());
-
 			string id = dataGridView4.Rows[index].Cells["ID"].Value.ToString();
+			MessageBox.Show(id);
 
 			SqlCommand cmd = new SqlCommand("select * from Pizaria.showEncEntregue ('" + id + "')", Program.cn);
 
 			if (!Program.verifySGBDConnection())
 				return;
 
-			customDataGridView(cmd, dataGridView3, new[] { "preco" });
+			Interface.customDataGridView(cmd, dataGridView3, new[] { "preco" });
+			dataGridView3.Columns["quantidade"].HeaderCell.Value = "Quantity";
+			dataGridView3.Columns["nome"].HeaderCell.Value = "Item Name";
 
 			Program.cn.Close();
 		}
-
-		private void customDataGridView(SqlCommand cmd, DataGridView dgv, string[] unshown_cols)
-		{
-			DataTable dt = new DataTable();
-			SqlDataAdapter da = new SqlDataAdapter(cmd);
-			da.Fill(dt);
-			dgv.DataSource = dt;
-			dgv.ReadOnly = true;
-			dgv.AllowUserToResizeColumns = false;
-			dgv.MultiSelect = false;
-			dgv.AllowUserToResizeRows = false;
-			dgv.AllowUserToOrderColumns = true;
-			dgv.AllowUserToAddRows = false;
-			dgv.RowHeadersVisible = false;
-			if (unshown_cols != null)
-				foreach (string col in unshown_cols)
-				{
-					dgv.Columns[col].Visible = false;
-				}
-			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			dgv.Columns.GetLastColumn(
-				DataGridViewElementStates.Visible,
-				DataGridViewElementStates.None
-				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-		}
-
-
 	}
 }
