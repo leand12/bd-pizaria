@@ -40,6 +40,3 @@ as
             return;
         end catch
     end
-go
-
-delete from Pizaria.Estafeta where email='a.enim@loremluctus.edu'
