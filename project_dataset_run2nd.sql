@@ -3,7 +3,7 @@
 
 INSERT INTO Pizaria.Administrador VALUES ('admin@gmail.com');
 
-INSERT INTO Pizaria.Restaurante (contato,morada,no_lugares_disponiveis,lotacao,hora_abertura,hora_fecho,dono) VALUES (256455582,'Pizaria X','8109 Orci Street',6,25,'11:00','23:00','admin@gmail.com'),(256838392,'Pizaria Ch','P.O. Box 264, 2474 Varius Street',7,23,'11:30','23:00','admin@gmail.com');
+INSERT INTO Pizaria.Restaurante (contato,nome,morada,no_lugares_disponiveis,lotacao,hora_abertura,hora_fecho,dono) VALUES (256455582,'Pizaria X','8109 Orci Street',6,25,'11:00','23:00','admin@gmail.com'),(256838392,'Pizaria Ch','P.O. Box 264, 2474 Varius Street',7,23,'11:30','23:00','admin@gmail.com');
 
 INSERT INTO Pizaria.Estafeta (email,res_contato) VALUES ('estafeta@gmail.com', 256455582),('Maecenas.libero.est@arcu.com', 256455582),('enim.Etiam@ametmassa.ca', 256455582),('a.enim.Suspendisse@Mauriseu.com', 256455582),('vel@antedictum.edu', 256455582),('diam.luctus@feugiatLoremipsum.net', 256455582),('a.enim@loremluctus.edu', 256455582),('sit.amet.luctus@ipsumnonarcu.com', 256455582),('semper@euismodac.com', 256455582),('aliquam.enim@Duisvolutpat.com', 256455582),('imperdiet@tortor.org', 256838392),('orci.Ut@inmagnaPhasellus.edu', 256838392),('Mauris@acarcuNunc.com', 256838392),('magna@et.co.uk', 256838392),('eget@Sedeget.ca', 256838392),('et.magnis@elit.edu', 256838392),('semper.dui.lectus@massaMauris.ca', 256838392),('cursus@Quisqueimperdiet.net', 256838392),('egestas@sitamet.com', 256838392),('mauris.a.nunc@convallisligula.ca', 256838392)
 

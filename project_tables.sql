@@ -39,8 +39,8 @@ create table Pizaria.Restaurante (
 	morada					varchar(50)	not null,
 	no_lugares_disponiveis	int			not null,
 	lotacao					int			not null,
-	hora_abertura			date		not null,
-	hora_fecho				date		not null,
+	hora_abertura			time		not null,
+	hora_fecho				time		not null,
 	dono					nvarchar(255)	not null,
 	primary key (contato),
 	foreign key (dono) references Pizaria.Administrador(email)

@@ -1,8 +1,8 @@
-drop trigger Pizaria.delCourier;
+drop trigger Pizaria.delEstafeta;
 go
 
 go
-create trigger Pizaria.delCourier on Pizaria.Estafeta
+create trigger Pizaria.delEstafeta on Pizaria.Estafeta
 instead of delete
 as
 	begin
@@ -12,12 +12,14 @@ as
 		select @email = email from deleted;
 
 		begin try
-			if (exists(select email from Pizaria.Estafeta join Pizaria.Encomenda on estafeta_email=email where email=@email))
+			if (exists(select top 1 email from Pizaria.Estafeta join Pizaria.Encomenda on estafeta_email=email where email=@email))
 			begin
-				raiserror('Error',16,1);
+				update Pizaria.Estafeta set res_contato = null where email=@email
+				update Pizaria.Encomenda set estafeta_email = (select Pizaria.FindBestEstafeta()) where estafeta_email=@email
 				return;
 			end
-			update Pizaria.Estafeta set res_contato = null where email=@email
+			else
+				update Pizaria.Estafeta set res_contato = null where email=@email
 		end try
 		begin catch
 			raiserror('Error',16,1);
