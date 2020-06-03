@@ -49,7 +49,7 @@ namespace Pizaria
 			if (this.shop_cart.Count > 0)
 			{
 				dataGridView7.DataSource = null;
-				customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
+				Interface.customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
 			}
 		}
 
@@ -58,17 +58,10 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView", Program.cn);
-			SqlDataReader reader = cmd.ExecuteReader();
-			listBox1.Items.Clear();
 
-			while (reader.Read())
-			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), decimal.Parse(reader["preco"].ToString()));
-				listBox1.Items.Add(I);
-			}
-
+			Interface.customDataGridView(cmd, dataGridView1, new[] {"Id"});
+			
 			Program.cn.Close();
 		}
 
@@ -78,14 +71,8 @@ namespace Pizaria
 				return;
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.PizaView", Program.cn);
-			SqlDataReader reader = cmd.ExecuteReader();
-			listBox2.Items.Clear();
 
-			while (reader.Read())
-			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), decimal.Parse(reader["preco"].ToString())); ;
-				listBox2.Items.Add(I);
-			}
+			Interface.customDataGridView(cmd, dataGridView2, new[] { "ID", "pic" });
 
 			Program.cn.Close();
 		}
@@ -96,14 +83,8 @@ namespace Pizaria
 				return;
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.BebidaView", Program.cn);
-			SqlDataReader reader = cmd.ExecuteReader();
-			listBox3.Items.Clear();
 
-			while (reader.Read())
-			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), decimal.Parse(reader["preco"].ToString()));
-				listBox3.Items.Add(I);
-			}
+			Interface.customDataGridView(cmd, dataGridView3, new[] { "ID" });
 
 			Program.cn.Close();
 		}
@@ -114,19 +95,11 @@ namespace Pizaria
 				return;
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.IngredienteView", Program.cn);
-			SqlDataReader reader = cmd.ExecuteReader();
-			listBox4.Items.Clear();
 
-			while (reader.Read())
-			{
-				Item I = new Item(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), decimal.Parse(reader["preco"].ToString()));
-				listBox4.Items.Add(I);
-			}
+			Interface.customDataGridView(cmd, dataGridView4, new[] { "ID", "quantidade" });
 
 			Program.cn.Close();
 		}
-
-
 
 		// Confirm Items
 		private void button1_Click(object sender, EventArgs e)
@@ -140,78 +113,70 @@ namespace Pizaria
 		{
 			clientMain.Enabled = true;
 		}
-		
+
 		// List Menus (list 1)
-		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+		private void dataGridView1_SelectionChanged(object sender, EventArgs e)
 		{
-			int curr_menu = listBox1.SelectedIndex;
+			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
 
-			Item item = (Item)listBox1.Items[curr_menu];
+			int index = int.Parse(dataGridView1.SelectedRows[0].Index.ToString());
+			string id = dataGridView1.Rows[index].Cells["Id"].Value.ToString();
 
 			SqlCommand cmd;
-			cmd = new SqlCommand("select * from Pizaria.showMenu ('" + item.ID + "')", Program.cn);
+			cmd = new SqlCommand("select * from Pizaria.showMenu ('" + id + "')", Program.cn);
+			
 			if (!Program.verifySGBDConnection())
 				return;
 
-			listBox5.Items.Clear();
-			using (SqlDataReader reader = cmd.ExecuteReader())
-			{
-				while (reader.Read())
-				{
-					string name = reader["nome"].ToString();
-					string price = reader["preco"].ToString();
-					string quantity = reader["quantidade"].ToString();
+			dataGridView5.DataSource = null;
 
-					listBox5.Items.Add(name + " " + quantity);
-				}
-			}
+			Interface.customDataGridView(cmd, dataGridView5, null);
 
 			Program.cn.Close();
 		}
-		
+
 		// List Pizzas (list 2)
-		private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+		private void dataGridView2_SelectionChanged(object sender, EventArgs e)
 		{
-			int curr_pizza = listBox2.SelectedIndex;
+			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
 
-			Item item = (Item)listBox2.Items[curr_pizza];
+			int index = int.Parse(dataGridView1.SelectedRows[0].Index.ToString());
+			string id = dataGridView1.Rows[index].Cells["Id"].Value.ToString();
 
 			SqlCommand cmd;
-			cmd = new SqlCommand("select * from Pizaria.showPiza ('" + item.ID + "')", Program.cn);
+			cmd = new SqlCommand("select * from Pizaria.showPiza ('" + id + "')", Program.cn);
+			
 			if (!Program.verifySGBDConnection())
 				return;
 
-			listBox6.Items.Clear();
-			using (SqlDataReader reader = cmd.ExecuteReader())
-			{
+			dataGridView6.DataSource = null;
 
-				while (reader.Read())
-				{
-					string name = reader["nome"].ToString();
-					string quantity = reader["quantidade"].ToString();
-
-					listBox6.Items.Add(name + " " + quantity);
-				}
-			}
+			Interface.customDataGridView(cmd, dataGridView6, null);
 
 			Program.cn.Close();
 		}
-		
+
 		// Add Menu to Shop Cart
-		private void listBox1_DoubleClick(object sender, EventArgs e)
+		private void dataGridView1_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			int curr_item = listBox1.SelectedIndex;
-			if (curr_item < 0)
-			{
+			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
-			}
-			Item item = (Item)listBox1.Items[curr_item];
+
+			int index = int.Parse(dataGridView1.SelectedRows[0].Index.ToString());
+			string id = dataGridView1.Rows[index].Cells["Id"].Value.ToString();
+			string name = dataGridView1.Rows[index].Cells["nome"].Value.ToString();
+			string price = dataGridView1.Rows[index].Cells["preco"].Value.ToString();
+
+			Item I = new Item(int.Parse(id), name, decimal.Parse(price));
+
 			Boolean item_in_cart = false;
-			clientMain.shop_cart_price += item.price;
+			clientMain.shop_cart_price += I.price;
 			shop_cart_price = clientMain.shop_cart_price;
 			foreach (var item_cart in this.shop_cart)
 			{
-				if (item.ID == item_cart.ID)
+				if (I.ID == item_cart.ID)
 				{
 					item_cart.toOrder += 1;
 					item_in_cart = true;
@@ -219,28 +184,32 @@ namespace Pizaria
 			}
 			if (item_in_cart == false)
 			{
-				item.toOrder = item.toOrder + 1;
-				shop_cart.Add(item);
+				I.toOrder = I.toOrder + 1;
+				shop_cart.Add(I);
 			}
 
 			LoadShopCart();
 		}
 
 		// Add Pizza to Shop Cart
-		private void listBox2_DoubleClick(object sender, EventArgs e)
+		private void dataGridView2_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			int	curr_item = listBox2.SelectedIndex;
-			if (curr_item < 0)
-			{
+			if (dataGridView2.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
-			}
-			Item item = (Item)listBox2.Items[curr_item];
-			clientMain.shop_cart_price += item.price;
+
+			int index = int.Parse(dataGridView2.SelectedRows[0].Index.ToString());
+			string id = dataGridView2.Rows[index].Cells["Id"].Value.ToString();
+			string name = dataGridView2.Rows[index].Cells["nome"].Value.ToString();
+			string price = dataGridView2.Rows[index].Cells["preco"].Value.ToString();
+
+			Item I = new Item(int.Parse(id), name, decimal.Parse(price));
+
+			clientMain.shop_cart_price += I.price;
 			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
-				if (item.ID == item_cart.ID)
+				if (I.ID == item_cart.ID)
 				{
 					item_cart.toOrder += 1;
 					item_in_cart = true;
@@ -248,28 +217,32 @@ namespace Pizaria
 			}
 			if (item_in_cart == false)
 			{
-				item.toOrder = item.toOrder + 1;
-				shop_cart.Add(item);
+				I.toOrder = I.toOrder + 1;
+				shop_cart.Add(I);
 			}
 
 			LoadShopCart();
 		}
 
 		// Add Drink to Shop Cart
-		private void listBox3_DoubleClick(object sender, EventArgs e)
+		private void dataGridView3_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			int curr_item = listBox3.SelectedIndex;
-			if (curr_item < 0)
-			{
+			if (dataGridView3.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
-			}
-			Item item = (Item)listBox3.Items[curr_item];
-			clientMain.shop_cart_price += item.price;
+
+			int index = int.Parse(dataGridView3.SelectedRows[0].Index.ToString());
+			string id = dataGridView3.Rows[index].Cells["Id"].Value.ToString();
+			string name = dataGridView3.Rows[index].Cells["nome"].Value.ToString();
+			string price = dataGridView3.Rows[index].Cells["preco"].Value.ToString();
+
+			Item I = new Item(int.Parse(id), name, decimal.Parse(price));
+
+			clientMain.shop_cart_price += I.price;
 			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
-				if (item.ID == item_cart.ID)
+				if (I.ID == item_cart.ID)
 				{
 					item_cart.toOrder += 1;
 					item_in_cart = true;
@@ -277,28 +250,32 @@ namespace Pizaria
 			}
 			if (item_in_cart == false)
 			{
-				item.toOrder = item.toOrder + 1;
-				shop_cart.Add(item);
+				I.toOrder = I.toOrder + 1;
+				shop_cart.Add(I);
 			}
 
 			LoadShopCart();
 		}
 
 		// Add Ingredients to Shop Cart
-		private void listBox4_DoubleClick(object sender, EventArgs e)
+		private void dataGridView4_MouseDoubleClick(object sender, MouseEventArgs e)
 		{
-			int curr_item = listBox4.SelectedIndex;
-			if (curr_item < 0)
-			{
+			if (dataGridView4.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
-			}
-			Item item = (Item)listBox4.Items[curr_item];
-			clientMain.shop_cart_price += item.price;
+
+			int index = int.Parse(dataGridView4.SelectedRows[0].Index.ToString());
+			string id = dataGridView4.Rows[index].Cells["Id"].Value.ToString();
+			string name = dataGridView4.Rows[index].Cells["nome"].Value.ToString();
+			string price = dataGridView4.Rows[index].Cells["preco"].Value.ToString();
+
+			Item I = new Item(int.Parse(id), name, decimal.Parse(price));
+
+			clientMain.shop_cart_price += I.price;
 			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
-				if (item.ID == item_cart.ID)
+				if (I.ID == item_cart.ID)
 				{
 					item_cart.toOrder += 1;
 					item_in_cart = true;
@@ -306,8 +283,8 @@ namespace Pizaria
 			}
 			if (item_in_cart == false)
 			{
-				item.toOrder = item.toOrder + 1;
-				shop_cart.Add(item);
+				I.toOrder = I.toOrder + 1;
+				shop_cart.Add(I);
 			}
 
 			LoadShopCart();
@@ -328,33 +305,10 @@ namespace Pizaria
 				this.shop_cart.Remove(I);
 				I.toOrder = 0;
 				dataGridView7.DataSource = null;
-				customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
+				Interface.customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
 			}
 		}
 
-		public void customDataGridView(List<Item> item_list, DataGridView dgv, string[] unshown_cols)
-		{
-			dgv.DataSource = item_list;
-			dgv.ReadOnly = true;
-			dgv.AllowUserToResizeColumns = false;
-			dgv.MultiSelect = false;
-			dgv.AllowUserToResizeRows = false;
-			dgv.AllowUserToOrderColumns = true;
-			dgv.AllowUserToAddRows = false;
-			dgv.RowHeadersVisible = false;
-			if (unshown_cols != null)
-				foreach (string col in unshown_cols)
-				{
-					dgv.Columns[col].Visible = false;
-				}
-			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			dgv.Columns.GetLastColumn(
-				DataGridViewElementStates.Visible,
-				DataGridViewElementStates.None
-				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-		}
 
 		private void numericUpDown1_ValueChanged(object sender, EventArgs e)
 		{
@@ -379,5 +333,7 @@ namespace Pizaria
 			Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
 			numericUpDown1.Value = I.toOrder;
 		}
+
+		
 	}
 }

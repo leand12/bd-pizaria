@@ -59,6 +59,7 @@
       <DependentUpon>AdminMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Encomenda.cs" />
+    <Compile Include="Interface.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ClientMain.cs">
       <SubType>Form</SubType>

@@ -32,7 +32,7 @@ namespace Pizaria
 			InitializeComponent();
 			comboBox1.SelectedItem= "Card";
 			this.shop_cart_price= 0.00m;
-	}
+		}
 
 
 		private void ClientMain_Load(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace Pizaria
 		public void LoadShopCart()
 		{
 			dataGridView6.DataSource = null;
-			customDataGridView(shop_cart, dataGridView6, new[] { "ID" });
+			Interface.customDataGridView(shop_cart, dataGridView6, new[] { "ID" });
 		}
 
 		private void LoadMenus()
@@ -56,7 +56,7 @@ namespace Pizaria
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView", Program.cn);
 
-			customDataGridView(cmd, dataGridView2, new[] {"Id"});
+			Interface.customDataGridView(cmd, dataGridView2, new[] {"Id"});
 
 			Program.cn.Close();
 		}
@@ -86,7 +86,7 @@ namespace Pizaria
 
 			cmd.Connection = Program.cn;
 
-			customDataGridView(cmd, dataGridView4, null);
+			Interface.customDataGridView(cmd, dataGridView4, null);
 
 			Program.cn.Close();
 		}
@@ -98,7 +98,7 @@ namespace Pizaria
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.PizaView", Program.cn);
 
-			customDataGridView(cmd, dataGridView3, new[] {"ID", "pic"});
+			Interface.customDataGridView(cmd, dataGridView3, new[] {"ID", "pic"});
 
 			Program.cn.Close();
 		}
@@ -117,7 +117,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			customDataGridView(cmd, dataGridView1, null);
+			Interface.customDataGridView(cmd, dataGridView1, null);
 
 			Program.cn.Close();
 		}
@@ -137,7 +137,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			customDataGridView(cmd, dataGridView7, null);
+			Interface.customDataGridView(cmd, dataGridView7, null);
 			//dataGridView7.Columns[""].Visible = false;
 
 			byte[] image = Convert.FromBase64String(dataGridView3.Rows[index].Cells["pic"].Value.ToString());
@@ -307,7 +307,7 @@ namespace Pizaria
 
 				cmd.Connection = Program.cn;
 
-				customDataGridView(cmd, dataGridView3, new[] { "ID", "pic" });
+				Interface.customDataGridView(cmd, dataGridView3, new[] { "ID", "pic" });
 
 				cmd = new SqlCommand
 				{
@@ -322,7 +322,7 @@ namespace Pizaria
 				cmd.Parameters["@item_type"].Value = "Menu";
 
 				cmd.Connection = Program.cn;
-				customDataGridView(cmd, dataGridView2, new[] { "Id" });
+				Interface.customDataGridView(cmd, dataGridView2, new[] { "Id" });
 
 				Program.cn.Close();
 			}
@@ -353,57 +353,6 @@ namespace Pizaria
 				Program.cn.Close();
 
 			}
-		}
-
-		private void customDataGridView(SqlCommand cmd, DataGridView dgv, string[] unshown_cols)
-		{
-			DataTable dt = new DataTable();
-			SqlDataAdapter da = new SqlDataAdapter(cmd);
-			da.Fill(dt);
-			dgv.DataSource = dt;
-			dgv.ReadOnly = true;
-			dgv.AllowUserToResizeColumns = false;
-			dgv.MultiSelect = false;
-			dgv.AllowUserToResizeRows = false;
-			dgv.AllowUserToOrderColumns = true;
-			dgv.AllowUserToAddRows = false;
-			dgv.RowHeadersVisible = false;
-			if (unshown_cols != null)
-				foreach (string col in unshown_cols)
-				{
-					dgv.Columns[col].Visible = false;
-				}
-			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			dgv.Columns.GetLastColumn(
-				DataGridViewElementStates.Visible, 
-				DataGridViewElementStates.None
-				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-		}
-
-		public void customDataGridView(List<Item> item_list, DataGridView dgv, string[] unshown_cols)
-		{
-			dgv.DataSource = item_list;
-			dgv.ReadOnly = true;
-			dgv.AllowUserToResizeColumns = false;
-			dgv.MultiSelect = false;
-			dgv.AllowUserToResizeRows = false;
-			dgv.AllowUserToOrderColumns = true;
-			dgv.AllowUserToAddRows = false;
-			dgv.RowHeadersVisible = false;
-			if (unshown_cols != null)
-				foreach (string col in unshown_cols)
-				{
-					dgv.Columns[col].Visible = false;
-				}
-			dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-			dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-			dgv.Columns.GetLastColumn(
-				DataGridViewElementStates.Visible,
-				DataGridViewElementStates.None
-				).AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-			dgv.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
 		}
 
 		private void button7_Click(object sender, EventArgs e)
