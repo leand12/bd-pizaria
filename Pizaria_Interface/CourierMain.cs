@@ -18,6 +18,7 @@ namespace Pizaria
 		{
 			InitializeComponent();
 			LoadMyOrders();
+			LoadHistory();
 		}
 
 		private void LoadMyOrders()
@@ -31,6 +32,19 @@ namespace Pizaria
 
 			Program.cn.Close();
 		}
+
+		private void LoadHistory()
+		{
+			if (!Program.verifySGBDConnection())
+				return;
+
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrderHistory(1 ,'" + Program.email + "')", Program.cn);
+
+			customDataGridView(cmd, dataGridView4, new[] { "ID" });
+
+			Program.cn.Close();
+		}
+
 
 
 		//Confirm delivery
@@ -76,6 +90,25 @@ namespace Pizaria
 
 			customDataGridView(cmd, dataGridView2, new[] {"preco"});
 			
+			Program.cn.Close();
+		}
+
+		private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+		{
+			if (dataGridView3.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+
+			int index = int.Parse(dataGridView3.SelectedRows[0].Index.ToString());
+
+			string id = dataGridView3.Rows[index].Cells["ID"].Value.ToString();
+
+			SqlCommand cmd = new SqlCommand("select * from Pizaria.showEncomenda ('" + id + "')", Program.cn);
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			customDataGridView(cmd, dataGridView3, new[] { "preco" });
+
 			Program.cn.Close();
 		}
 

@@ -164,12 +164,12 @@
             this.dataGridView3.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Location = new System.Drawing.Point(589, 48);
+            this.dataGridView3.Location = new System.Drawing.Point(590, 48);
             this.dataGridView3.MultiSelect = false;
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.ReadOnly = true;
             this.dataGridView3.RowHeadersWidth = 62;
-            this.dataGridView3.Size = new System.Drawing.Size(211, 251);
+            this.dataGridView3.Size = new System.Drawing.Size(223, 251);
             this.dataGridView3.TabIndex = 30;
             // 
             // dataGridView4
@@ -185,6 +185,7 @@
             this.dataGridView4.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView4.Size = new System.Drawing.Size(578, 251);
             this.dataGridView4.TabIndex = 29;
+            this.dataGridView4.SelectionChanged += new System.EventHandler(this.dataGridView3_SelectionChanged);
             // 
             // label1
             // 

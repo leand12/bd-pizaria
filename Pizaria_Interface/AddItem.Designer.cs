@@ -179,7 +179,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(543, 294);
+            this.button1.Location = new System.Drawing.Point(23, 297);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 30);
@@ -191,7 +191,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(299, 285);
+            this.label1.Location = new System.Drawing.Point(326, 291);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
@@ -220,7 +220,7 @@
             // 
             // numericUpDown1
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(302, 301);
+            this.numericUpDown1.Location = new System.Drawing.Point(329, 307);
             this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
             0,
@@ -238,7 +238,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(424, 295);
+            this.button5.Location = new System.Drawing.Point(468, 301);
             this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(98, 29);

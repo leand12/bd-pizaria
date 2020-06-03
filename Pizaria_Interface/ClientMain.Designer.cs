@@ -334,7 +334,7 @@
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(116, 352);
+            this.textBox9.Location = new System.Drawing.Point(679, 359);
             this.textBox9.Margin = new System.Windows.Forms.Padding(2);
             this.textBox9.Name = "textBox9";
             this.textBox9.ReadOnly = true;
@@ -344,7 +344,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(78, 354);
+            this.label6.Location = new System.Drawing.Point(641, 361);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(34, 13);
@@ -364,7 +364,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(81, 390);
+            this.button4.Location = new System.Drawing.Point(644, 397);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(141, 29);
