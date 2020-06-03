@@ -96,7 +96,7 @@ namespace Pizaria
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.IngredienteView", Program.cn);
 
-			Interface.customDataGridView(cmd, dataGridView4, new[] { "ID", "quantidade" });
+			Interface.customDataGridView(cmd, dataGridView4, new[] { "ID", "quantidade_disponivel" });
 
 			Program.cn.Close();
 		}
@@ -112,6 +112,17 @@ namespace Pizaria
 		private void AddItem_FormClosed(object sender, FormClosedEventArgs e)
 		{
 			clientMain.Enabled = true;
+		}
+
+		// Shop cart
+		private void dataGridView7_SelectionChanged(object sender, EventArgs e)
+		{
+			if (dataGridView7.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+
+			int index = int.Parse(dataGridView7.SelectedRows[0].Index.ToString());
+			Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
+			numericUpDown1.Value = I.toOrder;
 		}
 
 		// List Menus (list 1)
@@ -323,17 +334,5 @@ namespace Pizaria
 			clientMain.shop_cart_price = clientMain.checkBalance(this.shop_cart);
 			shop_cart_price = clientMain.shop_cart_price;
 		}
-
-		private void dataGridView7_CellClick(object sender, DataGridViewCellEventArgs e)
-		{
-			if (dataGridView7.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
-				return;
-
-			int index = int.Parse(dataGridView7.SelectedRows[0].Index.ToString());
-			Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
-			numericUpDown1.Value = I.toOrder;
-		}
-
-		
 	}
 }

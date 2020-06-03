@@ -164,7 +164,7 @@
 			this.dataGridView3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.dataGridView3.Name = "dataGridView3";
 			this.dataGridView3.RowHeadersWidth = 62;
-			this.dataGridView3.Size = new System.Drawing.Size(308, 392);
+			this.dataGridView3.Size = new System.Drawing.Size(400, 392);
 			this.dataGridView3.TabIndex = 14;
 			this.dataGridView3.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView3_MouseDoubleClick);
 			// 
@@ -186,7 +186,7 @@
 			this.dataGridView4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.dataGridView4.Name = "dataGridView4";
 			this.dataGridView4.RowHeadersWidth = 62;
-			this.dataGridView4.Size = new System.Drawing.Size(308, 392);
+			this.dataGridView4.Size = new System.Drawing.Size(400, 392);
 			this.dataGridView4.TabIndex = 15;
 			this.dataGridView4.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dataGridView4_MouseDoubleClick);
 			// 
@@ -228,7 +228,7 @@
 			this.dataGridView7.RowHeadersWidth = 62;
 			this.dataGridView7.Size = new System.Drawing.Size(396, 397);
 			this.dataGridView7.TabIndex = 10;
-			this.dataGridView7.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView7_CellClick);
+			this.dataGridView7.SelectionChanged += new System.EventHandler(this.dataGridView7_SelectionChanged);
 			// 
 			// numericUpDown1
 			// 
