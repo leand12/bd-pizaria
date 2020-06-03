@@ -105,8 +105,8 @@ namespace Pizaria
 		private void button1_Click(object sender, EventArgs e)
 		{
 			clientMain.Enabled = true;
-			clientMain.LoadShopCart();
 			this.Close();
+			clientMain.LoadShopCart();
 		}
 
 		private void AddItem_FormClosed(object sender, FormClosedEventArgs e)
@@ -315,6 +315,7 @@ namespace Pizaria
 				shop_cart_price = clientMain.shop_cart_price;
 				this.shop_cart.Remove(I);
 				I.toOrder = 0;
+
 				dataGridView7.DataSource = null;
 				Interface.customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });
 			}

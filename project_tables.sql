@@ -35,6 +35,7 @@ create table Pizaria.Administrador (
 );
 create table Pizaria.Restaurante (
 	contato					int,
+	nome					varchar(50)	not null,
 	morada					varchar(50)	not null,
 	no_lugares_disponiveis	int			not null,
 	lotacao					int			not null,

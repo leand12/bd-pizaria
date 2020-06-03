@@ -29,8 +29,10 @@ namespace Pizaria
 
 		static public SqlConnection getSGBDConnection()
 		{
-			return new SqlConnection("data source=DESKTOP-4LBRH8P;integrated security=true;initial catalog=master");
+			return new SqlConnection("data source=LAPTOP-Q472I841;integrated security=true;initial catalog=master");
+			//DESKTOP-4LBRH8P
 		}
+
 
 		static public bool verifySGBDConnection()
 		{
