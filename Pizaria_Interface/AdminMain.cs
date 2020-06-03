@@ -19,12 +19,47 @@ namespace Pizaria
 			InitializeComponent();
 			LoadStats();
 			LoadDiscounts();
+			LoadCouriers();
 		}
 
+		// Show Couriers
+		private void LoadCouriers()
+		{
+			if (!Program.verifySGBDConnection())
+				return;
+			SqlCommand cmd = new SqlCommand("select * from Pizaria.showAllEstafetas()", Program.cn);
+
+			dataGridView1.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView1, new[] { "email" });
+			dataGridView1.Columns[1].HeaderCell.Value = "Name";
+			dataGridView1.Columns[2].HeaderCell.Value = "Contact";
+			dataGridView1.Columns[3].HeaderCell.Value = "Restaurant";
+
+			Program.cn.Close();
+
+			if (!Program.verifySGBDConnection())
+				return;
+			cmd = new SqlCommand("select nome, contato from Pizaria.Restaurante", Program.cn);
+
+			dataGridView7.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView7, new[] { "contato" });
+			dataGridView7.Columns[0].HeaderCell.Value = "Restaurant";
+
+			Program.cn.Close();
+
+		}
 
 		// Show Discounts
 		private void LoadDiscounts()
 		{
+			if (!Program.verifySGBDConnection())
+				return;
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.Desconto", Program.cn);
 
 			dataGridView2.DataSource = null;
@@ -38,13 +73,14 @@ namespace Pizaria
 			dataGridView2.Columns[3].HeaderCell.Value = "End Date";
 
 			Program.cn.Close();
-
 		}
 
 		// Show Stats
 		private void LoadStats()
 		{
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.statsEncomenda ('Piza')", Program.cn);
+			if (!Program.verifySGBDConnection())
+				return;
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.statsEncomenda ('Menu',0)", Program.cn);
 
 			dataGridView4.DataSource = null;
 
@@ -57,7 +93,10 @@ namespace Pizaria
 
 			Program.cn.Close();
 
-			cmd = new SqlCommand("SELECT * FROM Pizaria.statsEncomenda ('Menu')", Program.cn);
+			if (!Program.verifySGBDConnection())
+				return;
+
+			cmd = new SqlCommand("SELECT * FROM Pizaria.statsEncomenda ('Menu',1)", Program.cn);
 
 			dataGridView5.DataSource = null;
 
@@ -68,6 +107,38 @@ namespace Pizaria
 			dataGridView5.Columns[0].HeaderCell.Value = "Name";
 			dataGridView5.Columns[1].HeaderCell.Value = "Price";
 			dataGridView5.Columns[3].HeaderCell.Value = "Number of Sales";
+			Program.cn.Close();
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			cmd = new SqlCommand("SELECT * FROM Pizaria.statsEncomenda ('Piza',1)", Program.cn);
+
+			dataGridView8.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView8, new[] { "ID" });
+
+			dataGridView8.Columns[0].HeaderCell.Value = "Name";
+			dataGridView8.Columns[1].HeaderCell.Value = "Price";
+			dataGridView8.Columns[3].HeaderCell.Value = "Number of Sales";
+			Program.cn.Close();
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			cmd = new SqlCommand("SELECT * FROM Pizaria.statsEncomenda ('Piza',0)", Program.cn);
+
+			dataGridView9.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView9, new[] { "ID" });
+
+			dataGridView9.Columns[0].HeaderCell.Value = "Name";
+			dataGridView9.Columns[1].HeaderCell.Value = "Price";
+			dataGridView9.Columns[3].HeaderCell.Value = "Number of Sales";
 			Program.cn.Close();
 		}
 
@@ -152,6 +223,110 @@ namespace Pizaria
 
 			Program.cn.Close();
 
+		}
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+			textBox4.Clear();
+			textBox3.Clear();
+			textBox2.Clear();
+		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+
+			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+
+			int index = int.Parse(dataGridView1.SelectedRows[0].Index.ToString());
+
+			string id = dataGridView1.Rows[index].Cells["email"].Value.ToString();
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			SqlCommand cmd = new SqlCommand("delete from PIZARIA.Estafeta where email='" + id+"'", Program.cn);
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch (System.Data.SqlClient.SqlException err)
+			{
+				MessageBox.Show("Error firing Courier"+ err.Message);
+			}
+
+			LoadCouriers();
+
+			Program.cn.Close();
+		}
+
+		private void button4_Click(object sender, EventArgs e)
+		{
+			int contato=0;
+			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+			{
+				MessageBox.Show("Please select a Restaurant for the Courier.");
+				return;
+			}
+
+			if (textBox2.Text == "")
+			{
+				MessageBox.Show("Please insert an email for the Courier.");
+				return;
+			} else if (textBox3.Text == "")
+			{
+				MessageBox.Show("Please insert the name of the Courier.");
+				return;
+			} else if (textBox4.Text == "")
+			{
+				MessageBox.Show("Please insert a contact for the Courier.");
+				return;
+			}
+			try
+			{
+				contato = int.Parse(textBox4.Text);
+			}
+			catch (System.FormatException)
+			{
+				MessageBox.Show("Please insert a valid contact for the Courier.");
+				return;
+			}
+			catch(OverflowException)
+			{
+				MessageBox.Show("The contact number for the Courier is too large.");
+				return;
+			}
+
+			int index = int.Parse(dataGridView7.SelectedRows[0].Index.ToString());
+			int res_contato = int.Parse(dataGridView7.Rows[index].Cells["contato"].Value.ToString());
+
+			SqlCommand cmd = new SqlCommand
+			{
+				CommandType = CommandType.StoredProcedure,
+				CommandText = "Pizaria.insEstafeta"
+			};
+			cmd.Parameters.Add(new SqlParameter("@email", SqlDbType.NVarChar, 255));
+			cmd.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar, 50));
+			cmd.Parameters.Add(new SqlParameter("@contato", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@res_contato", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@response", SqlDbType.NVarChar, 255));
+			cmd.Parameters["@email"].Value = textBox2.Text;
+			cmd.Parameters["@nome"].Value = textBox3.Text;
+			cmd.Parameters["@contato"].Value = contato;
+			cmd.Parameters["@res_contato"].Value = res_contato;
+			cmd.Parameters["@response"].Direction = ParameterDirection.Output;
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			cmd.Connection = Program.cn;
+			cmd.ExecuteNonQuery();
+
+			MessageBox.Show(cmd.Parameters["@response"].Value.ToString());
+			textBox4.Clear();
+			textBox3.Clear();
+			textBox2.Clear();
+			LoadCouriers();
 		}
 	}
 }

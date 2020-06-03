@@ -1,7 +1,7 @@
-drop procedure Pizaria.insCourier
+drop procedure Pizaria.insEstafeta
 go
 go
-create procedure Pizaria.insCourier
+create procedure Pizaria.insEstafeta
 	@email			nvarchar(255),
 	@nome			varchar(50),
 	@contato		int,
@@ -15,7 +15,7 @@ as
 			IF (EXISTS (SELECT TOP 1 email FROM  Pizaria.[Utilizador] WHERE email=@email))
 			begin
 				set @response = 'User already registered.'
-				if (exists(SELECT TOP 1 Estafeta.email FROM  Pizaria.[Utilizador] join Pizaria.Estafeta on Estafeta.email=[Utilizador].email WHERE Estafeta.email=@email and res_contato=null))
+				if (exists(SELECT TOP 1 email FROM  Pizaria.Estafeta WHERE email=@email and res_contato=null))
 				begin
 					set @response = 'Courier has been Rehired!'
 					update Pizaria.Estafeta set res_contato = @res_contato where email=@email
