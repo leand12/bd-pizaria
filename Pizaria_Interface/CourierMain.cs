@@ -50,6 +50,9 @@ namespace Pizaria
 		//Confirm delivery
 		private void button1_Click_1(object sender, EventArgs e)
 		{
+			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+
 			string id = dataGridView1.SelectedRows[0].Cells["ID"].Value.ToString();
 
 			if (!Program.verifySGBDConnection())
