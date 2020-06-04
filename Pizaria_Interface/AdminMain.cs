@@ -473,6 +473,10 @@ namespace Pizaria
 				LoadCouriers();
 				LoadRestaurants();
 				LoadStats();
+				textBox9.Text = "";
+				textBox9.Text = "";
+				textBox9.Text = "";
+				numericUpDown2.Value = 1;
 			}
 		}
 	}
