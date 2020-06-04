@@ -181,6 +181,7 @@
             this.dataGridView3.RowHeadersWidth = 62;
             this.dataGridView3.Size = new System.Drawing.Size(208, 81);
             this.dataGridView3.TabIndex = 26;
+            this.dataGridView3.SelectionChanged += new System.EventHandler(this.dataGridView3_SelectionChanged);
             // 
             // tabPage4
             // 
@@ -863,6 +864,7 @@
             this.button8.TabIndex = 77;
             this.button8.Text = "Update";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
             // 

@@ -37,7 +37,7 @@ namespace Pizaria
 
 			cmd.Connection = Program.cn;
 
-			Interface.customDataGridView(cmd, dataGridView1, new[] { "contato", "morada", "lotacao", "hora_abertura", "hora_fecho" });
+			Interface.customDataGridView(cmd, dataGridView3, new[] { "contato", "morada", "lotacao", "hora_abertura", "hora_fecho" });
 			dataGridView3.Columns[0].HeaderCell.Value = "Name";
 
 			Program.cn.Close();
@@ -383,11 +383,44 @@ namespace Pizaria
 			if (dataGridView3.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
 			
-			int index = int.Parse(dataGridView2.SelectedRows[0].Index.ToString());
-			textBox1.Text = dataGridView2.Rows[index].Cells["contato"].Value.ToString();
-			textBox6.Text = dataGridView2.Rows[index].Cells["nome"].Value.ToString();
-			textBox11.Text = dataGridView2.Rows[index].Cells["morada"].Value.ToString();
-			numericUpDown3.Value = decimal.Parse(dataGridView2.Rows[index].Cells["lotacao"].Value.ToString());
+			int index = int.Parse(dataGridView3.SelectedRows[0].Index.ToString());
+			textBox1.Text = dataGridView3.Rows[index].Cells["contato"].Value.ToString();
+			textBox6.Text = dataGridView3.Rows[index].Cells["nome"].Value.ToString();
+			textBox11.Text = dataGridView3.Rows[index].Cells["morada"].Value.ToString();
+			numericUpDown3.Value = decimal.Parse(dataGridView3.Rows[index].Cells["lotacao"].Value.ToString());
+			dateTimePicker8.Value = DateTime.Parse(dataGridView3.Rows[index].Cells["hora_abertura"].Value.ToString());
+			dateTimePicker7.Value = DateTime.Parse(dataGridView3.Rows[index].Cells["hora_fecho"].Value.ToString());
+		}
+
+		private void button8_Click(object sender, EventArgs e)
+		{
+			SqlCommand cmd = new SqlCommand
+			{
+				CommandType = CommandType.StoredProcedure,
+				CommandText = "Pizaria.updRestaurante"
+			};
+			cmd.Parameters.Add(new SqlParameter("@morada", SqlDbType.VarChar, 50));
+			cmd.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar, 50));
+			cmd.Parameters.Add(new SqlParameter("@contato", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@lotacao", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@dono", SqlDbType.NVarChar, 255));
+			cmd.Parameters["@morada"].Value = textBox11.Text;
+			cmd.Parameters["@nome"].Value = textBox6.Text;
+			cmd.Parameters["@contato"].Value = textBox1.Text;
+			cmd.Parameters["@lotacao"].Value = numericUpDown3.Value;
+			cmd.Parameters.AddWithValue("@hora_abertura", dateTimePicker8.Value);
+			cmd.Parameters.AddWithValue("@hora_fecho", dateTimePicker7.Value);
+			cmd.Parameters["@dono"].Value = Program.email;
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			cmd.Connection = Program.cn;
+			cmd.ExecuteNonQuery();
+
+			LoadCouriers();
+			LoadRestaurants();
+			LoadStats();
 		}
 	}
 }
