@@ -44,9 +44,7 @@ as
 go
 
 
---select * from Pizaria.filterItem(7, DEFAULT, 'Piza') order by 1 desc -- 2 ordem ascendente
 
--- trigger ou qql cena pa verificar quantidades disponiveis de ing e bebidas da encomenda
 -- admin no futuro pode dar restock se tivermos tempo
 -- 
 

@@ -33,15 +33,18 @@ namespace Pizaria
 
 			cmd.Connection = Program.cn;
 
-			Interface.customDataGridView(cmd, dataGridView1, new[] { "email" });
-			dataGridView1.Columns[1].HeaderCell.Value = "Name";
-			dataGridView1.Columns[2].HeaderCell.Value = "Contact";
-			dataGridView1.Columns[3].HeaderCell.Value = "Restaurant";
+			Interface.customDataGridView(cmd, dataGridView1, null);
+			dataGridView1.Columns[0].HeaderCell.Value = "Restaurant";
+			dataGridView1.Columns[1].HeaderCell.Value = "Courier's Name";
+			dataGridView1.Columns[2].HeaderCell.Value = "Courier's Email";
+			dataGridView1.Columns[3].HeaderCell.Value = "Orders Delivered";
+			dataGridView1.Columns[4].HeaderCell.Value = "Orders to Deliver";
 
 			Program.cn.Close();
 
 			if (!Program.verifySGBDConnection())
 				return;
+
 			cmd = new SqlCommand("select nome, contato from Pizaria.Restaurante", Program.cn);
 
 			dataGridView7.DataSource = null;
@@ -74,6 +77,7 @@ namespace Pizaria
 
 			Program.cn.Close();
 		}
+
 
 		// Show Stats
 		private void LoadStats()
@@ -139,6 +143,25 @@ namespace Pizaria
 			dataGridView9.Columns[0].HeaderCell.Value = "Name";
 			dataGridView9.Columns[1].HeaderCell.Value = "Price";
 			dataGridView9.Columns[3].HeaderCell.Value = "Number of Sales";
+			Program.cn.Close();
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			cmd = new SqlCommand("Exec Pizaria.statsRestaurante", Program.cn);
+
+			dataGridView6.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView6, null);
+			dataGridView6.Columns[0].HeaderCell.Value = "Restaurant";
+			dataGridView6.Columns[1].HeaderCell.Value = "Courier's Name With the Most Delivered Order";
+			dataGridView6.Columns[2].HeaderCell.Value = "Courier's Email";
+			dataGridView6.Columns[3].HeaderCell.Value = "Numbers of Delivered Order by Courier";
+			dataGridView6.Columns[4].HeaderCell.Value = "Total Orders";
+			dataGridView6.Columns[5].HeaderCell.Value = "Total Money Made";
+
 			Program.cn.Close();
 		}
 
@@ -327,6 +350,11 @@ namespace Pizaria
 			textBox3.Clear();
 			textBox2.Clear();
 			LoadCouriers();
+		}
+
+		private void AdminMain_Load(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

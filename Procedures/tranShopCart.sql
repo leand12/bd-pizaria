@@ -25,6 +25,8 @@ as
         
         begin try
 		begin tran
+			insert into Pizaria.DescontoCliente (cli_email,des_codigo) Values (@cliente_email,@des_codigo)
+			
             declare @last_ID int
             Exec Pizaria.insEncomenda @cliente_email=@cliente_email, @estafeta_email=@estafeta_email, @endereco_fisico=@endereco_fisico, @hora=@hora, @metodo_pagamento=@metodo_pagamento, @des_codigo=@des_codigo, @last_ID=@last_ID output
 

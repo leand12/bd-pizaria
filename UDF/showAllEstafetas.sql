@@ -4,5 +4,10 @@ go
 go
 create function Pizaria.showAllEstafetas () returns Table
 as
-	return (SELECT Estafeta.email, [Utilizador].nome as est_nome, [Utilizador].contato, Restaurante.nome as res_nome  FROM Pizaria.Estafeta join Pizaria.[Utilizador] on [Utilizador].email=Estafeta.email join Pizaria.Restaurante on res_contato=Restaurante.contato where res_contato is not null)
+	return (
+	select R.nome as restaurante, [Utilizador].nome,E.email,
+		(select count(*) as count_enc from Pizaria.Estafeta join Pizaria.EncomendaEntregue on email=est_email where email=E.email) as delivered,
+		(select count(*) as count_enc from Pizaria.Estafeta join Pizaria.Encomenda on email=estafeta_email where email=E.email) as to_deliver
+		from Pizaria.Estafeta as E join Pizaria.[Utilizador] on E.email=Utilizador.email join Pizaria.Restaurante as R on res_contato=R.contato
+	)
 go

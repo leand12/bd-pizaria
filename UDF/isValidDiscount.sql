@@ -16,6 +16,6 @@ as
                     )
             )
             return 0
-        return 1
+        return (select percentagem from Pizaria.Desconto where codigo=@code)
     end
 go

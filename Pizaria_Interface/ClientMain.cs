@@ -223,9 +223,9 @@ namespace Pizaria
 				list+=item.ID + "," + item.toOrder.ToString()+",";
 			}
 			cmd.Parameters["@lista"].Value = list;
-			if (textBox2.Text != "" && int.TryParse(textBox2.Text, out int n))
+			if (textBox2.Text != "")
 			{
-				cmd.Parameters["@des_codigo"].Value = n;
+				cmd.Parameters["@des_codigo"].Value = textBox2.Text;
 			}
 			else if (textBox2.Text== "") {
 				cmd.Parameters["@des_codigo"].Value = DBNull.Value;
@@ -260,6 +260,7 @@ namespace Pizaria
 			textBox2.Clear();
 			shop_cart.Clear();
 			LoadShopCart();
+			LoadDiscounts();
 			this.shop_cart_price = 0.00m;
 			listBox8.Items.Clear();
 			textBox5.Clear();
@@ -370,6 +371,12 @@ namespace Pizaria
 
 		private void button7_Click(object sender, EventArgs e)
 		{
+			if (textBox2.Text != "")
+			{
+				MessageBox.Show("Already chosen a Discount for this Order.");
+				return;
+			}
+
 			if (dataGridView4.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 				return;
 
@@ -377,7 +384,25 @@ namespace Pizaria
 
 			string id = dataGridView4.Rows[index].Cells["codigo"].Value.ToString();
 
-			textBox2.Text = id;
+			if (!Program.verifySGBDConnection())
+				return;
+
+			SqlCommand cmd = new SqlCommand("select Pizaria.isValidDiscount("+id+",'" + Program.email + "')", Program.cn);
+			int valid = (int)cmd.ExecuteScalar();
+
+			if (valid != 0)
+			{
+				this.shop_cart_price = this.shop_cart_price - this.shop_cart_price * valid / 100;
+				textBox2.Text = id;
+				return;
+			}
+			else
+			{
+				MessageBox.Show("Invalid Discount.");
+			}
+
+			Program.cn.Close();
+
 		}
 
 		public decimal checkBalance(List<Item> shop_cart)

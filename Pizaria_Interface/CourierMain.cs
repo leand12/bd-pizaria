@@ -28,7 +28,19 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.getEstRestaurante ('" + Program.email + "')", Program.cn);
+			SqlCommand cmd = new SqlCommand("select Pizaria.isEmployed('" + Program.email + "')", Program.cn);
+			int employed = (int)cmd.ExecuteScalar();
+
+			if (employed == 1) {
+				return;
+			}
+
+			Program.cn.Close();
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			cmd = new SqlCommand("SELECT * FROM Pizaria.getEstRestaurante ('" + Program.email + "')", Program.cn);
 			SqlDataReader reader = cmd.ExecuteReader();
 			reader.Read();
 

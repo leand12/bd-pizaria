@@ -15,10 +15,10 @@ as
 		declare @metodo_pagamento	as varchar(30);	
 		declare @des_codigo			as int;
 
-		select @ID = ID, @cliente_email = cliente_email, @estafeta_email = estafeta_email, @endereco_fisico = endereco_fisico, @hora = hora, @metodo_pagamento = metodo_pagamento from deleted;
+		select @ID = ID, @cliente_email = cliente_email, @estafeta_email = estafeta_email, @endereco_fisico = endereco_fisico, @hora = hora, @metodo_pagamento = metodo_pagamento, @des_codigo = des_codigo from deleted;
 
-		insert into Pizaria.EncomendaEntregue (ID, cli_email, est_email, endereco_fisico, hora, metodo_pagamento)
-			values (@ID, @cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento)
+		insert into Pizaria.EncomendaEntregue (ID, cli_email, est_email, endereco_fisico, hora, metodo_pagamento, des_codigo)
+			values (@ID, @cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento,@des_codigo)
 
 		insert into Pizaria.EncEntregueItem (enc_ID, item_ID, quantidade)
 			(select * from Pizaria.EncomendaItem where enc_ID=@ID)
