@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -375,6 +376,7 @@ namespace Pizaria
 			textBox3.Clear();
 			textBox2.Clear();
 			LoadCouriers();
+			LoadStats();
 		}
 
 
@@ -421,6 +423,57 @@ namespace Pizaria
 			LoadCouriers();
 			LoadRestaurants();
 			LoadStats();
+		}
+
+		private void button9_Click(object sender, EventArgs e)
+		{
+			if (textBox9.Text == "" || textBox12.Text == "" || textBox8.Text == "" || textBox8.Text.Length!=9){
+				MessageBox.Show("Please fill all parameters to add a Restaurant.");
+			}
+			int contato=0;
+			try
+			{
+				contato = int.Parse(textBox8.Text);
+			}
+			catch
+			{
+				MessageBox.Show("Please type a valid contact number.");
+			}
+
+			SqlCommand cmd = new SqlCommand
+			{
+				CommandType = CommandType.StoredProcedure,
+				CommandText = "Pizaria.insRestaurante"
+			};
+
+			cmd.Parameters.Add(new SqlParameter("@morada", SqlDbType.VarChar, 50));
+			cmd.Parameters.Add(new SqlParameter("@nome", SqlDbType.VarChar, 50));
+			cmd.Parameters.Add(new SqlParameter("@contato", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@lotacao", SqlDbType.Int));
+			cmd.Parameters.Add(new SqlParameter("@dono", SqlDbType.NVarChar, 255));
+			cmd.Parameters.Add(new SqlParameter("@response", SqlDbType.VarChar, 50));
+			cmd.Parameters["@morada"].Value = textBox12.Text;
+			cmd.Parameters["@nome"].Value = textBox9.Text;
+			cmd.Parameters["@contato"].Value = textBox8.Text;
+			cmd.Parameters["@lotacao"].Value = numericUpDown2.Value;
+			cmd.Parameters.AddWithValue("@hora_abertura", dateTimePicker5.Value);
+			cmd.Parameters.AddWithValue("@hora_fecho", dateTimePicker6.Value);
+			cmd.Parameters["@dono"].Value = Program.email;
+			cmd.Parameters["@response"].Direction = ParameterDirection.Output;
+
+			if (!Program.verifySGBDConnection())
+				return;
+
+			cmd.Connection = Program.cn;
+			cmd.ExecuteNonQuery();
+			string response = "" + cmd.Parameters["@response"].Value;
+			MessageBox.Show(response);
+			if (response == "Sucess!")
+			{
+				LoadCouriers();
+				LoadRestaurants();
+				LoadStats();
+			}
 		}
 	}
 }

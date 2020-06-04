@@ -874,6 +874,7 @@
             this.button9.TabIndex = 78;
             this.button9.Text = "Add Restaurant";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // textBox12
             // 

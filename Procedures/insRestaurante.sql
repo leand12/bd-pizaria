@@ -9,7 +9,7 @@ create procedure Pizaria.insRestaurante
 	@hora_abertura time, 
 	@hora_fecho time,
 	@dono nvarchar(255),
-	@response nvarchar(255)='' output
+	@response varchar(50)='' output
 as
 	begin
 		set nocount on
