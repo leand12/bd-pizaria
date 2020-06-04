@@ -17,9 +17,30 @@ namespace Pizaria
 		public AdminMain()
 		{
 			InitializeComponent();
+		}
+		private void AdminMain_Load(object sender, EventArgs e)
+		{
 			LoadStats();
 			LoadDiscounts();
 			LoadCouriers();
+			LoadRestaurants();
+		}
+
+
+		// Show Restaurants
+		private void LoadRestaurants()
+		{
+			if (!Program.verifySGBDConnection())
+				return;
+			SqlCommand cmd = new SqlCommand("select * from Pizaria.showRestaurante()", Program.cn);
+			dataGridView3.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView1, new[] { "contato", "morada", "lotacao", "hora_abertura", "hora_fecho" });
+			dataGridView3.Columns[0].HeaderCell.Value = "Name";
+
+			Program.cn.Close();
 		}
 
 		// Show Couriers
@@ -190,7 +211,7 @@ namespace Pizaria
 			cmd.Parameters.Add(new SqlParameter("@percentagem", SqlDbType.Int));
 			cmd.Parameters.Add(new SqlParameter("@inicio", SqlDbType.DateTime));
 			cmd.Parameters.Add(new SqlParameter("@fim", SqlDbType.DateTime));
-			cmd.Parameters.Add(new SqlParameter("@response", SqlDbType.NVarChar, 255));	
+			cmd.Parameters.Add(new SqlParameter("@response", SqlDbType.NVarChar, 255));
 			cmd.Parameters["@codigo"].Value = textBox5.Text;
 			cmd.Parameters["@percentagem"].Value = numericUpDown1.Text;
 			String startDate = dateTimePicker1.Text + " " + dateTimePicker3.Text;
@@ -207,7 +228,7 @@ namespace Pizaria
 
 			MessageBox.Show(cmd.Parameters["@response"].Value.ToString());
 			textBox5.Clear();
-			numericUpDown1.Value=1;
+			numericUpDown1.Value = 1;
 			dateTimePicker1.Value = DateTimePicker.MinimumDateTime;
 			dateTimePicker2.Value = DateTimePicker.MinimumDateTime;
 			LoadDiscounts();
@@ -234,7 +255,8 @@ namespace Pizaria
 				return;
 
 			SqlCommand cmd = new SqlCommand("delete from PIZARIA.Desconto where codigo=" + id, Program.cn);
-			try {
+			try
+			{
 				Console.WriteLine(cmd.ExecuteNonQuery());
 			}
 			catch (System.Data.SqlClient.SqlException)
@@ -268,14 +290,15 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("delete from PIZARIA.Estafeta where email='" + id+"'", Program.cn);
+			SqlCommand cmd = new SqlCommand("delete from PIZARIA.Estafeta where email='" + id + "'", Program.cn);
 			try
 			{
 				cmd.ExecuteNonQuery();
 			}
 			catch (System.Data.SqlClient.SqlException err)
 			{
-				MessageBox.Show("Error firing Courier"+ err.Message);
+				MessageBox.Show("Error firing Courier" + err.Message);
+
 			}
 
 			LoadCouriers();
@@ -285,7 +308,7 @@ namespace Pizaria
 
 		private void button4_Click(object sender, EventArgs e)
 		{
-			int contato=0;
+			int contato = 0;
 			if (dataGridView1.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
 			{
 				MessageBox.Show("Please select a Restaurant for the Courier.");
@@ -296,11 +319,13 @@ namespace Pizaria
 			{
 				MessageBox.Show("Please insert an email for the Courier.");
 				return;
-			} else if (textBox3.Text == "")
+			}
+			else if (textBox3.Text == "")
 			{
 				MessageBox.Show("Please insert the name of the Courier.");
 				return;
-			} else if (textBox4.Text == "")
+			}
+			else if (textBox4.Text == "")
 			{
 				MessageBox.Show("Please insert a contact for the Courier.");
 				return;
@@ -314,7 +339,7 @@ namespace Pizaria
 				MessageBox.Show("Please insert a valid contact for the Courier.");
 				return;
 			}
-			catch(OverflowException)
+			catch (OverflowException)
 			{
 				MessageBox.Show("The contact number for the Courier is too large.");
 				return;
@@ -352,9 +377,17 @@ namespace Pizaria
 			LoadCouriers();
 		}
 
-		private void AdminMain_Load(object sender, EventArgs e)
-		{
 
+		private void dataGridView3_SelectionChanged(object sender, EventArgs e)
+		{
+			if (dataGridView3.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+			
+			int index = int.Parse(dataGridView2.SelectedRows[0].Index.ToString());
+			textBox1.Text = dataGridView2.Rows[index].Cells["contato"].Value.ToString();
+			textBox6.Text = dataGridView2.Rows[index].Cells["nome"].Value.ToString();
+			textBox11.Text = dataGridView2.Rows[index].Cells["morada"].Value.ToString();
+			numericUpDown3.Value = decimal.Parse(dataGridView2.Rows[index].Cells["lotacao"].Value.ToString());
 		}
 	}
 }
