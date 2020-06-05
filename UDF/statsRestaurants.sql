@@ -30,7 +30,7 @@ as
 					select sum(Item.preco*EncEntregueItem.quantidade*Pizaria.getDesconto(EncomendaEntregue.ID)) as total
 					from Pizaria.Estafeta join Pizaria.EncomendaEntregue on email=est_email
 					join Pizaria.EncEntregueItem on EncomendaEntregue.ID=EncEntregueItem.enc_ID
-					join Pizaria.Item on item_ID=Item.ID where res_contato = @contato and EncomendaEntregue.ID=EncEntregueItem.enc_ID
+					join Pizaria.Item on item_ID=Item.ID where res_contato = @contato
 					) as total_price
 					from Pizaria.Estafeta as E join Pizaria.Utilizador on E.email=Utilizador.email join  Pizaria.Restaurante as R on R.contato=E.res_contato
 					where R.contato=@contato
