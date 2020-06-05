@@ -354,6 +354,7 @@ namespace Pizaria
 			textBox7.Text = dataGridView5.Rows[index].Cells["estafeta_email"].Value.ToString();
 			textBox8.Text = dataGridView5.Rows[index].Cells["endereco_fisico"].Value.ToString();
 
+
 			if (!Program.verifySGBDConnection())
 				return;
 
@@ -366,6 +367,9 @@ namespace Pizaria
 			Interface.customDataGridView(cmd, dataGridView8, new[] { "item_ID" });
 			dataGridView8.Columns["nome"].HeaderCell.Value = "Item";
 			dataGridView8.Columns["quantidade"].HeaderCell.Value = "Quantity";
+
+			cmd = new SqlCommand("select Pizaria.getEncPreco(" + dataGridView5.Rows[index].Cells["ID"].Value.ToString() +")", Program.cn);
+			textBox10.Text = cmd.ExecuteScalar().ToString();
 
 			Program.cn.Close();
 		}
