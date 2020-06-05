@@ -65,20 +65,20 @@ namespace Pizaria
 
 			Program.cn.Close();
 		}
+
 		private void LoadOrders()
 		{
 			if (!Program.verifySGBDConnection())
 				return;
 
 			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showAllOrders('"+Program.email+"')", Program.cn);
-			SqlDataReader reader = cmd.ExecuteReader();
-			listBox4.Items.Clear();
 
-			while (reader.Read())
-			{
-				Encomenda I = new Encomenda(int.Parse(reader["ID"].ToString()), reader["nome"].ToString(), int.Parse(reader["contato"].ToString()), reader["estafeta_email"].ToString(), reader["endereco_fisico"].ToString(), reader["hora"].ToString());
-				listBox4.Items.Add(I);
-			}
+			dataGridView5.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView5, new[] { "ID", "contato", "nome", "endereco_fisico", "estafeta_email" });
+			dataGridView5.Columns["hora"].HeaderCell.Value = "Delivery Time";
 
 			Program.cn.Close();
 		}
@@ -262,7 +262,7 @@ namespace Pizaria
 			LoadShopCart();
 			LoadDiscounts();
 			this.shop_cart_price = 0.00m;
-			listBox8.Items.Clear();
+			dataGridView8.DataSource = null;
 			textBox5.Clear();
 			textBox6.Clear();
 			textBox7.Clear();
@@ -342,31 +342,32 @@ namespace Pizaria
 			}
 		}
 
-		private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
+		private void dataGridView5_SelectionChanged(object sender, EventArgs e)
 		{
-			if (listBox4.SelectedIndex>0 || listBox4.SelectedItem!= null){
-				Encomenda enc = (Encomenda) listBox4.SelectedItem;
+			if (dataGridView5.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
 
-				textBox5.Text = enc.nome;
-				textBox6.Text = enc.contato.ToString();
-				textBox7.Text = enc.email;
-				textBox8.Text = enc.endereco_fisico;
+			int index = int.Parse(dataGridView5.SelectedRows[0].Index.ToString());
 
-				if (!Program.verifySGBDConnection())
-					return;
+			textBox5.Text = dataGridView5.Rows[index].Cells["nome"].Value.ToString();
+			textBox6.Text = dataGridView5.Rows[index].Cells["contato"].Value.ToString();
+			textBox7.Text = dataGridView5.Rows[index].Cells["estafeta_email"].Value.ToString();
+			textBox8.Text = dataGridView5.Rows[index].Cells["endereco_fisico"].Value.ToString();
 
-				SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrder('" + enc.ID + "')", Program.cn);
-				SqlDataReader reader = cmd.ExecuteReader();
-				listBox8.Items.Clear();
+			if (!Program.verifySGBDConnection())
+				return;
 
-				while (reader.Read())
-				{
-					listBox8.Items.Add(reader["nome"].ToString()+"    "+ int.Parse(reader["quantidade"].ToString()));
-				}
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrder('" + dataGridView5.Rows[index].Cells["ID"].Value.ToString() + "')", Program.cn);
 
-				Program.cn.Close();
+			dataGridView8.DataSource = null;
 
-			}
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView8, new[] { "item_ID" });
+			dataGridView8.Columns["nome"].HeaderCell.Value = "Item";
+			dataGridView8.Columns["quantidade"].HeaderCell.Value = "Quantity";
+
+			Program.cn.Close();
 		}
 
 		private void button7_Click(object sender, EventArgs e)
