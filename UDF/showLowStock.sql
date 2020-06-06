@@ -2,30 +2,19 @@ drop function Pizaria.showLowStock;
 go
 
 go
-create function Pizaria.showLowStock () returns Table
-as
-	return (
-			select Item.ID, nome, preco, Ingrediente.quantidade_disponivel as stock_ing, Bebida.quantidade_disponivel as stock_beb
-			from  Pizaria.Item left join Pizaria.Ingrediente on Item.ID=Ingrediente.ID
-			left join Pizaria.Bebida on Bebida.ID=Item.ID
-			where Ingrediente.quantidade_disponivel <= 50
-			or Bebida.quantidade_disponivel <= 50
-			)
-go
-
-drop procedure Pizaria.updStock;
-go
-
-go
-create procedure Pizaria.updStock
-	@ID int,
-	@amount int
+create function Pizaria.showLowStock () returns @temp table(ID int, nome varchar(50), preco decimal(19,2), quantidade_disponivel int)
 as
 	begin
-		set nocount on
-		if (exists(select top 1 ID from Pizaria.Ingrediente where ID = @ID))
-			update Pizaria.Ingrediente set quantidade_disponivel += @amount
-		else if (exists(select top 1 ID from Pizaria.Bebida where ID = @ID))
-			update Pizaria.Bebida set quantidade_disponivel += @amount
+		insert into @temp
+			select Item.ID, nome, preco, quantidade_disponivel
+			from  Pizaria.Item join Pizaria.Ingrediente on Item.ID=Ingrediente.ID
+			where Ingrediente.quantidade_disponivel <= 50
+			order by 4 asc
+		insert into @temp
+			select Item.ID, nome, preco, quantidade_disponivel
+			from  Pizaria.Item join Pizaria.Bebida on Bebida.ID=Item.ID
+			where Bebida.quantidade_disponivel <= 50
+			order by 4 asc
+		return
 	end
 go

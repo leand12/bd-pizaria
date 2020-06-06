@@ -25,8 +25,28 @@ namespace Pizaria
 			LoadDiscounts();
 			LoadCouriers();
 			LoadRestaurants();
+			LoadStock();
 		}
 
+
+		// Show Stock
+		private void LoadStock()
+		{
+			if (!Program.verifySGBDConnection())
+				return;
+
+			SqlCommand cmd = new SqlCommand("select * from Pizaria.showLowStock() order by 4 asc", Program.cn);
+			dataGridView10.DataSource = null;
+
+			cmd.Connection = Program.cn;
+
+			Interface.customDataGridView(cmd, dataGridView10, new[] { "ID" } );
+			dataGridView10.Columns[1].HeaderCell.Value = "Item";
+			dataGridView10.Columns[2].HeaderCell.Value = "Price";
+			dataGridView10.Columns[3].HeaderCell.Value = "Quantity in Stock";
+
+			Program.cn.Close();
+		}
 
 		// Show Restaurants
 		private void LoadRestaurants()
@@ -478,6 +498,32 @@ namespace Pizaria
 				textBox9.Text = "";
 				numericUpDown2.Value = 1;
 			}
+			Program.cn.Close();
+		}
+
+		private void button10_Click(object sender, EventArgs e)
+		{
+			if (dataGridView10.Rows.GetRowCount(DataGridViewElementStates.Selected) <= 0)
+				return;
+
+			if (!Program.verifySGBDConnection())
+				return;
+			
+			int index = int.Parse(dataGridView10.SelectedRows[0].Index.ToString());
+
+			SqlCommand cmd = new SqlCommand
+			{
+				CommandType = CommandType.StoredProcedure,
+				CommandText = "Pizaria.updStock"
+			};
+			cmd.Parameters.AddWithValue("@ID", int.Parse(dataGridView10.Rows[index].Cells["ID"].Value.ToString()));
+			cmd.Parameters.AddWithValue("@amount", numericUpDown4.Value);
+
+			cmd.Connection = Program.cn;
+			cmd.ExecuteNonQuery();
+
+			LoadStock();
+			Program.cn.Close();
 		}
 	}
 }

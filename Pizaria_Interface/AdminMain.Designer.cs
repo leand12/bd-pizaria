@@ -31,7 +31,34 @@
             this.button3 = new System.Windows.Forms.Button();
             this.tabControl4 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label30 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.button9 = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.dateTimePicker6 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.Restaurants = new System.Windows.Forms.GroupBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.button8 = new System.Windows.Forms.Button();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dateTimePicker7 = new System.Windows.Forms.DateTimePicker();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dateTimePicker8 = new System.Windows.Forms.DateTimePicker();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.dataGridView8 = new System.Windows.Forms.DataGridView();
             this.label16 = new System.Windows.Forms.Label();
@@ -75,35 +102,17 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.Restaurants = new System.Windows.Forms.GroupBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.dateTimePicker5 = new System.Windows.Forms.DateTimePicker();
-            this.label24 = new System.Windows.Forms.Label();
-            this.dateTimePicker6 = new System.Windows.Forms.DateTimePicker();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.dateTimePicker7 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker8 = new System.Windows.Forms.DateTimePicker();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.label28 = new System.Windows.Forms.Label();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
-            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.dataGridView10 = new System.Windows.Forms.DataGridView();
+            this.label21 = new System.Windows.Forms.Label();
+            this.button10 = new System.Windows.Forms.Button();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.label23 = new System.Windows.Forms.Label();
             this.tabControl4.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            this.Restaurants.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView8)).BeginInit();
@@ -117,9 +126,9 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.Restaurants.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
             this.SuspendLayout();
             // 
             // button3
@@ -141,6 +150,7 @@
             this.tabControl4.Controls.Add(this.tabPage4);
             this.tabControl4.Controls.Add(this.tabPage2);
             this.tabControl4.Controls.Add(this.tabPage3);
+            this.tabControl4.Controls.Add(this.tabPage5);
             this.tabControl4.Location = new System.Drawing.Point(9, 11);
             this.tabControl4.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl4.Name = "tabControl4";
@@ -173,6 +183,236 @@
             this.tabPage1.Text = "Main";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(705, 50);
+            this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(45, 13);
+            this.label30.TabIndex = 82;
+            this.label30.Text = "Lotation";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(708, 66);
+            this.numericUpDown2.Minimum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(62, 20);
+            this.numericUpDown2.TabIndex = 81;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // textBox12
+            // 
+            this.textBox12.Location = new System.Drawing.Point(559, 240);
+            this.textBox12.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.Size = new System.Drawing.Size(213, 20);
+            this.textBox12.TabIndex = 80;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(556, 225);
+            this.label29.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(39, 13);
+            this.label29.TabIndex = 79;
+            this.label29.Text = "Adress";
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(612, 299);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(137, 48);
+            this.button9.TabIndex = 78;
+            this.button9.Text = "Add Restaurant";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(558, 105);
+            this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(73, 13);
+            this.label25.TabIndex = 70;
+            this.label25.Text = "Opening Time";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(682, 105);
+            this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(67, 13);
+            this.label24.TabIndex = 69;
+            this.label24.Text = "Closing Time";
+            // 
+            // dateTimePicker6
+            // 
+            this.dateTimePicker6.CustomFormat = "yyyy/m/ hh:mm";
+            this.dateTimePicker6.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker6.Location = new System.Drawing.Point(684, 121);
+            this.dateTimePicker6.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimePicker6.Name = "dateTimePicker6";
+            this.dateTimePicker6.ShowUpDown = true;
+            this.dateTimePicker6.Size = new System.Drawing.Size(86, 20);
+            this.dateTimePicker6.TabIndex = 68;
+            // 
+            // dateTimePicker5
+            // 
+            this.dateTimePicker5.CustomFormat = "yyyy/m/ hh:mm";
+            this.dateTimePicker5.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker5.Location = new System.Drawing.Point(559, 121);
+            this.dateTimePicker5.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimePicker5.Name = "dateTimePicker5";
+            this.dateTimePicker5.ShowUpDown = true;
+            this.dateTimePicker5.Size = new System.Drawing.Size(94, 20);
+            this.dateTimePicker5.TabIndex = 65;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(559, 66);
+            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(94, 20);
+            this.textBox8.TabIndex = 39;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(556, 51);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 38;
+            this.label3.Text = "Contact";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(559, 183);
+            this.textBox9.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(213, 20);
+            this.textBox9.TabIndex = 37;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(560, 168);
+            this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(35, 13);
+            this.label22.TabIndex = 36;
+            this.label22.Text = "Name";
+            // 
+            // Restaurants
+            // 
+            this.Restaurants.Controls.Add(this.label31);
+            this.Restaurants.Controls.Add(this.numericUpDown3);
+            this.Restaurants.Controls.Add(this.button8);
+            this.Restaurants.Controls.Add(this.textBox11);
+            this.Restaurants.Controls.Add(this.label28);
+            this.Restaurants.Controls.Add(this.label26);
+            this.Restaurants.Controls.Add(this.textBox1);
+            this.Restaurants.Controls.Add(this.label27);
+            this.Restaurants.Controls.Add(this.dataGridView3);
+            this.Restaurants.Controls.Add(this.dateTimePicker7);
+            this.Restaurants.Controls.Add(this.label18);
+            this.Restaurants.Controls.Add(this.dateTimePicker8);
+            this.Restaurants.Controls.Add(this.textBox6);
+            this.Restaurants.Controls.Add(this.label19);
+            this.Restaurants.Location = new System.Drawing.Point(16, 14);
+            this.Restaurants.Name = "Restaurants";
+            this.Restaurants.Size = new System.Drawing.Size(471, 351);
+            this.Restaurants.TabIndex = 33;
+            this.Restaurants.TabStop = false;
+            this.Restaurants.Text = "Restaurants";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(377, 37);
+            this.label31.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(45, 13);
+            this.label31.TabIndex = 84;
+            this.label31.Text = "Lotation";
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(380, 53);
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(62, 20);
+            this.numericUpDown3.TabIndex = 83;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(305, 285);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(137, 48);
+            this.button8.TabIndex = 77;
+            this.button8.Text = "Update";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(21, 226);
+            this.textBox11.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(320, 20);
+            this.textBox11.TabIndex = 76;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(20, 211);
+            this.label28.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(39, 13);
+            this.label28.TabIndex = 75;
+            this.label28.Text = "Adress";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(252, 91);
+            this.label26.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(73, 13);
+            this.label26.TabIndex = 74;
+            this.label26.Text = "Opening Time";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(253, 52);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(88, 20);
+            this.textBox1.TabIndex = 32;
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(354, 91);
+            this.label27.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(67, 13);
+            this.label27.TabIndex = 73;
+            this.label27.Text = "Closing Time";
+            // 
             // dataGridView3
             // 
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -182,6 +422,56 @@
             this.dataGridView3.Size = new System.Drawing.Size(208, 81);
             this.dataGridView3.TabIndex = 26;
             this.dataGridView3.SelectionChanged += new System.EventHandler(this.dataGridView3_SelectionChanged);
+            // 
+            // dateTimePicker7
+            // 
+            this.dateTimePicker7.CustomFormat = "yyyy/m/ hh:mm";
+            this.dateTimePicker7.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker7.Location = new System.Drawing.Point(356, 107);
+            this.dateTimePicker7.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimePicker7.Name = "dateTimePicker7";
+            this.dateTimePicker7.ShowUpDown = true;
+            this.dateTimePicker7.Size = new System.Drawing.Size(86, 20);
+            this.dateTimePicker7.TabIndex = 72;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(252, 37);
+            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(44, 13);
+            this.label18.TabIndex = 31;
+            this.label18.Text = "Contact";
+            // 
+            // dateTimePicker8
+            // 
+            this.dateTimePicker8.CustomFormat = "yyyy/m/ hh:mm";
+            this.dateTimePicker8.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker8.Location = new System.Drawing.Point(253, 107);
+            this.dateTimePicker8.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimePicker8.Name = "dateTimePicker8";
+            this.dateTimePicker8.ShowUpDown = true;
+            this.dateTimePicker8.Size = new System.Drawing.Size(88, 20);
+            this.dateTimePicker8.TabIndex = 71;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(19, 169);
+            this.textBox6.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(320, 20);
+            this.textBox6.TabIndex = 30;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(18, 154);
+            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(35, 13);
+            this.label19.TabIndex = 29;
+            this.label19.Text = "Name";
             // 
             // tabPage4
             // 
@@ -658,285 +948,73 @@
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // textBox1
+            // tabPage5
             // 
-            this.textBox1.Location = new System.Drawing.Point(253, 52);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(88, 20);
-            this.textBox1.TabIndex = 32;
+            this.tabPage5.Controls.Add(this.label23);
+            this.tabPage5.Controls.Add(this.numericUpDown4);
+            this.tabPage5.Controls.Add(this.button10);
+            this.tabPage5.Controls.Add(this.label21);
+            this.tabPage5.Controls.Add(this.dataGridView10);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(838, 377);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Stock";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // label18
+            // dataGridView10
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(252, 37);
-            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(44, 13);
-            this.label18.TabIndex = 31;
-            this.label18.Text = "Contact";
+            this.dataGridView10.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView10.Location = new System.Drawing.Point(40, 52);
+            this.dataGridView10.Name = "dataGridView10";
+            this.dataGridView10.Size = new System.Drawing.Size(413, 226);
+            this.dataGridView10.TabIndex = 0;
             // 
-            // textBox6
+            // label21
             // 
-            this.textBox6.Location = new System.Drawing.Point(19, 169);
-            this.textBox6.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(320, 20);
-            this.textBox6.TabIndex = 30;
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(40, 33);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(125, 13);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "Products with Low Stock";
             // 
-            // label19
+            // button10
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(18, 154);
-            this.label19.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(35, 13);
-            this.label19.TabIndex = 29;
-            this.label19.Text = "Name";
+            this.button10.Location = new System.Drawing.Point(537, 220);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(164, 58);
+            this.button10.TabIndex = 3;
+            this.button10.Text = "Add to Stock";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
-            // Restaurants
+            // numericUpDown4
             // 
-            this.Restaurants.Controls.Add(this.label31);
-            this.Restaurants.Controls.Add(this.numericUpDown3);
-            this.Restaurants.Controls.Add(this.button8);
-            this.Restaurants.Controls.Add(this.textBox11);
-            this.Restaurants.Controls.Add(this.label28);
-            this.Restaurants.Controls.Add(this.label26);
-            this.Restaurants.Controls.Add(this.textBox1);
-            this.Restaurants.Controls.Add(this.label27);
-            this.Restaurants.Controls.Add(this.dataGridView3);
-            this.Restaurants.Controls.Add(this.dateTimePicker7);
-            this.Restaurants.Controls.Add(this.label18);
-            this.Restaurants.Controls.Add(this.dateTimePicker8);
-            this.Restaurants.Controls.Add(this.textBox6);
-            this.Restaurants.Controls.Add(this.label19);
-            this.Restaurants.Location = new System.Drawing.Point(16, 14);
-            this.Restaurants.Name = "Restaurants";
-            this.Restaurants.Size = new System.Drawing.Size(471, 351);
-            this.Restaurants.TabIndex = 33;
-            this.Restaurants.TabStop = false;
-            this.Restaurants.Text = "Restaurants";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(559, 66);
-            this.textBox8.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(94, 20);
-            this.textBox8.TabIndex = 39;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(556, 51);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(44, 13);
-            this.label3.TabIndex = 38;
-            this.label3.Text = "Contact";
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(559, 183);
-            this.textBox9.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(213, 20);
-            this.textBox9.TabIndex = 37;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(560, 168);
-            this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(35, 13);
-            this.label22.TabIndex = 36;
-            this.label22.Text = "Name";
-            // 
-            // dateTimePicker5
-            // 
-            this.dateTimePicker5.CustomFormat = "yyyy/m/ hh:mm";
-            this.dateTimePicker5.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker5.Location = new System.Drawing.Point(559, 121);
-            this.dateTimePicker5.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker5.Name = "dateTimePicker5";
-            this.dateTimePicker5.ShowUpDown = true;
-            this.dateTimePicker5.Size = new System.Drawing.Size(94, 20);
-            this.dateTimePicker5.TabIndex = 65;
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(682, 105);
-            this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(67, 13);
-            this.label24.TabIndex = 69;
-            this.label24.Text = "Closing Time";
-            // 
-            // dateTimePicker6
-            // 
-            this.dateTimePicker6.CustomFormat = "yyyy/m/ hh:mm";
-            this.dateTimePicker6.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker6.Location = new System.Drawing.Point(684, 121);
-            this.dateTimePicker6.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker6.Name = "dateTimePicker6";
-            this.dateTimePicker6.ShowUpDown = true;
-            this.dateTimePicker6.Size = new System.Drawing.Size(86, 20);
-            this.dateTimePicker6.TabIndex = 68;
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(558, 105);
-            this.label25.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(73, 13);
-            this.label25.TabIndex = 70;
-            this.label25.Text = "Opening Time";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(252, 91);
-            this.label26.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(73, 13);
-            this.label26.TabIndex = 74;
-            this.label26.Text = "Opening Time";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(354, 91);
-            this.label27.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(67, 13);
-            this.label27.TabIndex = 73;
-            this.label27.Text = "Closing Time";
-            // 
-            // dateTimePicker7
-            // 
-            this.dateTimePicker7.CustomFormat = "yyyy/m/ hh:mm";
-            this.dateTimePicker7.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker7.Location = new System.Drawing.Point(356, 107);
-            this.dateTimePicker7.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker7.Name = "dateTimePicker7";
-            this.dateTimePicker7.ShowUpDown = true;
-            this.dateTimePicker7.Size = new System.Drawing.Size(86, 20);
-            this.dateTimePicker7.TabIndex = 72;
-            // 
-            // dateTimePicker8
-            // 
-            this.dateTimePicker8.CustomFormat = "yyyy/m/ hh:mm";
-            this.dateTimePicker8.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker8.Location = new System.Drawing.Point(253, 107);
-            this.dateTimePicker8.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTimePicker8.Name = "dateTimePicker8";
-            this.dateTimePicker8.ShowUpDown = true;
-            this.dateTimePicker8.Size = new System.Drawing.Size(88, 20);
-            this.dateTimePicker8.TabIndex = 71;
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(21, 226);
-            this.textBox11.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(320, 20);
-            this.textBox11.TabIndex = 76;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(20, 211);
-            this.label28.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(39, 13);
-            this.label28.TabIndex = 75;
-            this.label28.Text = "Adress";
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(305, 285);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(137, 48);
-            this.button8.TabIndex = 77;
-            this.button8.Text = "Update";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button9
-            // 
-            this.button9.Location = new System.Drawing.Point(612, 299);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(137, 48);
-            this.button9.TabIndex = 78;
-            this.button9.Text = "Add Restaurant";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // textBox12
-            // 
-            this.textBox12.Location = new System.Drawing.Point(559, 240);
-            this.textBox12.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(213, 20);
-            this.textBox12.TabIndex = 80;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(556, 225);
-            this.label29.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(39, 13);
-            this.label29.TabIndex = 79;
-            this.label29.Text = "Adress";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.Location = new System.Drawing.Point(708, 66);
-            this.numericUpDown2.Minimum = new decimal(new int[] {
-            10,
+            this.numericUpDown4.Location = new System.Drawing.Point(561, 132);
+            this.numericUpDown4.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(62, 20);
-            this.numericUpDown2.TabIndex = 81;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            10,
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDown4.TabIndex = 4;
+            this.numericUpDown4.Value = new decimal(new int[] {
+            1,
             0,
             0,
             0});
             // 
-            // label30
+            // label23
             // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(705, 50);
-            this.label30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(45, 13);
-            this.label30.TabIndex = 82;
-            this.label30.Text = "Lotation";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(377, 37);
-            this.label31.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(45, 13);
-            this.label31.TabIndex = 84;
-            this.label31.Text = "Lotation";
-            // 
-            // numericUpDown3
-            // 
-            this.numericUpDown3.Location = new System.Drawing.Point(380, 53);
-            this.numericUpDown3.Name = "numericUpDown3";
-            this.numericUpDown3.Size = new System.Drawing.Size(62, 20);
-            this.numericUpDown3.TabIndex = 83;
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(558, 116);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(80, 13);
+            this.label23.TabIndex = 5;
+            this.label23.Text = "Quantity to Add";
             // 
             // AdminMain
             // 
@@ -952,6 +1030,10 @@
             this.tabControl4.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            this.Restaurants.ResumeLayout(false);
+            this.Restaurants.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -968,10 +1050,10 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.Restaurants.ResumeLayout(false);
-            this.Restaurants.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
             this.ResumeLayout(false);
 
 		}
@@ -1051,5 +1133,11 @@
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.DataGridView dataGridView10;
     }
 }

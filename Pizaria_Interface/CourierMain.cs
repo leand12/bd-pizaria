@@ -93,7 +93,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrderHistory(1 ,'" + Program.email + "')", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrderHistory('" + Program.email + "')", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView4, new[] { "ID" });
 			dataGridView4.Columns["cli_email"].HeaderCell.Value = "Client Email";
