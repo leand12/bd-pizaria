@@ -99,7 +99,7 @@ create table Pizaria.EncomendaEntregue (
 	foreign key (cli_email) references Pizaria.Cliente(email),
 	foreign key (restaurante) references Pizaria.Restaurante(contato),
 	foreign key (est_email) references Pizaria.Estafeta(email),
-	foreign key(des_codigo) references Pizaria.Desconto(codigo),
+	foreign key (des_codigo) references Pizaria.Desconto(codigo),
 );
 create table Pizaria.Item(
 	ID			int,
