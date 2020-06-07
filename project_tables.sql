@@ -23,7 +23,7 @@ drop table Pizaria.Utilizador;
 create table Pizaria.Utilizador (
 	email			nvarchar(255),
 	nome			varchar(50)		not null,
-	contato			int				not null,
+	contato			int				not null	check(100000000 <= contato and contato <= 999999999),
 	salt UNIQUEIDENTIFIER			not null,
 	pass			binary(64)		not null,
 	primary key (email)
@@ -34,7 +34,7 @@ create table Pizaria.Administrador (
 	foreign key (email) references Pizaria.Utilizador(email)
 );
 create table Pizaria.Restaurante (
-	contato					int,
+	contato					int		check(100000000 <= contato and contato <= 999999999),
 	nome					varchar(50)	not null,
 	morada					varchar(50)	not null,
 	lotacao					int			not null,
@@ -54,7 +54,7 @@ create table Pizaria.Estafeta (
 create table Pizaria.Cliente (
 	email			nvarchar(255),
 	idade			int,
-	genero			char,
+	genero			char				check(genero = 'M' or genero = 'F' or genero = 'O'),
 	morada			nvarchar(255),
 	primary key (email),
 	foreign key (email) references Pizaria.Utilizador(email)
@@ -68,7 +68,7 @@ create table Pizaria.Desconto(
 );
 create table Pizaria.DescontoCliente (
 	cli_email		nvarchar(255)		not null,
-	des_codigo		int				not null,
+	des_codigo		int					not null,
 	primary key (cli_email, des_codigo),
 	foreign key (cli_email) references Pizaria.Cliente(email),
 	foreign key (des_codigo) references Pizaria.Desconto(codigo)
@@ -104,7 +104,7 @@ create table Pizaria.EncomendaEntregue (
 create table Pizaria.Item(
 	ID			int,
 	nome		varchar(30)		not null,
-	preco		DECIMAL(19,2)			not null,
+	preco		DECIMAL(19,2)	not null	check(preco > 0),
 	primary key(ID)
 );
 create table Pizaria.EncomendaItem(
