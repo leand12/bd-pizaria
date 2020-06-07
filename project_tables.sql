@@ -93,9 +93,11 @@ create table Pizaria.EncomendaEntregue (
 	endereco_fisico		varchar(50)		not null,
 	hora				datetime		not null,
 	metodo_pagamento	varchar(30)		not null,
+	restaurante			int				not null,
 	des_codigo			int,
 	primary key (ID),
 	foreign key (cli_email) references Pizaria.Cliente(email),
+	foreign key (restaurante) references Pizaria.Restaurante(contato),
 	foreign key (est_email) references Pizaria.Estafeta(email),
 	foreign key(des_codigo) references Pizaria.Desconto(codigo),
 );

@@ -17,8 +17,9 @@ as
 
 		select @ID = ID, @cliente_email = cliente_email, @estafeta_email = estafeta_email, @endereco_fisico = endereco_fisico, @hora = hora, @metodo_pagamento = metodo_pagamento, @des_codigo = des_codigo from deleted;
 
-		insert into Pizaria.EncomendaEntregue (ID, cli_email, est_email, endereco_fisico, hora, metodo_pagamento, des_codigo)
-			values (@ID, @cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento,@des_codigo)
+		declare @res_contato int = (select res_contato from Pizaria.Estafeta where email=@estafeta_email)
+		insert into Pizaria.EncomendaEntregue (ID, cli_email, est_email, endereco_fisico, hora, metodo_pagamento, des_codigo, restaurante)
+			values (@ID, @cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento,@des_codigo, @res_contato)
 
 		insert into Pizaria.EncEntregueItem (enc_ID, item_ID, quantidade)
 			(select * from Pizaria.EncomendaItem where enc_ID=@ID)
