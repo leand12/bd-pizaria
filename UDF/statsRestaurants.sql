@@ -45,6 +45,3 @@ as
 		return
 	end
 go
-
---ver vantagens/desvantagens das views ou udf, stor deu a entender q era melhor udf, meter no relatorio, ver nos slides
---

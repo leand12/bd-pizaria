@@ -243,15 +243,26 @@ namespace Pizaria
 
 			if (!Program.verifySGBDConnection())
 				return;
-
-			cmd.Connection = Program.cn;
-			cmd.ExecuteNonQuery();
-
+			try
+			{
+				cmd.Connection = Program.cn;
+				cmd.ExecuteNonQuery();
+			}
+			catch (SqlException er)
+			{
+				MessageBox.Show(er.Message);
+				textBox5.Clear();
+				numericUpDown1.Value = 1;
+				dateTimePicker1.Value = DateTime.Now;
+				dateTimePicker2.Value = DateTime.Now;
+				LoadDiscounts();
+				return;
+			}
 			MessageBox.Show(cmd.Parameters["@response"].Value.ToString());
 			textBox5.Clear();
 			numericUpDown1.Value = 1;
-			dateTimePicker1.Value = DateTimePicker.MinimumDateTime;
-			dateTimePicker2.Value = DateTimePicker.MinimumDateTime;
+			dateTimePicker1.Value = DateTime.Now;
+			dateTimePicker2.Value = DateTime.Now;
 			LoadDiscounts();
 		}
 
@@ -259,8 +270,8 @@ namespace Pizaria
 		{
 			textBox5.Clear();
 			numericUpDown1.Value = 1;
-			dateTimePicker1.Value = DateTimePicker.MinimumDateTime;
-			dateTimePicker2.Value = DateTimePicker.MinimumDateTime;
+			dateTimePicker1.Value = DateTime.Now;
+			dateTimePicker2.Value = DateTime.Now;
 		}
 
 		private void button7_Click(object sender, EventArgs e)
@@ -323,6 +334,7 @@ namespace Pizaria
 			}
 
 			LoadCouriers();
+			LoadStats();
 
 			Program.cn.Close();
 		}
@@ -496,7 +508,7 @@ namespace Pizaria
 				textBox9.Text = "";
 				textBox9.Text = "";
 				textBox9.Text = "";
-				numericUpDown2.Value = 1;
+				numericUpDown2.Value = 10;
 			}
 			Program.cn.Close();
 		}

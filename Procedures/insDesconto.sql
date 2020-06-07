@@ -20,6 +20,7 @@ as
 				insert into Pizaria.Desconto(codigo, percentagem, inicio, fim) values (@codigo, @percentagem, @inicio, @fim)
 		end try
 		begin catch
+			set @response = 'Error Inserting Discount Code'
 			RAISERROR('Error Inserting Discount Code',16,1)
 			return
 		end catch

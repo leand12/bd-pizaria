@@ -16,9 +16,9 @@ as
 			begin
 				INSERT INTO @returnTable
 					select top 3 * from (
-						select nome, preco, PizaView.ID, count(PizaView.ID) as num_vendas
-						from Pizaria.EncomendaItem join Pizaria.PizaView on EncomendaItem.item_ID=PizaView.ID
-						group by nome, preco, PizaView.ID
+						select nome, preco, P.ID, count(P.ID) as num_vendas
+						from Pizaria.EncomendaItem join (select * from Pizaria.PizaAvail()) as P on EncomendaItem.item_ID=P.ID
+						group by nome, preco, P.ID
 					) as qq order by
 						case when @order = 0 then num_vendas end desc,
 						case when @order = 1 then num_vendas end asc
@@ -28,9 +28,9 @@ as
 			begin				
 				INSERT INTO @returnTable
 					select top 3 * from (
-						select nome, preco, MenuView.ID, count(MenuView.ID) as num_vendas
-						from Pizaria.EncomendaItem join Pizaria.MenuView on EncomendaItem.item_ID=MenuView.ID
-						group by nome, preco, MenuView.ID
+						select nome, preco, M.ID, count(M.ID) as num_vendas
+						from Pizaria.EncomendaItem join (select * from Pizaria.menuAvail()) as M on EncomendaItem.item_ID=M.ID
+						group by nome, preco, M.ID
 					) as qq order by
 						case when @order = 0 then num_vendas end desc,
 						case when @order = 1 then num_vendas end asc
@@ -39,9 +39,3 @@ as
 		RETURN;
 	end
 go
-
-
---select * from Pizaria.statsEncomenda('Menu', 0)
-
-
--- admin no futuro pode dar restock se tivermos tempo

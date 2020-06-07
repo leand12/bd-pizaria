@@ -57,7 +57,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.menuAvail()", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView2, new[] {"Id"});
 			dataGridView2.Columns["nome"].HeaderCell.Value = "Name";
@@ -105,7 +105,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.PizaView", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.pizaAvail()", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView3, new[] {"ID", "pic"});
 			dataGridView3.Columns["nome"].HeaderCell.Value = "Name";

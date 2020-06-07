@@ -61,7 +61,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.MenuView", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.menuAvail()", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView1, new[] {"Id"});
 			dataGridView1.Columns["nome"].HeaderCell.Value = "Name";
@@ -75,7 +75,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.PizaView", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.pizaAvail()", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView2, new[] { "ID", "pic" });
 			dataGridView2.Columns["nome"].HeaderCell.Value = "Name";
@@ -89,7 +89,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.BebidaView", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.bebidaAvail()", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView3, new[] { "ID", "quantidade_disponivel" });
 			dataGridView3.Columns["nome"].HeaderCell.Value = "Name";
@@ -103,7 +103,7 @@ namespace Pizaria
 			if (!Program.verifySGBDConnection())
 				return;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.IngredienteView", Program.cn);
+			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.ingredienteAvail()", Program.cn);
 
 			Interface.customDataGridView(cmd, dataGridView4, new[] { "ID", "quantidade_disponivel" });
 			dataGridView4.Columns["nome"].HeaderCell.Value = "Name";
