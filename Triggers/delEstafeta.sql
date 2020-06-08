@@ -40,3 +40,4 @@ as
             return;
         end catch
     end
+go

@@ -14,13 +14,10 @@ create procedure Pizaria.insEncomenda
 as
 	begin
 		begin try
-
 			insert into Pizaria.Encomenda (cliente_email,estafeta_email,endereco_fisico,hora,metodo_pagamento,des_codigo) values
 			(@cliente_email, @estafeta_email, @endereco_fisico, @hora, @metodo_pagamento, @des_codigo)
-			--return ID of Encomenda
-			SET @last_ID = SCOPE_IDENTITY()
-			--return valid discount or not
 
+			SET @last_ID = SCOPE_IDENTITY()
 		end try
 		begin catch
 			RAISERROR('Error Inserting Order',16,1)

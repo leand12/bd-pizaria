@@ -15,7 +15,8 @@ as
 		declare @metodo_pagamento	as varchar(30);	
 		declare @des_codigo			as int;
 
-		select @ID = ID, @cliente_email = cliente_email, @estafeta_email = estafeta_email, @endereco_fisico = endereco_fisico, @hora = hora, @metodo_pagamento = metodo_pagamento, @des_codigo = des_codigo from deleted;
+		select @ID = ID, @cliente_email = cliente_email, @estafeta_email = estafeta_email, @endereco_fisico = endereco_fisico,
+		@hora = hora, @metodo_pagamento = metodo_pagamento, @des_codigo = des_codigo from deleted;
 
 		declare @res_contato int = (select res_contato from Pizaria.Estafeta where email=@estafeta_email)
 		begin try

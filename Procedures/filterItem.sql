@@ -43,8 +43,3 @@ as
 	end
 go
 
-
-
--- admin no futuro pode dar restock se tivermos tempo
--- 
-

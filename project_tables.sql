@@ -53,7 +53,7 @@ create table Pizaria.Estafeta (
 );
 create table Pizaria.Cliente (
 	email			nvarchar(255),
-	idade			int,
+	idade			int					check(idade>18 and idade < 150),
 	genero			char				check(genero = 'M' or genero = 'F' or genero = 'O'),
 	morada			nvarchar(255),
 	primary key (email),
