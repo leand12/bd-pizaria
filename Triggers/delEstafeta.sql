@@ -10,7 +10,7 @@ as
         declare @email as nvarchar(255);
 
         select @email = email from deleted;
-
+		begin tran
         begin try
 			declare @ID int;
             if (exists(select top 1 email from Pizaria.Estafeta join Pizaria.Encomenda on estafeta_email=email where email=@email))
@@ -39,5 +39,6 @@ as
             raiserror('Error',16,1);
             return;
         end catch
+		commit tran
     end
 go

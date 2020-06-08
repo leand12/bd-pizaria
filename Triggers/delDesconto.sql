@@ -14,7 +14,6 @@ as
 
 		select @codigo = codigo, @percentagem = percentagem, @inicio = inicio, @fim = fim from deleted;
 		begin try
-
 			if (exists(select des_codigo from Pizaria.Encomenda where des_codigo=@codigo union select des_codigo from Pizaria.EncomendaEntregue where des_codigo=@codigo))
 			begin	
 				raiserror('Discount is in Use',16,1);

@@ -17,7 +17,7 @@ as
 
 		select @ID = ID, @cliente_email = cliente_email, @estafeta_email = estafeta_email, @endereco_fisico = endereco_fisico,
 		@hora = hora, @metodo_pagamento = metodo_pagamento, @des_codigo = des_codigo from deleted;
-
+		begin tran
 		declare @res_contato int = (select res_contato from Pizaria.Estafeta where email=@estafeta_email)
 		begin try
 			insert into Pizaria.EncomendaEntregue (ID, cli_email, est_email, endereco_fisico, hora, metodo_pagamento, des_codigo, restaurante)
@@ -34,5 +34,6 @@ as
             raiserror('Error',16,1);
             return;
         end catch
+		commit tran
 	end
 go
