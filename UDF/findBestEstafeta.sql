@@ -7,9 +7,10 @@ as
 	begin
 		declare @email nvarchar(255);
 		declare @count  int;
-		select top 1 @email=estafeta_email, @count = count(estafeta_email)
+		select top 1 @email = email, @count = (select count(*)
 		from Pizaria.Encomenda join Pizaria.Estafeta on estafeta_email=email
-		group by estafeta_email
+		where estafeta_email = E.email)
+		from Pizaria.Estafeta as E
 		order by 2 asc
 		return @email
     end

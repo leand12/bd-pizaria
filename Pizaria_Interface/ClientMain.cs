@@ -18,6 +18,7 @@ namespace Pizaria
 		private List<Item> shop_cart;
 		public decimal _shop_cart_price;
 		public decimal valid;
+		private String cur_his = "cur";
 	
 		public decimal shop_cart_price
 		{
@@ -72,8 +73,11 @@ namespace Pizaria
 		{
 			if (!Program.verifySGBDConnection())
 				return;
-
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showAllOrders('"+Program.email+"')", Program.cn);
+			SqlCommand cmd;
+			if (this.cur_his.Equals("cur"))
+				cmd = new SqlCommand("SELECT * FROM Pizaria.showAllOrders('" + Program.email + "')", Program.cn);
+			else
+				cmd = new SqlCommand("SELECT * FROM Pizaria.showOrderClientHistory('" + Program.email + "')", Program.cn);
 
 			dataGridView5.DataSource = null;
 
@@ -81,6 +85,7 @@ namespace Pizaria
 
 			Interface.customDataGridView(cmd, dataGridView5, new[] { "ID", "contato", "nome", "endereco_fisico", "estafeta_email" });
 			dataGridView5.Columns["hora"].HeaderCell.Value = "Delivery Time";
+
 			Program.cn.Close();
 			dataGridView5.ClearSelection();
 			textBox10.Clear();
@@ -178,7 +183,15 @@ namespace Pizaria
 		// History
 		private void button1_Click(object sender, EventArgs e)
 		{
-
+			if (this.cur_his.Equals("cur"))	{
+				this.cur_his = "his";
+				button1.Text = "Show Current Orders";
+			} else {
+				this.cur_his = "cur";
+				button1.Text = "Show Past Orders";
+			}
+			LoadOrders();
+			dataGridView8.DataSource = null;
 		}
 
 		// Log Out
@@ -213,6 +226,11 @@ namespace Pizaria
 		// Finish Order
 		private void button4_Click(object sender, EventArgs e)
 		{
+			if (textBox1.Text == "")
+			{
+				MessageBox.Show("Please Insert a Destiny for the Order.");
+				return;
+			}
 			if (!Program.verifySGBDConnection())
 				return;
 
@@ -264,6 +282,7 @@ namespace Pizaria
 
 			if (response == "Success")
 			{
+				this.cur_his = "cur";
 				LoadOrders();
 				tabControl4.SelectedIndex = 1;
 			}
@@ -375,20 +394,23 @@ namespace Pizaria
 
 			if (!Program.verifySGBDConnection())
 				return;
+			SqlCommand cmd;
 
-			SqlCommand cmd = new SqlCommand("SELECT * FROM Pizaria.showOrder('" + dataGridView5.Rows[index].Cells["ID"].Value.ToString() + "')", Program.cn);
-
+			if (this.cur_his.Equals("cur"))
+				cmd = new SqlCommand("SELECT * FROM Pizaria.showOrder('" + dataGridView5.Rows[index].Cells["ID"].Value.ToString() + "')", Program.cn);
+			else
+				cmd = new SqlCommand("SELECT * FROM Pizaria.showOrderClient('" + dataGridView5.Rows[index].Cells["ID"].Value.ToString() + "')", Program.cn);
+			
 			dataGridView8.DataSource = null;
 
 			cmd.Connection = Program.cn;
 
 			Interface.customDataGridView(cmd, dataGridView8, new[] { "item_ID" });
+
 			dataGridView8.Columns["nome"].HeaderCell.Value = "Item";
 			dataGridView8.Columns["quantidade"].HeaderCell.Value = "Quantity";
-
-			cmd = new SqlCommand("select Pizaria.getEncPreco(" + dataGridView5.Rows[index].Cells["ID"].Value.ToString() +")", Program.cn);
+			cmd = new SqlCommand("select Pizaria.getEncPreco(" + dataGridView5.Rows[index].Cells["ID"].Value.ToString() + ")", Program.cn);
 			textBox10.Text = cmd.ExecuteScalar().ToString();
-
 			Program.cn.Close();
 		}
 		

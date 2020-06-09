@@ -125,6 +125,7 @@ namespace Pizaria
 			LoadMyOrders();
 			LoadHistory();
 			LoadCouriers();
+			dataGridView2.DataSource = null;
 		}
 
 
