@@ -536,6 +536,7 @@ namespace Pizaria
 
 			LoadStock();
 			Program.cn.Close();
+			numericUpDown4.Value = 1;
 		}
 	}
 }

@@ -103,11 +103,11 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.dataGridView10 = new System.Windows.Forms.DataGridView();
-            this.label21 = new System.Windows.Forms.Label();
-            this.button10 = new System.Windows.Forms.Button();
-            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             this.label23 = new System.Windows.Forms.Label();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.button10 = new System.Windows.Forms.Button();
+            this.label21 = new System.Windows.Forms.Label();
+            this.dataGridView10 = new System.Windows.Forms.DataGridView();
             this.tabControl4.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
@@ -127,8 +127,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).BeginInit();
             this.SuspendLayout();
             // 
             // button3
@@ -515,7 +515,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(70, 23);
+            this.label14.Location = new System.Drawing.Point(70, 14);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(100, 13);
@@ -525,10 +525,10 @@
             // dataGridView6
             // 
             this.dataGridView6.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView6.Location = new System.Drawing.Point(68, 39);
+            this.dataGridView6.Location = new System.Drawing.Point(68, 30);
             this.dataGridView6.Name = "dataGridView6";
             this.dataGridView6.RowHeadersWidth = 62;
-            this.dataGridView6.Size = new System.Drawing.Size(691, 78);
+            this.dataGridView6.Size = new System.Drawing.Size(691, 97);
             this.dataGridView6.TabIndex = 53;
             // 
             // dataGridView9
@@ -963,32 +963,14 @@
             this.tabPage5.Text = "Stock";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // dataGridView10
+            // label23
             // 
-            this.dataGridView10.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView10.Location = new System.Drawing.Point(40, 52);
-            this.dataGridView10.Name = "dataGridView10";
-            this.dataGridView10.Size = new System.Drawing.Size(413, 226);
-            this.dataGridView10.TabIndex = 0;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(40, 33);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(125, 13);
-            this.label21.TabIndex = 1;
-            this.label21.Text = "Products with Low Stock";
-            // 
-            // button10
-            // 
-            this.button10.Location = new System.Drawing.Point(537, 220);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(164, 58);
-            this.button10.TabIndex = 3;
-            this.button10.Text = "Add to Stock";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(558, 116);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(80, 13);
+            this.label23.TabIndex = 5;
+            this.label23.Text = "Quantity to Add";
             // 
             // numericUpDown4
             // 
@@ -1007,14 +989,32 @@
             0,
             0});
             // 
-            // label23
+            // button10
             // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(558, 116);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(80, 13);
-            this.label23.TabIndex = 5;
-            this.label23.Text = "Quantity to Add";
+            this.button10.Location = new System.Drawing.Point(537, 220);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(164, 58);
+            this.button10.TabIndex = 3;
+            this.button10.Text = "Add to Stock";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(40, 33);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(125, 13);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "Products with Low Stock";
+            // 
+            // dataGridView10
+            // 
+            this.dataGridView10.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView10.Location = new System.Drawing.Point(40, 52);
+            this.dataGridView10.Name = "dataGridView10";
+            this.dataGridView10.Size = new System.Drawing.Size(413, 226);
+            this.dataGridView10.TabIndex = 0;
             // 
             // AdminMain
             // 
@@ -1052,8 +1052,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView10)).EndInit();
             this.ResumeLayout(false);
 
 		}

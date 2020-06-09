@@ -81,8 +81,13 @@ namespace Pizaria
 
 			Interface.customDataGridView(cmd, dataGridView5, new[] { "ID", "contato", "nome", "endereco_fisico", "estafeta_email" });
 			dataGridView5.Columns["hora"].HeaderCell.Value = "Delivery Time";
-
 			Program.cn.Close();
+			dataGridView5.ClearSelection();
+			textBox10.Clear();
+			textBox5.Clear();
+			textBox6.Clear();
+			textBox7.Clear();
+			textBox8.Clear();
 		}
 
 		private void LoadDiscounts()
@@ -239,7 +244,7 @@ namespace Pizaria
 			{
 				cmd.Parameters["@des_codigo"].Value = textBox2.Text;
 			}
-			else if (textBox2.Text== "") {
+			else if (textBox2.Text=="") {
 				cmd.Parameters["@des_codigo"].Value = DBNull.Value;
 			}
 			else
