@@ -351,6 +351,7 @@ namespace Pizaria
 			Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
 
 			I.toOrder = Convert.ToInt32(numericUpDown1.Value);
+			dataGridView7.Refresh();
 
 			clientMain.shop_cart_price = clientMain.checkBalance(this.shop_cart);
 			shop_cart_price = clientMain.shop_cart_price;
