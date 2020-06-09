@@ -17,12 +17,14 @@ namespace Pizaria
 	{
 		private List<Item> shop_cart;
 		public decimal _shop_cart_price;
+		public decimal valid;
 	
 		public decimal shop_cart_price
 		{
 			get { return _shop_cart_price; }
 			set {
 				textBox9.Text = value.ToString();
+				textBox11.Text = (value - value * valid/100).ToString();
 				_shop_cart_price = value;  }
 		}
 
@@ -182,6 +184,15 @@ namespace Pizaria
 			login.ShowDialog();
 			this.Close();
 		}
+		
+		// Clear Discount
+		private void button5_Click(object sender, EventArgs e)
+		{
+			valid = 0;
+			this.shop_cart_price = this.checkBalance(shop_cart);
+			textBox2.Text = "";
+			label22.Text = "- " + valid + " %";
+		}
 
 		// Clear All
 		private void button3_Click(object sender, EventArgs e)
@@ -190,6 +201,7 @@ namespace Pizaria
 			this.shop_cart_price = 0.00m;
 			textBox1.Clear();
 			textBox2.Clear();
+			label22.Text = "";
 			this.shop_cart.Clear();
 		}
 
@@ -267,6 +279,7 @@ namespace Pizaria
 			textBox6.Clear();
 			textBox7.Clear();
 			textBox8.Clear();
+			label22.Text = "";
 		}
 
 		// Add Items
@@ -373,7 +386,8 @@ namespace Pizaria
 
 			Program.cn.Close();
 		}
-
+		
+		// Use Discount
 		private void button7_Click(object sender, EventArgs e)
 		{
 			if (textBox2.Text != "")
@@ -393,12 +407,12 @@ namespace Pizaria
 				return;
 
 			SqlCommand cmd = new SqlCommand("select Pizaria.isValidDiscount("+id+",'" + Program.email + "')", Program.cn);
-			int valid = (int)cmd.ExecuteScalar();
-
+			valid = (int)cmd.ExecuteScalar();
 			if (valid != 0)
 			{
-				this.shop_cart_price = this.shop_cart_price - this.shop_cart_price * valid / 100;
+				this.shop_cart_price = this.checkBalance(shop_cart);
 				textBox2.Text = id;
+				label22.Text = "- " + valid + " %";
 				return;
 			}
 			else
@@ -417,7 +431,10 @@ namespace Pizaria
 			{
 				price += item.price*item.toOrder;
 			}
+			
 			return price;
 		}
+
+		
 	}
 }

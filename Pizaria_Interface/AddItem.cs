@@ -24,6 +24,7 @@ namespace Pizaria
 			{
 				_shop_cart_price = value;
 				textBox1.Text = value.ToString();
+				textBox2.Text = (value - value * clientMain.valid/100).ToString();
 			}
 		}
 
@@ -33,6 +34,7 @@ namespace Pizaria
 			this.shop_cart = shop_cart;
 			InitializeComponent();
 			this.shop_cart_price = clientMain.shop_cart_price;
+			this.label4.Text = "- " + clientMain.valid + " %";
 		}
 
 		private void AddItem_Load(object sender, EventArgs e)
@@ -200,8 +202,6 @@ namespace Pizaria
 			Item I = new Item(int.Parse(id), name, decimal.Parse(price));
 
 			Boolean item_in_cart = false;
-			clientMain.shop_cart_price += I.price;
-			shop_cart_price = clientMain.shop_cart_price;
 			foreach (var item_cart in this.shop_cart)
 			{
 				if (I.ID == item_cart.ID)
@@ -217,6 +217,8 @@ namespace Pizaria
 			}
 
 			LoadShopCart();
+			clientMain.shop_cart_price = clientMain.checkBalance(this.shop_cart);
+			shop_cart_price = clientMain.shop_cart_price;
 		}
 
 		// Add Pizza to Shop Cart
@@ -232,8 +234,6 @@ namespace Pizaria
 
 			Item I = new Item(int.Parse(id), name, decimal.Parse(price));
 
-			clientMain.shop_cart_price += I.price;
-			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
@@ -250,6 +250,8 @@ namespace Pizaria
 			}
 
 			LoadShopCart();
+			clientMain.shop_cart_price = clientMain.checkBalance(this.shop_cart);
+			shop_cart_price = clientMain.shop_cart_price;
 		}
 
 		// Add Drink to Shop Cart
@@ -265,8 +267,6 @@ namespace Pizaria
 
 			Item I = new Item(int.Parse(id), name, decimal.Parse(price));
 
-			clientMain.shop_cart_price += I.price;
-			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
@@ -283,6 +283,8 @@ namespace Pizaria
 			}
 
 			LoadShopCart();
+			clientMain.shop_cart_price = clientMain.checkBalance(this.shop_cart);
+			shop_cart_price = clientMain.shop_cart_price;
 		}
 
 		// Add Ingredients to Shop Cart
@@ -298,8 +300,6 @@ namespace Pizaria
 
 			Item I = new Item(int.Parse(id), name, decimal.Parse(price));
 
-			clientMain.shop_cart_price += I.price;
-			shop_cart_price = clientMain.shop_cart_price;
 			Boolean item_in_cart = false;
 			foreach (var item_cart in this.shop_cart)
 			{
@@ -316,6 +316,8 @@ namespace Pizaria
 			}
 
 			LoadShopCart();
+			clientMain.shop_cart_price = clientMain.checkBalance(this.shop_cart);
+			shop_cart_price = clientMain.shop_cart_price;
 		}
 
 		// Remove Item
@@ -328,10 +330,11 @@ namespace Pizaria
 			{
 				int index = int.Parse(dataGridView7.SelectedRows[0].Index.ToString());
 				Item I = (Item)dataGridView7.Rows[index].DataBoundItem;
-				clientMain.shop_cart_price = clientMain.shop_cart_price -( I.price * I.toOrder);
-				shop_cart_price = clientMain.shop_cart_price;
 				this.shop_cart.Remove(I);
 				I.toOrder = 0;
+
+				clientMain.shop_cart_price = clientMain.checkBalance(this.shop_cart);
+				shop_cart_price = clientMain.shop_cart_price;
 
 				dataGridView7.DataSource = null;
 				Interface.customDataGridView(shop_cart, dataGridView7, new[] { "ID", "quantity" });

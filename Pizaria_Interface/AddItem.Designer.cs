@@ -47,6 +47,8 @@
 			this.button5 = new System.Windows.Forms.Button();
 			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
+			this.textBox2 = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView5)).BeginInit();
@@ -192,9 +194,9 @@
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(36, 545);
+			this.button1.Location = new System.Drawing.Point(75, 585);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(128, 46);
+			this.button1.Size = new System.Drawing.Size(165, 46);
 			this.button1.TabIndex = 1;
 			this.button1.Text = "Confirm Items";
 			this.button1.UseVisualStyleBackColor = true;
@@ -203,7 +205,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(491, 536);
+			this.label1.Location = new System.Drawing.Point(503, 489);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(68, 20);
 			this.label1.TabIndex = 4;
@@ -232,7 +234,7 @@
 			// 
 			// numericUpDown1
 			// 
-			this.numericUpDown1.Location = new System.Drawing.Point(496, 560);
+			this.numericUpDown1.Location = new System.Drawing.Point(508, 513);
 			this.numericUpDown1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.numericUpDown1.Minimum = new decimal(new int[] {
             1,
@@ -251,7 +253,7 @@
 			// 
 			// button5
 			// 
-			this.button5.Location = new System.Drawing.Point(704, 551);
+			this.button5.Location = new System.Drawing.Point(657, 494);
 			this.button5.Name = "button5";
 			this.button5.Size = new System.Drawing.Size(147, 45);
 			this.button5.TabIndex = 61;
@@ -278,11 +280,32 @@
 			this.label2.TabIndex = 65;
 			this.label2.Text = "Total:";
 			// 
+			// textBox2
+			// 
+			this.textBox2.Location = new System.Drawing.Point(92, 530);
+			this.textBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.textBox2.Name = "textBox2";
+			this.textBox2.ReadOnly = true;
+			this.textBox2.Size = new System.Drawing.Size(148, 26);
+			this.textBox2.TabIndex = 66;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.ForeColor = System.Drawing.Color.Red;
+			this.label4.Location = new System.Drawing.Point(247, 497);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(0, 20);
+			this.label4.TabIndex = 67;
+			// 
 			// AddItem
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1236, 619);
+			this.ClientSize = new System.Drawing.Size(1236, 643);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.textBox2);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.textBox1);
 			this.Controls.Add(this.button5);
@@ -335,5 +358,7 @@
 		private System.Windows.Forms.DataGridView dataGridView2;
 		private System.Windows.Forms.DataGridView dataGridView3;
 		private System.Windows.Forms.DataGridView dataGridView4;
+		private System.Windows.Forms.TextBox textBox2;
+		private System.Windows.Forms.Label label4;
 	}
 }
