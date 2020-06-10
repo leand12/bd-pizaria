@@ -222,7 +222,7 @@
 			// 
 			// dataGridView7
 			// 
-			this.dataGridView7.BackgroundColor = System.Drawing.Color.Aqua;
+			this.dataGridView7.BackgroundColor = System.Drawing.SystemColors.ControlDark;
 			this.dataGridView7.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dataGridView7.Location = new System.Drawing.Point(34, 58);
 			this.dataGridView7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

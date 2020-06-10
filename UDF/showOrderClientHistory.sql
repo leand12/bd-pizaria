@@ -9,9 +9,3 @@ as
 		where cli_email=@email
 	)
 go
-
-select * from Pizaria.Encomenda where cliente_email='cliente@gmail.com'
-
-select * from Pizaria.Estafeta where email='imperdiet@tortor.org'
-select * from Pizaria.showEstafeta('estafeta@gmail.com')
-print Pizaria.findBestEstafeta()

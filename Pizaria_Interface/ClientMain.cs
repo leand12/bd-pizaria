@@ -35,6 +35,7 @@ namespace Pizaria
 			InitializeComponent();
 			comboBox1.SelectedItem= "Card";
 			this.shop_cart_price= 0.00m;
+			label22.Text = "- " + valid + " %";
 		}
 
 
