@@ -84,9 +84,18 @@ namespace Pizaria
                 cmd.Parameters["@contato"].Value = int.Parse(contato);
                 cmd.Parameters["@pass"].Value = pass;
                 cmd.Parameters["@res_contato"].Value = 0;
-                cmd.Parameters["@idade"].Value = int.Parse(idade);
-                cmd.Parameters["@genero"].Value = char.Parse(genero); // fazer try
-                cmd.Parameters["@morada"].Value = (morada != "") ? morada : null;
+                if (idade != "")
+                    cmd.Parameters["@idade"].Value = int.Parse(idade);
+                else
+                    cmd.Parameters["@idade"].Value = DBNull.Value;
+                if (genero != "")
+                    cmd.Parameters["@genero"].Value = char.Parse(genero);
+                else
+                    cmd.Parameters["@genero"].Value = DBNull.Value;
+                if (morada != "")
+                    cmd.Parameters["@morada"].Value = morada;
+                else
+                    cmd.Parameters["@morada"].Value = DBNull.Value;
                 cmd.Parameters["@response"].Direction = ParameterDirection.Output;
                 if (!Program.verifySGBDConnection())
                     return;

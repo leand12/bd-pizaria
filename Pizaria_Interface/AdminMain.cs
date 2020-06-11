@@ -333,8 +333,8 @@ namespace Pizaria
 
 			}
 
-			LoadCouriers();
 			LoadStats();
+			LoadCouriers();
 
 			Program.cn.Close();
 		}
@@ -497,7 +497,15 @@ namespace Pizaria
 				return;
 
 			cmd.Connection = Program.cn;
-			cmd.ExecuteNonQuery();
+			try
+			{
+				cmd.ExecuteNonQuery();
+			}
+			catch
+			{
+				MessageBox.Show("Error adding a Restaurant");
+			}
+
 			string response = "" + cmd.Parameters["@response"].Value;
 			MessageBox.Show(response);
 			if (response == "Sucess!")
@@ -537,6 +545,11 @@ namespace Pizaria
 			LoadStock();
 			Program.cn.Close();
 			numericUpDown4.Value = 1;
+		}
+
+		private void button11_Click(object sender, EventArgs e)
+		{
+			LoadCouriers();
 		}
 	}
 }

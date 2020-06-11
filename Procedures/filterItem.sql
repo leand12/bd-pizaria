@@ -10,8 +10,8 @@ as
 	begin
 		if (@item_type = 'Piza')
 			begin
-					select nome, preco, PizaView.ID as ID, pic
-					from Pizaria.PizaView
+					select nome, preco, ID, pic
+					from Pizaria.pizaAvail()
 					where preco<=@price and nome like '%'+@name+'%'
 			end
 
@@ -19,15 +19,15 @@ as
 			begin
 				
 					select nome, preco, quantidade_disponivel
-					from  Pizaria.BebidaView
+					from  Pizaria.bebidaAvail()
 					where preco<=@price and nome like '%'+@name+'%'
 					order by preco
 			end
 
 		else if (@item_type = 'Menu')
 			begin
-					select nome, preco, MenuView.ID as ID
-					from  Pizaria.MenuView 
+					select nome, preco, ID
+					from  Pizaria.menuAvail()
 					where preco<=@price and nome like '%'+@name+'%'
 					order by preco
 			end
@@ -36,7 +36,7 @@ as
 			begin
 				
 					select nome, preco, quantidade_disponivel
-					from  Pizaria.IngredienteView
+					from  Pizaria.ingredienteAvail()
 					where preco<=@price and nome like '%'+@name+'%'
 					order by preco
 			end

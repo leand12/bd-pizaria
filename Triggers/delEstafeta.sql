@@ -20,7 +20,7 @@ as
 					DECLARE c CURSOR FAST_FORWARD
 					FOR select ID from Pizaria.Encomenda where estafeta_email=@email;
 					OPEN c;
-					FETCH NEXT FROM c into @ID;  
+					FETCH NEXT FROM c into @ID;
 
 					WHILE @@FETCH_STATUS = 0  
 					BEGIN
