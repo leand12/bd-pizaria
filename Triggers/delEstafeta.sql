@@ -17,15 +17,16 @@ as
 				begin
 					update Pizaria.Estafeta set res_contato = null where email=@email;
 					--cursor para colocar o melhor estafeta em cada uma das encomendas
-					DECLARE c CURSOR FAST_FORWARD
+					DECLARE c CURSOR STATIC
 					FOR select ID from Pizaria.Encomenda where estafeta_email=@email;
+
 					OPEN c;
 					FETCH NEXT FROM c into @ID;
 
 					WHILE @@FETCH_STATUS = 0  
 					BEGIN
 						update Pizaria.Encomenda set estafeta_email = (select Pizaria.FindBestEstafeta()) where ID=@ID
-						FETCH NEXT FROM c into @ID;  
+						FETCH NEXT FROM c into @ID;
 					END;
 					CLOSE c;
 					DEALLOCATE c;
