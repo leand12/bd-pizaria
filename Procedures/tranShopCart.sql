@@ -51,8 +51,8 @@ as
 					left outer join Pizaria.Bebida on Bebida.ID=pro_ID
 					left outer join Pizaria.PizaIngrediente on piz_ID=Piza.ID
 					left outer join Pizaria.Ingrediente on ing_ID=Ingrediente.ID
-					where Ingrediente.quantidade_disponivel - PizaIngrediente.quantidade*MenuProduto.quantidade < 0
-					or Bebida.quantidade_disponivel - MenuProduto.quantidade < 0
+					where Ingrediente.quantidade_disponivel - PizaIngrediente.quantidade*MenuProduto.quantidade*@quantidade < 0
+					or Bebida.quantidade_disponivel - MenuProduto.quantidade*@quantidade < 0
                     and men_ID=@item_ID 
                     )
                     begin
