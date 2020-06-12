@@ -28,7 +28,7 @@ namespace Pizaria
 		}
 
 		static public SqlConnection getSGBDConnection() {
-			return new SqlConnection("Data Source = tcp:mednat.ieeta.pt\SQLSERVER,8101; Initial Catalog = p6g5 ; uid = p6g5;" + "password = 1l1E2i3c5-pg813");
+			return new SqlConnection("Data Source = mednat.ieeta.pt\\SQLSERVER,8101 ; Initial Catalog = p6g5 ; uid = p6g5 ; password = 1l1E2i3c5-pg813");
 		}
 
 
