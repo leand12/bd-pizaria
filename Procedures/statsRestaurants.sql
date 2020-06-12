@@ -5,7 +5,7 @@ go
 create procedure Pizaria.statsRestaurante
 as
 	begin
-		create table #returnTable (restaurante varchar(55), email nvarchar(255), nome varchar(50), delivered int, total_orders int, total_price int)
+		create table #returnTable (restaurante varchar(55), email nvarchar(255), nome varchar(50), delivered int, total_orders int, total_price DECIMAL(19,2))
 		declare @contato int
 		
 		DECLARE c CURSOR

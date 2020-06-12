@@ -198,8 +198,8 @@ namespace Pizaria
 
 			Interface.customDataGridView(cmd, dataGridView6, null);
 			dataGridView6.Columns[0].HeaderCell.Value = "Restaurant";
-			dataGridView6.Columns[1].HeaderCell.Value = "Courier's Name With the Most Delivered Order";
-			dataGridView6.Columns[2].HeaderCell.Value = "Courier's Email";
+			dataGridView6.Columns[1].HeaderCell.Value = "Courier's Email With the Most Delivered Order";
+			dataGridView6.Columns[2].HeaderCell.Value = "Courier's Name";
 			dataGridView6.Columns[3].HeaderCell.Value = "Numbers of Delivered Order by Courier";
 			dataGridView6.Columns[4].HeaderCell.Value = "Total Orders";
 			dataGridView6.Columns[5].HeaderCell.Value = "Total Money Made";

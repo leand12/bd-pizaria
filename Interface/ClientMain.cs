@@ -304,7 +304,8 @@ namespace Pizaria
 			textBox6.Clear();
 			textBox7.Clear();
 			textBox8.Clear();
-			label22.Text = "";
+			valid = 0;
+			label22.Text = "- " + valid + " %";
 		}
 
 		// Add Items
