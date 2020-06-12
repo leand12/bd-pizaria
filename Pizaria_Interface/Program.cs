@@ -27,10 +27,8 @@ namespace Pizaria
 			Application.Run(new Login());
 		}
 
-		static public SqlConnection getSGBDConnection()
-		{
-			return new SqlConnection("data source=DESKTOP-4LBRH8P;integrated security=true;initial catalog=master");
-			//LAPTOP-Q472I841
+		static public SqlConnection getSGBDConnection() {
+			return new SqlConnection("Data Source = tcp:mednat.ieeta.pt\SQLSERVER, 8101; Initial Catalog = p6g5 ; uid = p6g5;" + "password = 1l1E2i3c5-pg813");
 		}
 
 
